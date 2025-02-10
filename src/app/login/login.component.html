@@ -1,0 +1,37 @@
+<!-- Fundo escuro semi-transparente e minimalista -->
+<div class="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md flex justify-center items-center z-50 animate-fadeIn">
+  <!-- Caixa do Modal -->
+  <div class="p-6 bg-white rounded-xl shadow-lg w-96 transform scale-95 animate-scaleIn relative">
+    
+    <!-- Botão de Fechar (X) -->
+    <button (click)="fechar()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-all">
+      ✖
+    </button>
+
+    <h2 class="text-3xl font-semibold text-gray-800 text-center mb-5">Bem-vindo!</h2>
+
+<form action [formGroup]="loginForm" (ngSubmit)="submit()" class="space-y-4">
+  <label class="block">
+    <span class="text-gray-700 font-medium">Email</span>
+    <input type="email" formControlName="email" class="mt-1 block w-full p-3 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none shadow-sm" placeholder="Digite seu email">
+  </label>
+
+  <label class="block">
+    <span class="text-gray-700 font-medium">Senha</span>
+    <input type="password" formControlName="password" class="mt-1 block w-full p-3 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none shadow-sm" placeholder="Digite sua senha">
+  </label>
+
+  <!-- Botão de Login -->
+  <button type="submit" class="w-full px-4 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+    Entrar
+  </button>
+</form>
+
+
+    <!-- Botão de Cadastro -->
+    <p class="text-center text-gray-600 mt-4">Não tem conta?</p>
+    <button type="button" class="w-full px-4 py-3 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-md hover:shadow-lg">
+      Cadastre-se
+    </button>
+  </div>
+</div>

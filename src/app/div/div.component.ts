@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-div',
@@ -7,9 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './div.component.scss'
 })
 export class DivComponent {
-  menuOpen = false;
+  constructor(public dialog: MatDialog) {}
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  abrirLogin(): void {
+    this.dialog.open(LoginComponent, {
+      width: '400px', // Tamanho do modal
+    });
   }
 }
