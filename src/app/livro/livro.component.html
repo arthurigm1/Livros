@@ -1,17 +1,15 @@
-
-<div class="container">
-  <header>
-    <h1>Biblioteca Online</h1>
-    <nav>
-      <button routerLink="/livros">Livros</button>
-      <button routerLink="/usuarios">Usuários</button>
-      <button routerLink="/autores">Autores</button>
-    </nav>
-  </header>
-  <main>
-  
-  </main>
-  <footer>
-    <p>&copy; 2025 Biblioteca Online</p>
-  </footer>
+<!-- livro.component.html -->
+<div *ngIf="livros.length > 0; else loading">
+  <div *ngFor="let livro of livros">
+    <h3>{{ livro.titulo }}</h3>
+    <p><strong>Autor:</strong> {{ livro.autor }}</p>
+    <p><strong>Ano de Publicação:</strong> {{ livro.anoPublicacao }}</p>
+    <p><strong>ISBN:</strong> {{ livro.isbn }}</p>
+    <p><strong>Preço:</strong> R$ {{ livro.preco}}</p>
+    <hr />
+  </div>
 </div>
+
+<ng-template #loading>
+  <p>Carregando livros...</p>
+</ng-template>
