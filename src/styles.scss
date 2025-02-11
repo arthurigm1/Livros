@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @import 'ngx-toastr/toastr';
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.container {
+    width: 700px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media(max-width: 750px) {
+    .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+}

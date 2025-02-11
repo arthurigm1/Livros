@@ -1,1 +1,10 @@
-<app-div/>
+<main>
+  <div class="component-container">
+    <!-- Componente Div fixo -->
+    <app-div (componenteAlterado)="componenteAtual = $event"></app-div>
+
+    <!-- O conteúdo que será exibido abaixo da Div fixa -->
+    <app-livro *ngIf="componenteAtual === 'livros'"></app-livro>
+    <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
+  </div>
+</main>

@@ -1,44 +1,21 @@
-.container {
+/* Contêiner principal para os componentes */
+.component-container {
     display: flex;
-    height: 100vh;
+    flex-direction: column;
+    /* Organiza os componentes na vertical */
+    gap: 100px;
+    /* Espaço entre os componentes */
+    padding: 20px;
+    align-items: stretch;
+    /* Garante que os componentes se estiquem ao longo da largura */
 }
 
-.sidebar {
-    width: 200px;
-    background-color: #2c3e50;
-    padding: 20px;
+/* Garante que cada componente ocupe 100% da largura do contêiner */
 
-    a {
-        color: white;
-        text-decoration: none;
-        display: block;
-        margin-bottom: 10px;
-        cursor: pointer;
 
-        &:hover {
-            color: #1abc9c;
-            transform: translateX(10px);
-            transition: transform 0.3s ease;
-        }
-    }
-}
-
-.content {
-    flex: 1;
-    padding: 20px;
+/* Certifique-se de que o main ocupe toda a altura disponível */
+main {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ecf0f1;
-    animation: fadeIn 1s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    flex-direction: column;
+    height: 100%;
 }

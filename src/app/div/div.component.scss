@@ -63,3 +63,29 @@
         }
     }
 }
+
+/* Adicionando ao seu arquivo de estilos global ou no componente */
+
+a {
+    cursor: pointer;
+}
+
+/* Estilos para os links */
+a.router-link-active {
+    color: #0000ff;
+    /* Mude para a cor desejada ao link ser clicado */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+}

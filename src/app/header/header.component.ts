@@ -1,35 +1,23 @@
-import { Component } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
+
 import { DivComponent } from '../div/div.component';
 import { LivrosComponent } from '../livro/livro.component';
+import { AutorComponent } from '../autor/autor.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [DivComponent,LivrosComponent],
+  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isModalOpen = false;
-  isCadastro = false;
-
-  toggleModal() {
-    this.isModalOpen = !this.isModalOpen;
+   @Input() componenteAtual: string = 'livros';  // Componente inicial
+ 
+  exibirComponente(componente: string): void {
+    this.componenteAtual = componente;
   }
 
-  alternarCadastro() {
-    this.isCadastro = !this.isCadastro;
-  }
-
-  fazerLogin() {
-    alert('Login realizado!');
-    this.toggleModal();
-  }
-
-  fazerCadastro() {
-    alert('Cadastro realizado!');
-    this.toggleModal();
-  }
+  
 }
 

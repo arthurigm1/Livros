@@ -13,11 +13,84 @@
 
     <!-- Botões de Ação (Login e Menu Mobile) -->
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <!-- Botão de Login -->
-<button (click)="abrirLogin()" type="button" 
-  class="text-gray-900 bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
-  Faça seu Login
-</button>
+
+<!-- Botões de Ação (Login, Menu Mobile, Carrinho e Perfil) -->
+<div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+  <!-- Botão de Login -->
+  <button *ngIf="!(isLoggedIn$ | async)" (click)="abrirLogin()" 
+          class="text-gray-900 bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md cursor-pointer">
+          Faça seu Login
+  </button>
+
+  <!-- Botões quando o usuário está logado -->
+  <div *ngIf="(isLoggedIn$ | async)" class="relative flex space-x-4 items-center">
+    <!-- Botão do Carrinho -->
+    <div class="relative carrinho-container">
+      <button (click)="toggleCarrinho()" 
+        class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18l-2 10H5L3 3zm0 0L5 21h14l2-10M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
+        </svg>
+        Meu Carrinho
+        <span *ngIf="carrinho.length > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse">
+          {{ carrinho.length }}
+        </span>
+      </button>
+
+      <!-- Dropdown do carrinho -->
+      <div *ngIf="mostrarCarrinho" 
+        class="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+        <div class="p-4">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">Carrinho</h3>
+
+          <!-- Se houver itens no carrinho -->
+          <ul *ngIf="carrinho.length > 0; else vazio">
+            <li *ngFor="let item of carrinho" class="flex justify-between items-center p-2 border-b last:border-b-0">
+              <span class="text-sm text-gray-800">{{ item.titulo }}</span>
+              <span class="text-sm font-semibold text-blue-600">R$ {{ item.preco | number: '1.2-2' }}</span>
+            </li>
+          </ul>
+
+          <!-- Caso o carrinho esteja vazio -->
+          <ng-template #vazio>
+            <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dropdown de Perfil -->
+    <div class="relative">
+      <button (click)="togglePerfilMenu()" 
+              class="flex items-center text-white hover:text-blue-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20c0-4.41 3.59-8 8-8s8 3.59 8 8H4z"/>
+        </svg>
+        Meu Perfil
+      </button>
+
+      <!-- Menu suspenso do perfil -->
+      <div *ngIf="perfilMenuAberto" class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+        <div class="p-4 space-y-2">
+          <a routerLink="/perfil" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Meu Perfil</a>
+          <a routerLink="/adicionar" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Adicionar Livro</a>
+          <a routerLink="/pedidos" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Pedidos</a>
+          <a routerLink="/adicionar-autor" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Adicionar Autor</a>
+          <a routerLink="/favoritos" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Favoritos</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botão de Logout -->
+    <button (click)="logout()" 
+      class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md">
+      Logout
+    </button>
+  </div>
+</div>
+
+
+
 
       <!-- Botão do Menu Mobile -->
       <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
@@ -28,22 +101,23 @@
       </button>
     </div>
 
-    <!-- Menu de Navegação -->
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-        <li>
-          <a href="#" class="block py-2 px-3 text-white hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out" aria-current="page">Livros</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Autores</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Favoritos</a>
-        </li>
-        <li>
-          <a href="#" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Contato</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<!-- Menu de Navegação -->
+<div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+  <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+    <li>
+      <a (click)="alterarComponente('livros')" class="block py-2 px-3 text-white hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out" aria-current="page">Livros</a>
+    </li>
+
+    <li>
+      <a routerLink="/favoritos" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Favoritos</a>
+    </li>
+<li>
+  <!-- Ao clicar, chamamos o método 'irParaAutores' no TypeScript -->
+  <a (click)="alterarComponente('autores')" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">
+    Autores
+  </a>
+</li>
+
+  </ul>
+</div>
+

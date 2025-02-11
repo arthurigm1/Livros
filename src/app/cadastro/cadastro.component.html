@@ -1,0 +1,69 @@
+<!-- Fundo escuro semi-transparente e minimalista -->
+<div class="fixed inset-0 bg-opacity-10 backdrop-blur-md flex justify-center items-center z-50 animate-fadeIn">
+  <!-- Caixa do Modal -->
+  <div class="p-6 bg-white rounded-xl shadow-lg w-96 transform scale-95 animate-scaleIn relative">
+    
+    <!-- Botão de Fechar (X) -->
+    <button (click)="fechar()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-all cursor-pointer">
+      ✖
+    </button>
+
+    <h2 class="text-3xl font-semibold text-gray-800 text-center mb-5">Cadastre-se</h2>
+
+<form [formGroup]="cadastroForm" (ngSubmit)="submit()" class="space-y-4">
+  <!-- Campo Nome -->
+  <label class="block">
+    <span class="text-gray-700 font-medium">Nome</span>
+    <input type="text" formControlName="nome" 
+           class="mt-1 block w-full p-3 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none shadow-sm" 
+           placeholder="Digite seu nome">
+    <!-- Mensagens de erro do campo Nome -->
+    <div *ngIf="cadastroForm.controls['nome'].invalid && cadastroForm.controls['nome'].touched" class="text-red-500 text-sm">
+      <p *ngIf="cadastroForm.controls['nome'].hasError('required')">Nome é obrigatório.</p>
+      <p *ngIf="cadastroForm.controls['nome'].hasError('minlength')">Nome deve ter pelo menos 3 caracteres.</p>
+    </div>
+  </label>
+
+  <!-- Campo Email -->
+  <label class="block">
+    <span class="text-gray-700 font-medium">Email</span>
+    <input type="email" formControlName="email" 
+           class="mt-1 block w-full p-3 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none shadow-sm" 
+           placeholder="Digite seu email">
+    <!-- Mensagens de erro do campo Email -->
+    <div *ngIf="cadastroForm.controls['email'].invalid && cadastroForm.controls['email'].touched" class="text-red-500 text-sm">
+      <p *ngIf="cadastroForm.controls['email'].hasError('required')">Email é obrigatório.</p>
+      <p *ngIf="cadastroForm.controls['email'].hasError('email')">Por favor, insira um email válido.</p>
+      <p *ngIf="cadastroForm.controls['email'].hasError('pattern')">O email deve conter o caractere .</p>
+    </div>
+  </label>
+
+  <!-- Campo Senha -->
+  <label class="block">
+    <span class="text-gray-700 font-medium">Senha</span>
+    <input type="password" formControlName="senha" 
+           class="mt-1 block w-full p-3 border rounded-lg focus:ring focus:ring-blue-400 focus:outline-none shadow-sm" 
+           placeholder="Digite sua senha">
+    <!-- Mensagens de erro do campo Senha -->
+    <div *ngIf="cadastroForm.controls['senha'].invalid && cadastroForm.controls['senha'].touched" class="text-red-500 text-sm">
+      <p *ngIf="cadastroForm.controls['senha'].hasError('required')">Senha é obrigatória.</p>
+      <p *ngIf="cadastroForm.controls['senha'].hasError('minlength')">Senha deve ter pelo menos 6 caracteres.</p>
+    </div>
+  </label>
+
+  <!-- Botão de Cadastro -->
+  <button type="submit" class="w-full px-4 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+    Cadastrar
+  </button>
+</form>
+
+
+<!-- Alternativa para Login -->
+<p class="text-center text-gray-600 mt-4">Já tem uma conta?</p>
+<div class="flex justify-center mt-4">
+  <button (click)="abrirLogin()" type="button" 
+          class="w-full px-4 py-3 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-md hover:shadow-lg cursor-pointer">
+    Faça seu Login
+  </button>
+</div>
+

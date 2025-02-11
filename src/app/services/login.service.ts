@@ -14,20 +14,20 @@ export class LoginService {
   constructor(private httpClient: HttpClient , private router: Router) { } // INICIALIZANDO O HTTP CLIENT
 
   
-  login(email: string, password: string){
-    return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { email, password }).pipe(
+  login(email: string, senha: string){
+    return this.httpClient.post<LoginResponse>(this.apiUrl + "/login", { email, senha }).pipe(
       tap((value) => {
         console.log(value)
-        sessionStorage.setItem("auth-token", value.token)
-        sessionStorage.setItem("username", value.name)
-        sessionStorage.setItem("id", value.id)
+        //sessionStorage.setItem("auth-token", value.token)
+        //sessionStorage.setItem("username", value.name)
+        //sessionStorage.setItem("id", value.id)
         
       })
     )
   }
 
-  signup(name: string, email: string, password: string){
-    return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { name, email, password }).pipe(
+  signup(nome: string, email: string, senha: string){
+    return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { nome, email, senha }).pipe(
       tap((value) => {
 
         sessionStorage.setItem("username", value.name)
@@ -35,4 +35,5 @@ export class LoginService {
       })
     )
   }
+  
 }
