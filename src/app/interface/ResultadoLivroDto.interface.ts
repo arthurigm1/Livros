@@ -1,5 +1,5 @@
 export interface ResultadoLivroDto {
-  id: string;
+  id: number;
   titulo: string;
   isbn: string;
   preco: number;

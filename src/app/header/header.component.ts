@@ -4,10 +4,11 @@ import { DivComponent } from '../div/div.component';
 import { LivrosComponent } from '../livro/livro.component';
 import { AutorComponent } from '../autor/autor.component';
 import { CommonModule } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-header',
-  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule],
+  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule,FooterComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

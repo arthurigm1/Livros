@@ -1,4 +1,7 @@
-<div class="bg-white p-6 shadow-lg rounded-xl mb-6 transition-transform transform  duration-300">
+<img src="assets/img/banner.png" alt="Banner"
+     class="w-full h-64 md:h-80 object-cover rounded-lg shadow-md">
+
+<div class="bg-white p-6 shadow-lg rounded-xl mb-6 transition-transform transform duration-300">
   <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8" />
@@ -7,26 +10,26 @@
     Filtrar Livros
   </h2>
   
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div class="relative">
       <input type="text" [(ngModel)]="filtro.titulo" placeholder="Pesquisar por título" 
-             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow shadow-sm hover:shadow-md">
+             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
     <div class="relative">
       <input type="text" [(ngModel)]="filtro.autor" placeholder="Pesquisar por autor" 
-             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow shadow-sm hover:shadow-md">
+             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
     <div class="relative">
       <input type="number" [(ngModel)]="filtro.precoMin" placeholder="Preço mínimo" 
-             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow shadow-sm hover:shadow-md">
+             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
     <div class="relative">
       <input type="number" [(ngModel)]="filtro.precoMax" placeholder="Preço máximo" 
-             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-shadow shadow-sm hover:shadow-md">
+             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
   </div>
   
-  <div class="flex justify-end mt-6 gap-2">
+  <div class="flex justify-end mt-6 gap-3">
     <button (click)="aplicarFiltro()" 
             class="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

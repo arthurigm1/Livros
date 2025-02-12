@@ -34,12 +34,14 @@ export class AuthService {
   // Função de login: armazena o token e atualiza o estado de login
   login(token: string): void {
     localStorage.setItem('authToken', token);
+    
     this.isLoggedInSubject.next(true);
   }
 
   // Função de logout: remove o token e atualiza o estado de login
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('id');
     this.isLoggedInSubject.next(false);
   }
 

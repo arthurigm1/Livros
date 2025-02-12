@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { FilterComponent } from '../filter/filter.component';
+import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-livro',
@@ -27,7 +28,7 @@ import { FilterComponent } from '../filter/filter.component';
 export class LivrosComponent implements OnInit {
   livros: ResultadoLivroDto[] = [];
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
-  constructor(private livroService: LivroService, private authService:AuthService,private toastService: ToastrService) {
+  constructor(private livroService: LivroService, private authService:AuthService,private toastService: ToastrService,private carrinhoService: CarrinhoService) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
    }
 
@@ -38,11 +39,16 @@ export class LivrosComponent implements OnInit {
       console.error('Erro ao carregar livros', error);
     });
   }
-  adicionarAoCarrinho(livro: any) {
-  console.log(`Livro "${livro.titulo}" adicionado ao carrinho!`);
-  // Aqui você pode implementar a lógica para armazenar o carrinho no localStorage ou em um serviço.
-}
 
+adicionarLivroAoCarrinho(livroId: number): void {
+  this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
+     next: (response: any) => {
+        this.toastService.success("Livro adicionado no Carrinho");
+       
+      },
+      error: () => this.toastService.error("Erro Interno!"),
+  });
+}
   favoritarLivro(livro: any) {
     this.isLoggedIn$.subscribe(isLoggedIn => {
       if (isLoggedIn) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../services/auth.service';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LivrosComponent } from '../livro/livro.component';
+import { CarrinhoService, LivroCarrinho } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-div',
@@ -18,14 +19,16 @@ export class DivComponent {
   @Output() componenteAlterado: EventEmitter<string> = new EventEmitter<string>(); // Emite a alteração do componente
 
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
-  carrinho: any[] = [];  // Lista de itens no carrinho
   mostrarCarrinho = false; // Controle para mostrar ou esconder o carrinho
-
+  itensCarrinho: LivroCarrinho[] = [];
+  
   constructor(
     public dialog: MatDialog, 
     private authService: AuthService, 
     private toastService: ToastrService,
-    private router: Router
+    private router: Router,
+    private carrinhoService: CarrinhoService,
+    private eRef: ElementRef
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$; // Assinando o estado de login do serviço
   }
@@ -69,14 +72,23 @@ togglePerfilMenu() {
   }
 
   // Método que carrega o carrinho (pode ser adaptado para obter dados reais)
-  carregarCarrinho() {
-    // Exemplo de itens no carrinho (aqui você pode carregar os dados reais do carrinho)
-    this.carrinho = [
-      { titulo: 'O Senhor dos Anéis', preco: 59.90 },
-      { titulo: 'Harry Potter e a Pedra Filosofal', preco: 39.50 },
-      { titulo: 'O Pequeno Príncipe', preco: 19.90 }
-    ];
-  }
+carregarCarrinho() {
+  this.carrinhoService.listarItens().subscribe(
+    (itens) => {
+      this.itensCarrinho = itens.map(item => ({
+        ...item,
+        quantidade: item.quantidade || 1 // Garante um valor padrão
+      }));
+    },
+    (error) => {
+      console.error('Erro ao carregar o carrinho:', error);
+    }
+  );
+}
+
+  get totalCarrinho(): number {
+  return this.itensCarrinho.reduce((total, item) => total + item.preco * (item.quantidade || 1), 0);
+}
 
   // Método para fechar o carrinho ao clicar fora dele
   @HostListener('document:click', ['$event'])
@@ -85,5 +97,9 @@ togglePerfilMenu() {
     if (!target.closest('.carrinho-container') && this.mostrarCarrinho) {
       this.mostrarCarrinho = false;
     }
+        if (!this.eRef.nativeElement.contains(event.target)) {
+      this.perfilMenuAberto = false;
+    }
   }
+
 }
