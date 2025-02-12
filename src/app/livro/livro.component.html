@@ -1,4 +1,4 @@
-<app-filter/>
+<app-filter (filtrar)="onFiltrar($event)"></app-filter>
 
 <div *ngIf="livros.length > 0; else loading" 
      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" 

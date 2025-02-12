@@ -5,6 +5,8 @@
 <ng-template #autoresLoaded>
   <div *ngIf="autores.length > 0; else noAutores" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4" [@fadeInList]>
     <div *ngFor="let autor of autores" class="bg-white rounded-lg shadow-lg p-4 hover:shadow-2xl transition-shadow duration-300 autor-item" [@fadeInList]>
+         <img src="https://s2.glbimg.com/Ecj1Ne9SZuc5gQzJC44S96yPUhk=/e.glbimg.com/og/ed/f/original/2019/05/17/machado_de_assis_real.jpg" 
+         alt="Capa do Livro" class="w-full h-40 object-contain rounded-md mb-4">
       <h3 class="text-xl font-semibold text-gray-800">{{ autor.nome }}</h3>
       <p class="text-gray-600 text-sm"><strong>Data de Nascimento:</strong> {{ autor.dataNascimento }}</p>
       <p class="text-gray-600 text-sm"><strong>Nacionalidade:</strong> {{ autor.nacionalidade }}</p>

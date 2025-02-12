@@ -5,10 +5,11 @@ import { LivrosComponent } from '../livro/livro.component';
 import { AutorComponent } from '../autor/autor.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
+import { FavoritosComponent } from '../favoritos/favoritos.component';
 
 @Component({
   selector: 'app-header',
-  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule,FooterComponent],
+  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule,FooterComponent,FavoritosComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

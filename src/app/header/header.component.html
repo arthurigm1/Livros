@@ -7,6 +7,7 @@
       <!-- O conteúdo que será exibido abaixo da Div fixa -->
       <app-livro *ngIf="componenteAtual === 'livros'"></app-livro>
       <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
+      <app-favoritos *ngIf="componenteAtual === 'favoritos'" />
     </div>
   </div>
 

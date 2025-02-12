@@ -4,7 +4,7 @@ export interface ResultadoLivroDto {
   isbn: string;
   preco: number;
   dataPublicacao: string;
-  autor: {
+  autor?: {
     id: string;
     nome: string;
     dataNascimento: string;

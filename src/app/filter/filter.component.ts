@@ -1,15 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-filter',
-  imports: [CommonModule,FormsModule],
+  imports: [FormsModule],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
- filtro = {
+  filtro = {
     isbn: '',
     titulo: '',
     autor: '',

@@ -1,23 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LivroService } from '../services/livro.service';
+
 import { ResultadoLivroDto } from '../interface/ResultadoLivroDto.interface';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/autores/auth.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { FilterComponent } from '../filter/filter.component';
-import { CarrinhoService, LivroCarrinho } from '../services/carrinho.service';
+import { CarrinhoService, LivroCarrinho } from '../services/livro/carrinho.service';
+import { LivroService } from '../services/livro/livro.service';
+import { FavoritoService } from '../services/livro/favorito.service';
 
 @Component({
-  selector: 'app-livro',
-  imports: [CommonModule,FilterComponent],
+  selector   : 'app-livro',
+  imports    : [CommonModule, FilterComponent],
   templateUrl: './livro.component.html',
-  styleUrl: './livro.component.scss',
-  animations: [
+  styleUrl   : './livro.component.scss',
+  animations : [
     trigger('fadeInList', [
       transition(':enter', [
-        query('div', style({ opacity: 0 }), { optional: true }), // Inicialmente todos os itens ficam invisíveis
+        query('div', style({ opacity: 0 }), { optional: true }),   // Inicialmente todos os itens ficam invisíveis
         query('div', stagger('300ms', [
           animate('500ms ease-out', style({ opacity: 1 }))
         ]), { optional: true }) // Aparecem um a um com 100ms de intervalo
@@ -27,43 +29,120 @@ import { CarrinhoService, LivroCarrinho } from '../services/carrinho.service';
 })
 export class LivrosComponent implements OnInit {
   itensCarrinho: LivroCarrinho[] = [];
-  livros: ResultadoLivroDto[] = [];
-  isLoggedIn$: Observable<boolean>; // Observável para o estado de login
+  livros       : ResultadoLivroDto[] = [];
+  isLoggedIn$  : Observable<boolean>;       // Observável para o estado de login
+  favoritosIds: number[] = []; // Lista dos IDs dos livros favoritos do usuário
 
-  constructor(private livroService: LivroService, private authService:AuthService,private toastService: ToastrService,private carrinhoService: CarrinhoService) {
+  constructor(
+    private favoritoService: FavoritoService,
+    private livroService: LivroService,
+    private authService: AuthService,
+    private toastService: ToastrService,
+    private carrinhoService: CarrinhoService
+  ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-   }
+  }
 
   ngOnInit(): void {
+    // Carregar todos os livros
     this.livroService.buscarLivros().subscribe((data) => {
-      this.livros = data; // Agora 'data' é um array simples de livros
+      this.livros = data.map(livro => {
+        // Verificar se o livro está nos favoritos, usando IDs
+        livro.favorito = this.isFavorito(livro);
+        return livro;
+      });
     }, error => {
       console.error('Erro ao carregar livros', error);
-    })
+    });
+
+    // Verificar se o usuário está logado e carregar os favoritos
+    this.isLoggedIn$.subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.favoritoService.obterLivrosFavoritos().subscribe((favoritos: ResultadoLivroDto[]) => {
+          // Armazenar apenas os IDs dos livros favoritos
+          this.favoritosIds = favoritos.map(livro => livro.id); // Aqui, pegamos apenas os IDs
+          // Marcar os livros como favoritos ou não com base nos IDs
+          this.livros = this.livros.map(livro => {
+            livro.favorito = this.isFavorito(livro);
+            return livro;
+          });
+        }, error => {
+          console.error('Erro ao carregar favoritos', error);
+        });
+      }
+    });
   }
-  
 
+  private isFavorito(livro: ResultadoLivroDto): boolean {
+    // Verificar se o livro está nos favoritos, usando apenas os IDs
+    return this.favoritosIds.includes(livro.id);
+  }
 
-adicionarLivroAoCarrinho(livroId: number): void {
-  this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
-     next: (response: any) => {
+  onFiltrar(filtro: any) {
+    this.carregarLivros(filtro);
+  }
+
+  adicionarLivroAoCarrinho(livroId: number): void {
+    this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
+      next: (response: any) => {
         this.toastService.success("Livro adicionado no Carrinho");
       },
       error: () => this.toastService.error("Erro Interno!"),
-  });
-}
+    });
+  }
+
+  carregarLivros(filtro: any = {}): void {
+    this.livroService.buscarLivrosComFiltros(filtro).subscribe(
+      (data) => {
+        this.livros = data;
+      },
+      (error) => {
+        console.error('Erro ao carregar livros', error);
+        this.toastService.error('Erro ao carregar livros');
+      }
+    );
+  }
 
   favoritarLivro(livro: any) {
     this.isLoggedIn$.subscribe(isLoggedIn => {
       if (isLoggedIn) {
-        livro.favorito = !livro.favorito;
+        if (livro.favorito) {
+          // Desfavoritar o livro
+          this.favoritoService.desfavoritarLivro(livro.id).subscribe({
+            next: (response) => {
+              livro.favorito = false;
+              this.toastService.success('Livro desfavoritado com sucesso!');
+              this.atualizarFavoritosNoLocalStorage();
+            },
+            error: (error) => {
+              this.toastService.error('Erro ao desfavoritar o livro');
+            }
+          });
+        } else {
+          // Favoritar o livro
+          this.favoritoService.favoritarLivro(livro.id).subscribe({
+            next: (response) => {
+              livro.favorito = true;
+              this.toastService.success('Livro favoritado com sucesso!');
+              this.atualizarFavoritosNoLocalStorage();
+            },
+            error: (error) => {
+              this.toastService.error('Erro ao favoritar o livro');
+            }
+          });
+        }
       } else {
         this.toastService.error('Você precisa estar logado para favoritar um livro', 'Atenção', {
-          timeOut: 3000,  // Tempo de exibição do toast (em ms)
-          positionClass: 'toast-top-right',  // Posição do toast
-          progressBar: true,  // Exibe a barra de progresso
+          timeOut      : 3000,
+          positionClass: 'toast-top-right',
+          progressBar  : true,
         });
       }
     });
+  }
+
+  atualizarFavoritosNoLocalStorage() {
+    // Atualizar favoritos no LocalStorage com os IDs
+    localStorage.setItem('favoritos', JSON.stringify(this.favoritosIds));
   }
 }

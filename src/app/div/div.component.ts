@@ -1,13 +1,13 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/autores/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LivrosComponent } from '../livro/livro.component';
-import { CarrinhoService, LivroCarrinho } from '../services/carrinho.service';
+import { CarrinhoService, LivroCarrinho } from '../services/livro/carrinho.service';
 
 @Component({
   selector: 'app-div',
@@ -71,7 +71,14 @@ togglePerfilMenu() {
   toggleCarrinho() {
     this.mostrarCarrinho = !this.mostrarCarrinho;
   }
+  // Função chamada ao adicionar ou remover item
+  adicionarItemCarrinho(item: any): void {
+    this.itensCarrinho.push(item);
+  }
 
+  removerItemCarrinho(index: number): void {
+    this.itensCarrinho.splice(index, 1);
+  }
   // Método que carrega o carrinho (pode ser adaptado para obter dados reais)
 carregarCarrinho() {
   this.carrinhoService.listarItens().subscribe(
@@ -90,6 +97,7 @@ carregarCarrinho() {
   get totalCarrinho(): number {
   return this.itensCarrinho.reduce((total, item) => total + item.preco * (item.quantidade || 1), 0);
 }
+finalizarCompra(){}
 
   // Método para fechar o carrinho ao clicar fora dele
   @HostListener('document:click', ['$event'])

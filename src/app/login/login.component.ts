@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../services/user/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/autores/auth.service';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
 import { OAuthService } from 'angular-oauth2-oidc';

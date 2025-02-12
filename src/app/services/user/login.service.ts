@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { LoginResponse } from '../types/login-response.type';
+import { LoginResponse } from '../../types/login-response.type';
 
 @Injectable({
   providedIn: 'root'
