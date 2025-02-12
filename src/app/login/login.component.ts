@@ -44,6 +44,7 @@ export class LoginComponent {
         this.authService.login(response.token);
         this.toastService.success("Login efetuado com sucesso");
         this.dialog.closeAll();
+        location.reload();
       },
       error: () => this.toastService.error("Senha ou Email Incorreto!"),
     });

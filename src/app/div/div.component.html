@@ -3,10 +3,7 @@
     <!-- Logo e Nome da Livraria -->
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <!-- Ícone de Livro -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-10 text-white hover:text-blue-400 transition-all duration-300">
-        <path d="M2 19V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"></path>
-        <path d="M2 6l10 7 10-7"></path>
-      </svg>
+      <img src="assets/img/livro.png" alt="">
       <!-- Nome da Livraria -->
       <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-blue-400 transition-all duration-300">LivrariaWeb</span>
     </a>
@@ -20,19 +17,17 @@
       </button>
 
       <!-- Botões quando o usuário está logado -->
-      <div *ngIf="(isLoggedIn$ | async)" class="relative flex space-x-4 items-center">
-        <!-- Botão do Carrinho -->
-        <div class="relative carrinho-container">
-          <button (click)="toggleCarrinho(); carregarCarrinho()"
-                  class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg">
-            <svg class="w-6 h-6 mr-2 transition-transform duration-300" [ngClass]="{ 'rotate-12': mostrarCarrinho }" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18l-2 10H5L3 3zm0 0L5 21h14l2-10M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z"/>
-            </svg>
-            <span class="font-semibold">Meu Carrinho</span>
-            <span *ngIf="itensCarrinho.length > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse">
-              {{ itensCarrinho.length }}
-            </span>
-          </button>
+ <div *ngIf="(isLoggedIn$ | async)" class="relative flex space-x-4 items-center">
+  <!-- Botão do Carrinho -->
+  <div class="relative carrinho-container">
+    <button (click)="toggleCarrinho(); carregarCarrinho()"
+            class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg">
+      <img src="assets/img/cart.png" alt="Carrinho" class="w-6 h-6 mr-2 transition-transform duration-300" [ngClass]="{ 'rotate-12': mostrarCarrinho }"/>
+      <span class="font-semibold">Meu Carrinho</span>
+      <span *ngIf="itensCarrinho.length > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse">
+        {{ itensCarrinho.length }}
+      </span>
+    </button>
 
           <!-- Dropdown do Carrinho -->
           <div *ngIf="mostrarCarrinho"

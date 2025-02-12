@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LivroService } from '../services/livro.service';
 import { ResultadoLivroDto } from '../interface/ResultadoLivroDto.interface';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { FilterComponent } from '../filter/filter.component';
-import { CarrinhoService } from '../services/carrinho.service';
+import { CarrinhoService, LivroCarrinho } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-livro',
@@ -26,8 +26,10 @@ import { CarrinhoService } from '../services/carrinho.service';
   ]
 })
 export class LivrosComponent implements OnInit {
+  itensCarrinho: LivroCarrinho[] = [];
   livros: ResultadoLivroDto[] = [];
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
+
   constructor(private livroService: LivroService, private authService:AuthService,private toastService: ToastrService,private carrinhoService: CarrinhoService) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
    }
@@ -37,18 +39,20 @@ export class LivrosComponent implements OnInit {
       this.livros = data; // Agora 'data' é um array simples de livros
     }, error => {
       console.error('Erro ao carregar livros', error);
-    });
+    })
   }
+  
+
 
 adicionarLivroAoCarrinho(livroId: number): void {
   this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
      next: (response: any) => {
         this.toastService.success("Livro adicionado no Carrinho");
-       
       },
       error: () => this.toastService.error("Erro Interno!"),
   });
 }
+
   favoritarLivro(livro: any) {
     this.isLoggedIn$.subscribe(isLoggedIn => {
       if (isLoggedIn) {

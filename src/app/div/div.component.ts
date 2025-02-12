@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../services/auth.service';
@@ -21,7 +21,7 @@ export class DivComponent {
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
   mostrarCarrinho = false; // Controle para mostrar ou esconder o carrinho
   itensCarrinho: LivroCarrinho[] = [];
-  
+  @Input() quantidadeCarrinho: number = 0;
   constructor(
     public dialog: MatDialog, 
     private authService: AuthService, 
@@ -59,6 +59,7 @@ togglePerfilMenu() {
   logout(): void {
     this.authService.logout(); // Chama o serviço de logout
     this.toastService.info("Logout efetuado com sucesso"); // Exibe uma mensagem de sucesso
+    location.reload();
   }
 
   // Método que carrega itens fictícios no carrinho

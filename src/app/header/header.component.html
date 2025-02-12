@@ -1,11 +1,15 @@
-<main>
-  <div class="component-container">
-    <!-- Componente Div fixo -->
-    <app-div (componenteAlterado)="componenteAtual = $event"></app-div>
+<main class="min-h-screen flex flex-col">
+  <div class="flex-grow">
+    <div class="component-container">
+      <!-- Componente Div fixo -->
+      <app-div (componenteAlterado)="componenteAtual = $event"></app-div>
 
-    <!-- O conteúdo que será exibido abaixo da Div fixa -->
-    <app-livro *ngIf="componenteAtual === 'livros'"></app-livro>
-    <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
+      <!-- O conteúdo que será exibido abaixo da Div fixa -->
+      <app-livro *ngIf="componenteAtual === 'livros'"></app-livro>
+      <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
+    </div>
   </div>
-  <app-footer/>
+
+  <!-- Footer sempre no final da página -->
+  <app-footer class="mt-auto"></app-footer>
 </main>

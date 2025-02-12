@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface LivroCarrinho {
   livroId: string;
@@ -14,14 +14,16 @@ export interface LivroCarrinho {
 })
 export class CarrinhoService {
    private apiUrl = `http://localhost:8080`;  // Altere 'environment.apiUrl' para a URL base da sua API
-  constructor(private httpClient: HttpClient , private router: Router) { } // INICIALIZANDO O HTTP CLIENT
-
-
+  constructor(private httpClient: HttpClient , private router: Router) {
+    
+   } 
+   
   adicionarAoCarrinho(livroId: number): Observable<any> {
     const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.apiUrl}/carrinhos`;
     const body = { livroId: livroId };
+    
     return this.httpClient.post<any>(url, body, { headers });
   }
 
@@ -31,4 +33,6 @@ export class CarrinhoService {
 
     return this.httpClient.get<LivroCarrinho[]>(this.apiUrl + '/carrinhos', { headers });
   }
+    // Método para obter o carrinho atual
+
 }

@@ -10,7 +10,7 @@ import { LoginCallbackComponent } from './CALLBACK/callback.component';
 
 export const routes: Routes = [
   { path: '', component: HeaderComponent },  // Rota principal
-  { path: 'autores', component: AutorComponent },
+  { path: 'livros', component: HeaderComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
     { path: 'login/callback', component: LoginCallbackComponent }

@@ -9,11 +9,14 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './filter.component.scss'
 })
 export class FilterComponent {
-  filtro = {
+ filtro = {
+    isbn: '',
     titulo: '',
     autor: '',
     precoMin: null,
-    precoMax: null
+    precoMax: null,
+    genero: '',
+    anoPublicacao: null
   };
 
   @Output() filtrar = new EventEmitter<any>();
@@ -24,10 +27,13 @@ export class FilterComponent {
 
   limparFiltro() {
     this.filtro = {
+      isbn: '',
       titulo: '',
       autor: '',
       precoMin: null,
-      precoMax: null
+      precoMax: null,
+      genero: '',
+      anoPublicacao: null
     };
     this.filtrar.emit(this.filtro);
   }

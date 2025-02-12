@@ -1,5 +1,4 @@
-<img src="assets/img/banner.png" alt="Banner"
-     class="w-full h-64 md:h-80 object-cover rounded-lg shadow-md">
+<img src="assets/img/banner.png" alt="Banner" class="w-full h-64 md:h-80 object-cover rounded-lg shadow-md">
 
 <div class="bg-white p-6 shadow-lg rounded-xl mb-6 transition-transform transform duration-300">
   <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -11,25 +10,58 @@
   </h2>
   
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Filtro de ISBN -->
+    <div class="relative">
+      <input type="text" [(ngModel)]="filtro.isbn" placeholder="Pesquisar por ISBN" 
+             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
+    </div>
+    
+    <!-- Filtro de Título -->
     <div class="relative">
       <input type="text" [(ngModel)]="filtro.titulo" placeholder="Pesquisar por título" 
              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
+    
+    <!-- Filtro de Autor -->
     <div class="relative">
       <input type="text" [(ngModel)]="filtro.autor" placeholder="Pesquisar por autor" 
              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
+
+    <!-- Filtro de Gênero -->
     <div class="relative">
-      <input type="number" [(ngModel)]="filtro.precoMin" placeholder="Preço mínimo" 
-             class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
+      <select [(ngModel)]="filtro.genero" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
+        <option value="">Selecione um Gênero</option>
+        <option value="FICCAO">Ficção</option>
+        <option value="NAO_FICCAO">Não Ficção</option>
+        <option value="ROMANCE">Romance</option>
+        <option value="FANTASIA">Fantasia</option>
+        <option value="TERROR">Terror</option>
+        <option value="SUSPENSE">Suspense</option>
+        <option value="MISTERIO">Mistério</option>
+        <option value="AVENTURA">Aventura</option>
+        <option value="BIOGRAFIA">Biografia</option>
+        <option value="POESIA">Poesia</option>
+        <option value="DRAMA">Drama</option>
+        <option value="CIENCIA">Ciência</option>
+        <option value="TECNOLOGIA">Tecnologia</option>
+        <option value="HISTORIA">História</option>
+        <option value="FILOSOFIA">Filosofia</option>
+        <option value="EDUCACAO">Educação</option>
+        <option value="HQ">HQ</option>
+        <option value="AUTOAJUDA">Autoajuda</option>
+      </select>
     </div>
+
+    <!-- Filtro de Ano de Publicação -->
     <div class="relative">
-      <input type="number" [(ngModel)]="filtro.precoMax" placeholder="Preço máximo" 
+      <input type="number" [(ngModel)]="filtro.anoPublicacao" placeholder="Ano de publicação"
              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg">
     </div>
   </div>
   
   <div class="flex justify-end mt-6 gap-3">
+    <!-- Aplicar Filtro -->
     <button (click)="aplicarFiltro()" 
             class="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -37,6 +69,8 @@
       </svg>
       Aplicar Filtro
     </button>
+
+    <!-- Limpar Filtro -->
     <button (click)="limparFiltro()" 
             class="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-all transform hover:scale-105">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
