@@ -3,21 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Componentes
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { AutorComponent } from './autor/autor.component';
-import { LoginCallbackComponent } from './CALLBACK/callback.component';
+import { LoginComponent } from './LivroAll/login/login.component';
+
+import { AutorComponent } from './LivroAll/autor/autor.component';
+
+import { ResetPasswordComponent } from './LoginAll/reset-password/reset-password.component';
 
 export const routes: Routes = [
-  { path: '', component: HeaderComponent },  // Rota principal
+  { path: '', component: HeaderComponent }, // Rota principal
   { path: 'livros', component: HeaderComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-    { path: 'login/callback', component: LoginCallbackComponent }
+  { path: 'reset-password', component: ResetPasswordComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

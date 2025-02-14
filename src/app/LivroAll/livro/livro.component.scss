@@ -24,3 +24,31 @@ nav {
 button {
     cursor: pointer;
 }
+
+
+.league-spartan {
+    font-family: 'League Spartan', sans-serif;
+}
+
+.carousel-inner {
+    transition: transform 0.5s ease-in-out;
+}
+
+button {
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item {
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

@@ -1,0 +1,172 @@
+<div class="w-full relative">
+  <c-carousel
+    [activeIndex]="activeIndex"
+    [interval]="0"
+    class="relative w-full"
+  >
+    <c-carousel-inner>
+      <c-carousel-item
+        *ngFor="let slide of slides; let i = index"
+        [active]="i === activeIndex"
+        [ngClass]="{ 'carousel-item-active': i === activeIndex }"
+        class="transition-opacity flex-shrink-0 duration-10 ease-in-out opacity-100 scale-100"
+      >
+        <img
+          [src]="slide.src"
+          [alt]="slide.title"
+          class="w-full h-[400px] md:h-[400px] object-cover border rounded-lg"
+          loading="lazy"
+        />
+      </c-carousel-item>
+    </c-carousel-inner>
+
+    <!-- Botão para voltar -->
+    <button
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-900/50 p-4 rounded-full text-white hover:bg-gray-900 transition"
+      (click)="prevSlide()"
+    >
+      <i class="lucide lucide-chevron-left text-4xl"></i>
+    </button>
+
+    <!-- Botão para avançar -->
+    <button
+      class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-900/50 p-4 rounded-full text-white hover:bg-gray-900 transition"
+      (click)="nextSlide()"
+    >
+      <i class="lucide lucide-chevron-right text-4xl"></i>
+    </button>
+  </c-carousel>
+</div>
+<div
+  class="bg-white p-6 shadow-lg rounded-xl mb-6 transition-transform transform duration-300"
+>
+  <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-6 h-6 text-blue-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    Filtrar Livros
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Filtro de ISBN -->
+    <div class="relative">
+      <input
+        type="text"
+        [(ngModel)]="filtro.isbn"
+        placeholder="Pesquisar por ISBN"
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+      />
+    </div>
+
+    <!-- Filtro de Título -->
+    <div class="relative">
+      <input
+        type="text"
+        [(ngModel)]="filtro.titulo"
+        placeholder="Pesquisar por título"
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+      />
+    </div>
+
+    <!-- Filtro de Autor -->
+    <div class="relative">
+      <input
+        type="text"
+        [(ngModel)]="filtro.autor"
+        placeholder="Pesquisar por autor"
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+      />
+    </div>
+
+    <!-- Filtro de Gênero -->
+    <div class="relative">
+      <select
+        [(ngModel)]="filtro.genero"
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+      >
+        <option value="">Selecione um Gênero</option>
+        <option value="FICCAO">Ficção</option>
+        <option value="NAO_FICCAO">Não Ficção</option>
+        <option value="ROMANCE">Romance</option>
+        <option value="FANTASIA">Fantasia</option>
+        <option value="TERROR">Terror</option>
+        <option value="SUSPENSE">Suspense</option>
+        <option value="MISTERIO">Mistério</option>
+        <option value="AVENTURA">Aventura</option>
+        <option value="BIOGRAFIA">Biografia</option>
+        <option value="POESIA">Poesia</option>
+        <option value="DRAMA">Drama</option>
+        <option value="CIENCIA">Ciência</option>
+        <option value="TECNOLOGIA">Tecnologia</option>
+        <option value="HISTORIA">História</option>
+        <option value="FILOSOFIA">Filosofia</option>
+        <option value="EDUCACAO">Educação</option>
+        <option value="HQ">HQ</option>
+        <option value="AUTOAJUDA">Autoajuda</option>
+      </select>
+    </div>
+
+    <!-- Filtro de Ano de Publicação -->
+    <div class="relative">
+      <input
+        type="number"
+        [(ngModel)]="filtro.anoPublicacao"
+        placeholder="Ano de publicação"
+        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+      />
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-6 gap-3">
+    <!-- Aplicar Filtro -->
+    <button
+      (click)="aplicarFiltro()"
+      class="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+      Aplicar Filtro
+    </button>
+
+    <!-- Limpar Filtro -->
+    <button
+      (click)="limparFiltro()"
+      class="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-all transform hover:scale-105"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+      Limpar
+    </button>
+  </div>
+</div>

@@ -1,25 +1,36 @@
 import { Component, Input } from '@angular/core';
 
 import { DivComponent } from '../div/div.component';
-import { LivrosComponent } from '../livro/livro.component';
-import { AutorComponent } from '../autor/autor.component';
+import { LivrosComponent } from '../LivroAll/livro/livro.component';
+import { AutorComponent } from '../LivroAll/autor/autor.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
-import { FavoritosComponent } from '../favoritos/favoritos.component';
+import { FavoritosComponent } from '../LivroAll/favoritos/favoritos.component';
+import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolistafilter.component';
 
 @Component({
   selector: 'app-header',
-  imports: [DivComponent,LivrosComponent,AutorComponent,CommonModule,FooterComponent,FavoritosComponent],
+  imports: [
+    DivComponent,
+    LivrosComponent,
+    AutorComponent,
+    CommonModule,
+    FooterComponent,
+    FavoritosComponent,
+    LivrolistafilterComponent,
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-   @Input() componenteAtual: string = 'livros';  // Componente inicial
- 
+  @Input() componenteAtual: string = 'livros'; // Componente inicial
+  livros: any[] = []; // Armazenará os livros para serem passados ao app-livrolistafilter
+
   exibirComponente(componente: string): void {
     this.componenteAtual = componente;
   }
-
-  
+  // Método para atualizar livros
+  atualizarLivros(livros: any[]) {
+    this.livros = livros; // Atualiza os livros recebidos
+  }
 }
-

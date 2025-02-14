@@ -1,135 +1,332 @@
-<nav class="bg-gradient-to-r from-gray-800 to-gray-900 fixed w-full z-20 top-0 start-0 shadow-lg">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<nav
+  class="fixed w-full z-20 top-0 start-0 shadow-lg rounded-xs"
+  style="background-color: #112643"
+>
+  <!-- Cor de fundo personalizada -->
+
+  <div
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    style="background-color: #112643"
+  >
+    <!-- Cor de fundo personalizada -->
     <!-- Logo e Nome da Livraria -->
-    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a
+      href="/"
+      class="flex items-center space-x-3 rtl:space-x-reverse border-none"
+    >
       <!-- Ícone de Livro -->
-      <img src="assets/img/livro.png" alt="">
+      <img
+        src="assets/img/pagiinova.png"
+        alt=""
+        class="border-none"
+        style="border: none"
+      />
+      <!-- Removendo a borda branca da imagem -->
       <!-- Nome da Livraria -->
-      <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-blue-400 transition-all duration-300">LivrariaWeb</span>
+      <!-- <span
+        class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-blue-400 transition-all duration-300 animated-text"
+      ></span>-->
     </a>
 
     <!-- Botões de Ação (Login, Menu Mobile, Carrinho e Perfil) -->
-    <div class="flex md:order-2 space-x-4 md:space-x-6 rtl:space-x-reverse items-center">
-      <!-- Botão de Login -->
-      <button *ngIf="!(isLoggedIn$ | async)" (click)="abrirLogin()"
-              class="text-gray-900 bg-gradient-to-r from-white to-gray-100 hover:from-gray-100 hover:to-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105">
+    <div
+      class="flex md:order-2 space-x-4 md:space-x-6 rtl:space-x-reverse items-center"
+    >
+      <!-- Botão de Login (Agora com o novo estilo) -->
+      <button
+        *ngIf="!(isLoggedIn$ | async)"
+        (click)="abrirLogin()"
+        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105"
+      >
         Faça seu Login
       </button>
 
       <!-- Botões quando o usuário está logado -->
- <div *ngIf="(isLoggedIn$ | async)" class="relative flex space-x-4 items-center">
-  <!-- Botão do Carrinho -->
-  <div class="relative carrinho-container">
-    <button (click)="toggleCarrinho(); carregarCarrinho()"
-            class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg">
-      <img src="assets/img/cart.png" alt="Carrinho" class="w-6 h-6 mr-2 transition-transform duration-300" [ngClass]="{ 'rotate-12': mostrarCarrinho }"/>
-      <span class="font-semibold">Meu Carrinho</span>
-      <span *ngIf="itensCarrinho.length > 0" class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse">
-        {{ itensCarrinho.length }}
-      </span>
-    </button>
+      <div
+        *ngIf="isLoggedIn$ | async"
+        class="relative flex space-x-4 items-center"
+      >
+        <div class="relative carrinho-container">
+          <button
+            (click)="toggleCarrinho(); carregarCarrinho()"
+            class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg"
+          >
+            <img
+              src="assets/img/cart.png"
+              alt="Carrinho"
+              class="w-6 h-6 mr-2 transition-transform duration-300"
+              [ngClass]="{ 'rotate-12': mostrarCarrinho }"
+            />
 
-     <!-- Dropdown do Carrinho -->
-<div *ngIf="mostrarCarrinho"
-     class="absolute right-0 mt-3 w-96 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden animate-fadeInSlide transition-all duration-300">
-  <div class="p-4">
-    <h3 class="text-lg font-semibold text-gray-700 mb-4">Carrinho</h3>
-    
-    <!-- Itens do carrinho -->
-    <ul *ngIf="itensCarrinho.length > 0; else vazio">
-      <li *ngFor="let item of itensCarrinho; let i = index"
-          class="flex justify-between items-center p-3 bg-gray-100 rounded-lg shadow-sm mb-2 last:mb-0 transition-all hover:bg-gray-200">
-        
-        <!-- Título do item com text-overflow -->
-        <span class="text-sm font-medium text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap max-w-[50%]">{{ item.titulo }}</span>
-        
-        <!-- Quantidade -->
-        <span class="text-sm font-medium text-gray-800">({{ item.quantidade || 1 }}x)</span>
-        
-        <!-- Preço com text-overflow -->
-        <span class="text-sm font-bold text-blue-600 overflow-hidden text-ellipsis whitespace-nowrap max-w-[30%] text-right">R$ {{ (item.preco * (item.quantidade || 1)) | number: '1.2-2' }}</span>
-        
-        <!-- Botão de Excluir -->
-        <button (click)="removerItemCarrinho(i)"
-                class="text-sm text-red-500 hover:text-red-700 transition-all duration-300 ml-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-        
-      </li>
-    </ul>
-    
-    <!-- Caso o carrinho esteja vazio -->
-    <ng-template #vazio>
-      <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
-    </ng-template>
+            <span
+              *ngIf="itensCarrinho.length > 0"
+              class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse"
+            >
+              {{ itensCarrinho.length }}
+            </span>
+          </button>
 
-    <!-- Total do Carrinho -->
-    <div class="flex justify-between items-center mt-4 border-t pt-3">
-      <span class="text-lg font-semibold text-gray-800">Total:</span>
-      <span class="text-lg font-bold text-green-600">R$ {{ totalCarrinho | number: '1.2-2' }}</span>
-    </div>
+          <!-- Slide lateral do Carrinho -->
+          <div
+            *ngIf="mostrarCarrinho"
+            class="fixed top-0 right-0 w-96 h-full bg-white border-l border-gray-300 shadow-lg transform transition-transform duration-300 ease-in-out animate-slideIn flex flex-col"
+          >
+            <!-- Cabeçalho -->
+            <div
+              class="p-4 flex justify-between items-center border-b shadow-sm"
+            >
+              <h3 class="text-lg font-semibold text-gray-700">Meu Carrinho</h3>
+              <button
+                (click)="toggleCarrinho()"
+                class="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-all cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-8"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </button>
+            </div>
 
-    <!-- Botão de Finalizar Compra -->
-    <button (click)="finalizarCompra()"
-            class="w-full bg-green-600 text-white py-3 rounded-lg mt-6 transition-colors duration-200 hover:bg-green-700 shadow-md hover:shadow-lg font-semibold">
-      Finalizar Compra
-    </button>
-  </div>
-</div>
+            <!-- Itens do carrinho -->
+            <div class="p-4 flex-grow overflow-y-auto">
+              <ul *ngIf="itensCarrinho.length > 0; else vazio">
+                <li
+                  *ngFor="let item of itensCarrinho; let i = index"
+                  class="flex justify-between items-center p-3 bg-gray-100 rounded-lg shadow-sm mb-2 last:mb-0 transition-all hover:bg-gray-200"
+                >
+                  <!-- Informações do Livro -->
+                  <div class="flex flex-col w-2/3">
+                    <span class="text-sm font-medium text-gray-800 truncate">
+                      {{ item.titulo }}
+                    </span>
+                    <span class="text-sm font-bold text-blue-600">
+                      R$ {{ item.preco | number : "1.2-2" }}
+                    </span>
+                  </div>
 
-          
+                  <!-- Controle de Quantidade -->
+                  <div class="flex items-center space-x-2">
+                    <span
+                      (click)="
+                        alterarQuantidade(i, -1); removerLivro(item.livroId)
+                      "
+                      class="cursor-pointer bg-gray-300 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-400 transition-all"
+                    >
+                      -
+                    </span>
+                    <span class="text-gray-800 font-medium">{{
+                      item.quantidade
+                    }}</span>
+                    <span
+                      (click)="
+                        alterarQuantidade(i, 1);
+                        adicionarLivroAoCarrinho(item.livroId)
+                      "
+                      class="cursor-pointer bg-gray-300 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-400 transition-all"
+                    >
+                      +
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Caso o carrinho esteja vazio -->
+            <ng-template #vazio>
+              <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
+            </ng-template>
+
+            <!-- Rodapé fixo do Carrinho -->
+            <div class="p-4 bg-white border-t shadow-md flex flex-col">
+              <div
+                class="flex justify-between items-center text-lg font-semibold text-gray-800"
+              >
+                <span>Total:</span>
+                <span class="text-green-600"
+                  >R$ {{ totalCarrinho | number : "1.2-2" }}</span
+                >
+              </div>
+              <button
+                (click)="finalizarCompra()"
+                class="w-full bg-green-600 text-white py-3 rounded-lg mt-3 transition-colors duration-200 hover:bg-green-700 shadow-md hover:shadow-lg font-semibold"
+              >
+                Finalizar Compra
+              </button>
+            </div>
+          </div>
         </div>
-      <!-- Caso o carrinho esteja vazio -->
-      <ng-template #vazio>
-        <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
-      </ng-template>
-    
+
+        <!-- Caso o carrinho esteja vazio -->
+        <ng-template #vazio>
+          <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
+        </ng-template>
+
         <!-- Dropdown de Perfil -->
         <div class="relative">
-          <button (click)="togglePerfilMenu()"
-                  class="flex items-center text-white hover:text-blue-400 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20c0-4.41 3.59-8 8-8s8 3.59 8 8H4z"/>
+          <button
+            (click)="togglePerfilMenu()"
+            class="flex items-center text-white hover:text-blue-400 transition-all duration-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6 mr-2"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20c0-4.41 3.59-8 8-8s8 3.59 8 8H4z"
+              />
             </svg>
             Meu Perfil
           </button>
 
           <!-- Menu suspenso do perfil -->
-          <div *ngIf="perfilMenuAberto"
-               class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden animate-fadeIn">
+          <div
+            *ngIf="perfilMenuAberto"
+            class="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden animate-fadeIn"
+          >
             <div class="p-4 space-y-2">
-              <a routerLink="/perfil" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out ">Meu Perfil</a>
-              <a routerLink="/adicionar" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Adicionar Livro</a>
-              <a routerLink="/pedidos" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Pedidos</a>
-              <a routerLink="/adicionar-autor" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Adicionar Autor</a>
-              <a routerLink="/favoritos" class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out">Favoritos</a>
+              <a
+                routerLink="/perfil"
+                class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                >Meu Perfil</a
+              >
+              <a
+                routerLink="/adicionar"
+                class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                >Adicionar Livro</a
+              >
+              <a
+                routerLink="/pedidos"
+                class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                >Pedidos</a
+              >
+              <a
+                routerLink="/adicionar-autor"
+                class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                >Adicionar Autor</a
+              >
+              <a
+                routerLink="/favoritos"
+                class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                >Favoritos</a
+              >
             </div>
           </div>
         </div>
 
         <!-- Botão de Logout -->
-        <button (click)="logout()"
-                class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105">
+        <button
+          (click)="logout()"
+          class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105"
+        >
           Logout
         </button>
       </div>
     </div>
+    <form class="max-w-lg mx-auto" (ngSubmit)="aplicarFiltro()">
+      <div class="flex relative w-full">
+        <!-- Contêiner comum para o select e input -->
+        <div class="flex w-full">
+          <!-- Select estilizado, sem borda direita, largura 50% -->
+          <select
+            [(ngModel)]="filtroSelecionado"
+            name="filtroSelecionado"
+            class="w-1/2 p-4 text-sm text-gray-900 bg-gray-50 rounded-l-lg border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+          >
+            <option value="">Selecione um Filtro</option>
+            <option value="autor">Autor</option>
+            <option value="titulo">Título</option>
+            <option value="editora">Editora</option>
+            <option value="isbn">ISBN</option>
+          </select>
+
+          <!-- Input estilizado, sem borda esquerda, largura 50% -->
+          <input
+            type="search"
+            id="search-dropdown"
+            [(ngModel)]="termoPesquisa"
+            name="termoPesquisa"
+            class="w-[1000px] p-4 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+            placeholder="O que você está procurando?"
+          />
+        </div>
+
+        <!-- Botão de Submissão -->
+        <button
+          (click)="aplicarFiltro()"
+          (click)="alterarComponente('filter')"
+          type="submit"
+          class="cursor-pointer absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg"
+        >
+          <svg
+            class="w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </form>
 
     <!-- Menu de Navegação -->
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
-        <li>
-          <a (click)="alterarComponente('livros')" class="block py-2 px-3 text-white hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out" aria-current="page">Livros</a>
-        </li>
-        <li>
-          <a (click)="alterarComponente('favoritos')" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Favoritos</a>
-        </li>
-        <li>
-          <a (click)="alterarComponente('autores')" class="block py-2 px-3 text-gray-400 hover:text-blue-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out">Autores</a>
-        </li>
-      </ul>
-    </div>
+  </div>
+  <div
+    class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 border-b-4 border-b-white border-t border-t-gray-300"
+    id="navbar-sticky"
+  >
+    <ul
+      class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
+    >
+      <li>
+        <a
+          (click)="alterarComponente('livros')"
+          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+          aria-current="page"
+        >
+          Livros
+        </a>
+      </li>
+
+      <li>
+        <a
+          (click)="alterarComponente('favoritos')"
+          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+        >
+          Favoritos
+        </a>
+      </li>
+
+      <li>
+        <a
+          (click)="alterarComponente('autores')"
+          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+        >
+          Autores
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>

@@ -4,35 +4,40 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface LivroCarrinho {
-  livroId: string;
+  livroId: number;
   titulo: string;
   preco: number;
   quantidade: number;
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarrinhoService {
-   private apiUrl = `http://localhost:8080`;  // Altere 'environment.apiUrl' para a URL base da sua API
-  constructor(private httpClient: HttpClient , private router: Router) {
-    
-   } 
-   
+  private apiUrl = `http://localhost:8080`; // Altere 'environment.apiUrl' para a URL base da sua API
+  constructor(private httpClient: HttpClient, private router: Router) {}
+
   adicionarAoCarrinho(livroId: number): Observable<any> {
     const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.apiUrl}/carrinhos`;
     const body = { livroId: livroId };
-    
+
     return this.httpClient.post<any>(url, body, { headers });
   }
 
-    listarItens(): Observable<LivroCarrinho[]> {
-          const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+  listarItens(): Observable<LivroCarrinho[]> {
+    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.httpClient.get<LivroCarrinho[]>(this.apiUrl + '/carrinhos', { headers });
+    return this.httpClient.get<LivroCarrinho[]>(this.apiUrl + '/carrinhos', {
+      headers,
+    });
   }
-    // Método para obter o carrinho atual
+  removerUmaQuantidade(livroId: number): Observable<any> {
+    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this.apiUrl}/carrinhos/${livroId}`; // Passando livroId diretamente na URL
 
+    return this.httpClient.delete<any>(url, { headers });
+  }
 }

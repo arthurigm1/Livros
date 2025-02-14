@@ -1,69 +1,3 @@
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #c9c5bb;
-    display: flex;
-    align-items: center;
-    /* Centraliza os itens verticalmente */
-    justify-content: space-between;
-    padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.img {
-    height: 100%;
-}
-
-.menu {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-
-    li {
-        color: white;
-        cursor: pointer;
-        font-size: 14px;
-
-        &:hover {
-            color: #ff8200;
-        }
-    }
-}
-
-.icons {
-    display: flex;
-    gap: 20px;
-    /* Ajustado para ter espaçamento adequado */
-
-    span {
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-
-        &:hover {
-            color: #ff8200;
-        }
-    }
-
-    .navbar {
-        transition: background-color 0.3s ease;
-
-        .menu-mobile {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-
-            &.hidden {
-                opacity: 0;
-                transform: translateY(-20px);
-                pointer-events: none;
-            }
-        }
-    }
-}
-
 /* Adicionando ao seu arquivo de estilos global ou no componente */
 
 a {
@@ -88,4 +22,55 @@ a.router-link-active {
 
 .animate-fadeIn {
     animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes typing {
+    0% {
+        content: "";
+    }
+
+    10% {
+        content: "L";
+    }
+
+    20% {
+        content: "Li";
+    }
+
+    30% {
+        content: "Liv";
+    }
+
+    40% {
+        content: "Livr";
+    }
+
+    50% {
+        content: "Livra";
+    }
+
+    60% {
+        content: "Livrar";
+    }
+
+    70% {
+        content: "Livrari";
+    }
+
+    80% {
+        content: "Livraria";
+    }
+
+    90% {
+        content: "LivrariaW";
+    }
+
+    100% {
+        content: "LivrariaWeb";
+    }
+}
+
+.animated-text::after {
+    content: "";
+    animation: typing 2s steps(10) forwards;
 }

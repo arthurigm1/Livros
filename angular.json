@@ -28,9 +28,19 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
-               "src/styles.scss"
+               "src/styles.scss",
+                 "node_modules/slick-carousel/slick/slick.css",
+  "node_modules/slick-carousel/slick/slick-theme.css",
+   "node_modules/flowbite/dist/flowbite.min.css",
+    "node_modules/swiper/swiper-bundle.min.css",
+    "node_modules/tailwindcss/tailwind.css"
+
             ],
-            "scripts": []
+            "scripts": [
+  "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/slick-carousel/slick/slick.min.js",
+   "node_modules/flowbite/dist/flowbite.js"
+]
           },
           "configurations": {
             "production": {

@@ -1,6 +1,8 @@
-@import "tailwindcss";
-@import 'ngx-toastr/toastr';
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@use "tailwindcss";
+@use 'ngx-toastr/toastr';
+@use "@fortawesome/fontawesome-free/css/all.css";
+/* Adicione o estilo necessário para o Swiper */
+@import "~swiper/swiper-bundle.min.css";
 
 .container {
     width: 700px;

@@ -1,24 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../services/autores/auth.service';
-import { LoginService } from '../services/user/login.service';
+import { LoginComponent } from '../../LivroAll/login/login.component';
+import { AuthService } from '../../services/autores/auth.service';
+import { LoginService } from '../../services/user/login.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro',
-  imports:[ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.scss']
+  styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
+  cadastroForm!: FormGroup; // Usando '!' para indicar que será inicializado
 
-  cadastroForm!: FormGroup;  // Usando '!' para indicar que será inicializado
-
-  constructor(private fb: FormBuilder, private router: Router,private dialog: MatDialog,private toastService: ToastrService, private authService: LoginService) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastService: ToastrService,
+    private authService: LoginService
+  ) {}
 
   ngOnInit(): void {
     this.cadastroForm = this.fb.group({
@@ -35,17 +45,26 @@ export class CadastroComponent implements OnInit {
       this.authService.signup(nome, email, senha).subscribe({
         next: (response) => {
           // Sucesso no cadastro
-          this.toastService.success('Cadastro realizado com sucesso', 'Sucesso');
+          this.toastService.success(
+            'Cadastro realizado com sucesso',
+            'Sucesso'
+          );
           this.router.navigate(['/livros']); // Redireciona para os livros
         },
         error: (err) => {
           // Erro ao fazer o cadastro
-          this.toastService.error('Ocorreu um erro ao realizar o cadastro', 'Erro');
+          this.toastService.error(
+            'Ocorreu um erro ao realizar o cadastro',
+            'Erro'
+          );
           console.error(err);
-        }
+        },
       });
     } else {
-      this.toastService.error('Por favor, preencha os campos corretamente', 'Erro');
+      this.toastService.error(
+        'Por favor, preencha os campos corretamente',
+        'Erro'
+      );
     }
   }
 
@@ -59,5 +78,4 @@ export class CadastroComponent implements OnInit {
       width: '400px', // Tamanho do modal
     });
   }
-
 }
