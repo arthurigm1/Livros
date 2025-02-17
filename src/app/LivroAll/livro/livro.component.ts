@@ -12,7 +12,7 @@ import {
   query,
   stagger,
 } from '@angular/animations';
-import { AuthService } from '../../services/autores/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { FilterComponent } from '../filter/filter.component';

@@ -9,6 +9,7 @@ import { FavoritosComponent } from '../LivroAll/favoritos/favoritos.component';
 import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolistafilter.component';
 import { LivrosdetalhesComponent } from '../LivroAll/livrosdetalhes/livrosdetalhes.component';
 import { PerfilComponent } from '../perfil/perfil.component';
+import { FinalizarpedidoComponent } from '../finalizarpedido/finalizarpedido.component';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +23,7 @@ import { PerfilComponent } from '../perfil/perfil.component';
     LivrolistafilterComponent,
     LivrosdetalhesComponent,
     PerfilComponent,
+    FinalizarpedidoComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

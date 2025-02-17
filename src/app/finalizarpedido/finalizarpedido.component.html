@@ -1,0 +1,74 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center">
+    Finalizar Pedido
+  </h2>
+
+  <!-- Dados do Usuário -->
+  <div class="mb-6 p-6 border rounded-lg bg-gray-50 shadow-sm">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Dados do Cliente</h3>
+    <div class="space-y-2">
+      <p class="text-gray-600"><strong>Nome:</strong> {{ usuario.nome }}</p>
+      <p class="text-gray-600"><strong>Email:</strong> {{ usuario.email }}</p>
+      <p class="text-gray-600"><strong>CPF:</strong> {{ usuario.cpf }}</p>
+      <p class="text-gray-600">
+        <strong>Data de Nascimento:</strong> {{ usuario.dataNascimento }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Endereços -->
+  <div class="mb-6 p-6 border rounded-lg bg-gray-50 shadow-sm">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">
+      Endereços de Entrega
+    </h3>
+    <ul class="space-y-2">
+      <li *ngFor="let endereco of enderecos" class="text-gray-600">
+        <p>{{ endereco.logradouro }}, {{ endereco.complemento }},</p>
+        <p>
+          {{ endereco.bairro }}, {{ endereco.localidade }} - {{ endereco.uf }}
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Itens do Carrinho -->
+  <div class="mb-6 p-6 border rounded-lg bg-gray-50 shadow-sm">
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Itens do Pedido</h3>
+    <ul class="space-y-4">
+      <li
+        *ngFor="let item of itensCarrinho"
+        class="flex justify-between items-center py-3 border-b border-gray-200"
+      >
+        <div class="flex-1">
+          <p class="text-lg font-semibold text-gray-700">{{ item.titulo }}</p>
+          <p class="text-sm text-gray-600">Quantidade: {{ item.quantidade }}</p>
+        </div>
+        <p class="text-lg font-semibold text-gray-700">
+          R$ {{ item.preco | number : "1.2-2" }}
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Finalizar Pedido -->
+  <div class="text-center">
+    <button
+      (click)="finalizarCompra()"
+      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition"
+    >
+      Gerar QR Code PIX
+    </button>
+
+    <div *ngIf="qrCodeUrl" class="mt-6">
+      <h3 class="text-xl font-semibold text-gray-700 mb-4">
+        QR Code para Pagamento
+      </h3>
+      <img
+        *ngIf="qrCodeUrl"
+        [src]="qrCodeUrl"
+        alt="QR Code"
+        class="mx-auto max-w-xs rounded-lg shadow-md"
+      />
+    </div>
+  </div>
+</div>

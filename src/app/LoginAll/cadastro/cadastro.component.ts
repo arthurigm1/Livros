@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../../services/autores/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { LoginService } from '../../services/user/login.service';
 import { CommonModule } from '@angular/common';
 

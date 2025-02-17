@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../../services/user/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../services/autores/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordDialogComponentComponent } from '../forgot-password-dialog-component/forgot-password-dialog-component.component';

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../LoginAll/login/login.component';
-import { AuthService } from '../services/autores/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -116,7 +116,6 @@ export class DivComponent {
     }
   }
 
-  // Método que carrega o carrinho (pode ser adaptado para obter dados reais)
   carregarCarrinho() {
     this.carrinhoService.listarItens().subscribe(
       (itens) => {

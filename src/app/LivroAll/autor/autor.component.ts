@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AutorService } from '../../services/autor.service';
+
 import { CommonModule } from '@angular/common';
 import {
   trigger,
@@ -9,6 +9,7 @@ import {
   query,
   stagger,
 } from '@angular/animations';
+import { AutorService } from '../../services/autores/autor.service';
 
 @Component({
   selector: 'app-autor',
