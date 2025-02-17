@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { FavoritosComponent } from '../LivroAll/favoritos/favoritos.component';
 import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolistafilter.component';
+import { LivrosdetalhesComponent } from '../LivroAll/livrosdetalhes/livrosdetalhes.component';
+import { PerfilComponent } from '../perfil/perfil.component';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +20,8 @@ import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolis
     FooterComponent,
     FavoritosComponent,
     LivrolistafilterComponent,
+    LivrosdetalhesComponent,
+    PerfilComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -26,11 +30,17 @@ export class HeaderComponent {
   @Input() componenteAtual: string = 'livros'; // Componente inicial
   livros: any[] = []; // Armazenará os livros para serem passados ao app-livrolistafilter
 
+  @Input() livrofiltro: number = 0;
   exibirComponente(componente: string): void {
     this.componenteAtual = componente;
   }
   // Método para atualizar livros
   atualizarLivros(livros: any[]) {
     this.livros = livros; // Atualiza os livros recebidos
+  }
+
+  exibirDetalhes(livroId: number) {
+    this.livrofiltro = livroId;
+    this.componenteAtual = 'detalhesLivro';
   }
 }

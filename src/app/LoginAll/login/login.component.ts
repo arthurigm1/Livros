@@ -10,9 +10,9 @@ import { LoginService } from '../../services/user/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/autores/auth.service';
-import { CadastroComponent } from '../../LoginAll/cadastro/cadastro.component';
+import { CadastroComponent } from '../cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
-import { ForgotPasswordDialogComponentComponent } from '../../LoginAll/forgot-password-dialog-component/forgot-password-dialog-component.component';
+import { ForgotPasswordDialogComponentComponent } from '../forgot-password-dialog-component/forgot-password-dialog-component.component';
 
 interface LoginForm {
   email: FormControl;

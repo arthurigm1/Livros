@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from '../LivroAll/login/login.component';
+import { LoginComponent } from '../LoginAll/login/login.component';
 import { AuthService } from '../services/autores/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -115,13 +115,14 @@ export class DivComponent {
       this.mostrarCarrinho = false; // Oculta o carrinho quando estiver vazio
     }
   }
+
   // Método que carrega o carrinho (pode ser adaptado para obter dados reais)
   carregarCarrinho() {
     this.carrinhoService.listarItens().subscribe(
       (itens) => {
         this.itensCarrinho = itens.map((item) => ({
           ...item,
-          quantidade: item.quantidade || 1, // Garante um valor padrão
+          quantidade: item.quantidade || 1, // Garante um valor padrão'
         }));
       },
       (error) => {

@@ -1,12 +1,12 @@
 <nav
   class="fixed w-full z-20 top-0 start-0 shadow-lg rounded-xs"
-  style="background-color: #112643"
+  style="background-color: #063831"
 >
   <!-- Cor de fundo personalizada -->
 
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    style="background-color: #112643"
+    style="background-color: #063831"
   >
     <!-- Cor de fundo personalizada -->
     <!-- Logo e Nome da Livraria -->
@@ -36,7 +36,7 @@
       <button
         *ngIf="!(isLoggedIn$ | async)"
         (click)="abrirLogin()"
-        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105"
+        class="text-white cursor-pointer bg-gradient-to-r from-[#063831] to-[#f4ebd0] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105"
       >
         Faça seu Login
       </button>
@@ -49,7 +49,7 @@
         <div class="relative carrinho-container">
           <button
             (click)="toggleCarrinho(); carregarCarrinho()"
-            class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 shadow-md hover:shadow-lg"
+            class="flex items-center bg-gray-100 cursor-pointer text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 bg-emeraldDark hover:bg-emeraldDark/80 shadow-md hover:shadow-lg"
           >
             <img
               src="assets/img/cart.png"
@@ -175,7 +175,7 @@
         <div class="relative">
           <button
             (click)="togglePerfilMenu()"
-            class="flex items-center text-white hover:text-blue-400 transition-all duration-300"
+            class="flex items-center text-white hover:text-black transition-all duration-300 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -203,6 +203,7 @@
               <a
                 routerLink="/perfil"
                 class="block text-gray-700 hover:text-blue-400 transition-all duration-300 ease-in-out"
+                (click)="alterarComponente('perfil')"
                 >Meu Perfil</a
               >
               <a
@@ -271,7 +272,7 @@
           (click)="aplicarFiltro()"
           (click)="alterarComponente('filter')"
           type="submit"
-          class="cursor-pointer absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg"
+          class="cursor-pointer absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-amber-600 bg-[#f4ebd0] rounded-e-lg"
         >
           <svg
             class="w-4 h-4"
@@ -294,16 +295,16 @@
     <!-- Menu de Navegação -->
   </div>
   <div
-    class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 border-b-4 border-b-white border-t border-t-gray-300"
+    class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 border-b-4 border-b-[#b68d40] border-t border-t-gray-300"
     id="navbar-sticky"
   >
     <ul
-      class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-700 rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
+      class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-[#b68d40] rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
     >
       <li>
         <a
           (click)="alterarComponente('livros')"
-          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+          class="relative block text-xl py-4 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
           aria-current="page"
         >
           Livros
@@ -313,7 +314,7 @@
       <li>
         <a
           (click)="alterarComponente('favoritos')"
-          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
         >
           Favoritos
         </a>
@@ -322,9 +323,17 @@
       <li>
         <a
           (click)="alterarComponente('autores')"
-          class="relative block py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
         >
           Autores
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="alterarComponente('autores')"
+          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+        >
+          Editoras
         </a>
       </li>
     </ul>

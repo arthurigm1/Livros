@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Componentes
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './LivroAll/login/login.component';
+import { LoginComponent } from './LoginAll/login/login.component';
 
 import { AutorComponent } from './LivroAll/autor/autor.component';
 

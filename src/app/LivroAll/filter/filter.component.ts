@@ -51,8 +51,11 @@ export class FilterComponent implements OnInit {
     anoPublicacao: null,
   };
   slides: any[] = [
-    { src: '/assets/img/banner.png', title: 'Banner' },
-    { src: '/assets/img/p.png', title: 'Slide 2' },
+    { src: '/assets/banner/teste.jpg', title: 'Banner' },
+    { src: '/assets/banner/2.jpg', title: 'Slide 2' },
+    { src: '/assets/banner/3.jpg', title: 'Slide 2' },
+    { src: '/assets/banner/4.jpg', title: 'Slide 2' },
+    { src: '/assets/banner/5.jpg', title: 'Slide 2' },
   ];
 
   @Output() filtrar = new EventEmitter<any>();

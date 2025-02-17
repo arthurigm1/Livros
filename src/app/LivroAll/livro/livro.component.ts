@@ -48,6 +48,11 @@ export class LivrosComponent implements OnInit {
   livros: ResultadoLivroDto[] = [];
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
   favoritosIds: number[] = []; // Lista dos IDs dos livros favoritos do usuário
+  @Output() livroSelecionado = new EventEmitter<any>(); // Evento para enviar livro selecionado
+
+  @Output() componenteAlterado: EventEmitter<string> =
+    new EventEmitter<string>();
+  @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     private favoritoService: FavoritoService,
@@ -226,5 +231,10 @@ export class LivrosComponent implements OnInit {
 
   updateOffset() {
     this.offset = -this.currentIndex * 100;
+  }
+  selecionarLivro(id: number) {
+    console.log('🔍 Emitindo evento com ID:', id);
+    this.componenteAlterado.emit('detalhesLivro');
+    this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
   }
 }
