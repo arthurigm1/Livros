@@ -117,9 +117,7 @@
                   <!-- Controle de Quantidade -->
                   <div class="flex items-center space-x-2">
                     <span
-                      (click)="
-                        alterarQuantidade(i, -1); removerLivro(item.livroId)
-                      "
+                      (click)="removerLivro(item.livroId)"
                       class="cursor-pointer bg-gray-300 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-400 transition-all"
                     >
                       -
@@ -128,10 +126,8 @@
                       item.quantidade
                     }}</span>
                     <span
-                      (click)="
-                        alterarQuantidade(i, 1);
-                        adicionarLivroAoCarrinho(item.livroId)
-                      "
+                      (click)="adicionarLivroAoCarrinho(item.livroId)"
+                      (click)="adicionarItemCarrinho(item)"
                       class="cursor-pointer bg-gray-300 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-400 transition-all"
                     >
                       +

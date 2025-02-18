@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { EnderecoService } from '../endereco.service';
 import { Endereco } from '../interface/Endereco.interface';
+import { PedidoService } from '../pedido.service';
+import { Pedido } from '../interface/Pedido.interface';
 
 @Component({
   selector: 'app-perfil',
@@ -29,6 +31,7 @@ export class PerfilComponent implements OnInit {
   confirmarSenha = '';
 
   novoEndereco: Endereco = {
+    id: '',
     cep: '',
     logradouro: '',
     complemento: '',
@@ -36,19 +39,24 @@ export class PerfilComponent implements OnInit {
     localidade: '',
     uf: '',
   };
-  showModalNovoEndereco = false; // Controle do modal
-  showModalEditEndereco = false; // Controle do modal de edição
+  showModalNovoEndereco = false;
+  showModalEditarEndereco = false;
+  pedidos: Pedido[] = [];
+  loading = false;
+  modoEdicaoEndereco: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
     private toastService: ToastrService,
     private http: HttpClient,
-    private enderecoService: EnderecoService
+    private enderecoService: EnderecoService,
+    private pedidoService: PedidoService
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuario();
     this.carregarEnderecos();
+    this.carregarPedidos();
   }
 
   carregarUsuario(): void {
@@ -73,6 +81,10 @@ export class PerfilComponent implements OnInit {
 
   abrirModalAlterarSenha(): void {
     this.showAlterarSenhaModal = true;
+  }
+  abrirModalEditarEndereco(): void {
+    this.showModalEditarEndereco = true;
+    this.showModalNovoEndereco = false;
   }
 
   fecharModalAlterarSenha(): void {
@@ -113,50 +125,138 @@ export class PerfilComponent implements OnInit {
 
   abrirModalNovoEndereco(): void {
     this.showModalNovoEndereco = true;
+    this.modoEdicaoEndereco = false; // Modo de criação
+    this.novoEndereco = {
+      id: '',
+      cep: '',
+      logradouro: '',
+      complemento: '',
+      bairro: '',
+      localidade: '',
+      uf: '',
+    }; // Limpar os campos
   }
 
   fecharModalNovoEndereco(): void {
-    this.showModalNovoEndereco = false;
+    this.showModalNovoEndereco = false; // Definir como false para fechar o modal
+  }
+
+  fecharModalEditarEndereco(): void {
+    this.showModalEditarEndereco = false; // Definir como false para fechar o modal
   }
 
   buscarCep(): void {
     const cep = this.novoEndereco.cep.replace(/\D/g, ''); // Remove caracteres não numéricos
 
     if (cep.length === 8) {
-      this.enderecoService.buscarCep(cep).subscribe((dados: any) => {
-        if (!dados.erro) {
-          this.novoEndereco.logradouro = dados.logradouro;
-          this.novoEndereco.localidade = dados.localidade;
-          this.novoEndereco.uf = dados.uf;
-          this.novoEndereco.bairro = dados.bairro;
-        } else {
-          alert('CEP não encontrado');
+      // Verifica se o CEP tem 8 caracteres
+      this.enderecoService.buscarCep(cep).subscribe(
+        (dados: any) => {
+          if (!dados.erro) {
+            this.novoEndereco.logradouro = dados.logradouro;
+            this.novoEndereco.localidade = dados.localidade;
+            this.novoEndereco.uf = dados.uf;
+            this.novoEndereco.bairro = dados.bairro;
+          } else {
+            this.toastService.info('CEP não encontrado');
+          }
+        },
+        (erro) => {
+          this.toastService.error('Erro ao buscar CEP');
         }
-      });
+      );
+    } else {
+      this.toastService.error('CEP inválido, deve ter 8 dígitos');
     }
   }
 
   salvarEndereco(): void {
-    this.enderecoService.salvarEndereco(this.novoEndereco).subscribe(() => {
-      this.fecharModalNovoEndereco();
-      this.carregarEnderecos(); // Atualiza a lista de endereços
-    });
+    if (this.modoEdicaoEndereco) {
+      // Editar
+      this.enderecoService
+        .editarEndereco(this.novoEndereco.id, this.novoEndereco)
+        .subscribe(
+          () => {
+            this.fecharModalNovoEndereco();
+            this.carregarEnderecos();
+            this.toastService.success('Endereço editado com sucesso!'); // Sucesso
+            this.fecharModalEditarEndereco();
+          },
+          (erro) => {
+            this.toastService.error(
+              'Erro ao editar o endereço. Tente novamente.'
+            ); // Erro
+          }
+        );
+    } else {
+      // Criar
+      this.enderecoService.salvarEndereco(this.novoEndereco).subscribe(
+        () => {
+          this.fecharModalNovoEndereco();
+          this.carregarEnderecos();
+          this.toastService.success('Endereço cadastrado com sucesso!'); // Sucesso
+          this.fecharModalEditarEndereco();
+        },
+        (erro) => {
+          this.toastService.error(
+            'Erro ao cadastrar o endereço. Tente novamente.'
+          ); // Erro
+        }
+      );
+    }
   }
 
   editarEndereco(endereco: Endereco): void {
-    this.novoEndereco = { ...endereco }; // Preenche o formulário com os dados do endereço
-    this.abrirModalNovoEndereco(); // Reaproveita o modal para edição
+    this.modoEdicaoEndereco = true;
+    this.novoEndereco = { ...endereco };
+    this.abrirModalEditarEndereco();
   }
 
-  deletarEndereco(id: any): void {
+  deletarEndereco(id: string): void {
     this.enderecoService.deletarEndereco(id).subscribe({
-      next: (response) => {
-        this.toastService.success('Livro excluido com Sucesso!');
-        this.carregarEnderecos();
+      next: () => {
+        this.toastService.success('Endereço excluído com sucesso!');
+        this.carregarEnderecos(); // Atualiza a lista de endereços
       },
-      error: (err) => {
+      error: () => {
         this.toastService.error('Erro interno!');
       },
     });
+  }
+  baixarRelatorio(id: number): void {
+    this.pedidoService.baixarRelatorio(id).subscribe(
+      (response: Blob) => {
+        // Cria um objeto URL a partir do Blob recebido
+        const url = window.URL.createObjectURL(response);
+
+        // Cria um link temporário
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `relatorio_pedido_${id}.pdf`; // Nome do arquivo para download
+
+        // Dispara o click no link para iniciar o download
+        a.click();
+
+        // Libera a URL criada
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Erro ao gerar relatório:', error);
+      }
+    );
+  }
+
+  carregarPedidos(): void {
+    this.loading = true;
+    this.pedidoService.getPedidos().subscribe(
+      (data) => {
+        this.pedidos = data;
+        this.loading = false;
+      },
+      (error) => {
+        this.toastService.error('Erro interno!');
+        this.loading = false;
+      }
+    );
   }
 }

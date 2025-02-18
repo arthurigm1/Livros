@@ -68,78 +68,132 @@
     </div>
   </div>
 </div>
-<h2
-  class="league-spartan flex items-center justify-center text-3xl font-bold my-6 font-spartan"
->
-  Melhores Autores de todos os Tempos!
+<h2 class="text-4xl font-extrabold text-center my-8 text-gray-800">
+  Melhores Autores de Todos os Tempos!
 </h2>
 
-<div
-  class="carousel-container relative w-[800px] h-[400px] overflow-hidden mx-auto border-none"
->
-  <div
-    class="carousel-inner flex transition-transform duration-500 ease-in-out w-full h-full"
-    [style.transform]="'translateX(' + offset + '%)'"
-  >
-    <!-- Autor 1 -->
-    <div class="carousel-item w-1/3 flex-shrink-0 text-center">
-      <img
-        src="assets/autores/clarice.jpg"
-        alt="Clarice"
-        class="w-full h-3/4 object-cover rounded-lg shadow-lg"
-      />
-      <h3 class="league-spartan text-lg font-semibold mt-2">
-        Clarice Lispector
-      </h3>
+<div class="relative max-w-6xl mx-auto px-4">
+  <div class="overflow-hidden rounded-lg shadow-lg bg-gray-50">
+    <div
+      class="flex transition-transform duration-700 ease-in-out"
+      [style.transform]="'translateX(' + offset + '%)'"
+    >
+      <!-- Autor 1 -->
+      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
+        <div
+          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
+        >
+          <img
+            src="assets/autores/clarice.jpg"
+            alt="Clarice Lispector"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+          <div class="p-4">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+              Clarice Lispector
+            </h3>
+            <p class="text-sm text-gray-600">
+              Escritora e jornalista brasileira.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autor 2 -->
+      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
+        <div
+          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
+        >
+          <img
+            src="assets/autores/carlos.jpg"
+            alt="Carlos Drummond"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+          <div class="p-4">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+              Carlos Drummond
+            </h3>
+            <p class="text-sm text-gray-600">Poeta e escritor brasileiro.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autor 3 -->
+      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
+        <div
+          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
+        >
+          <img
+            src="assets/autores/machado.jpg"
+            alt="Machado de Assis"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+          <div class="p-4">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+              Machado de Assis
+            </h3>
+            <p class="text-sm text-gray-600">
+              Escritor brasileiro, fundador da ABL.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autor 4 -->
+      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
+        <div
+          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
+        >
+          <img
+            src="assets/autores/monteiro.jpg"
+            alt="Monteiro Lobato"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+          <div class="p-4">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
+              Monteiro Lobato
+            </h3>
+            <p class="text-sm text-gray-600">Escritor e editor brasileiro.</p>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Autor 2 -->
-    <div class="carousel-item w-1/3 flex-shrink-0 text-center">
-      <img
-        src="assets/autores/carlos.jpg"
-        alt="Carlos"
-        class="w-full h-3/4 object-cover rounded-lg shadow-lg"
-      />
-      <h3 class="league-spartan text-lg font-semibold mt-2">Carlos Drummond</h3>
-    </div>
-
-    <!-- Autor 3 -->
-    <div class="carousel-item w-1/3 flex-shrink-0 text-center">
-      <img
-        src="assets/autores/machado.jpg"
-        alt="Machado"
-        class="w-full h-3/4 object-cover rounded-lg shadow-lg"
-      />
-      <h3 class="league-spartan text-lg font-semibold mt-2">
-        Machado de Assis
-      </h3>
-    </div>
-
-    <!-- Autor 4 -->
-    <div class="carousel-item w-1/3 flex-shrink-0 text-center">
-      <img
-        src="assets/autores/monteiro.jpg"
-        alt="Monteiro"
-        class="w-full h-3/4 object-cover rounded-lg shadow-lg"
-      />
-      <h3 class="text-lg font-semibold mt-2">Monteiro Lobato</h3>
-    </div>
+    <!-- Botões de navegação -->
+    <button
+      class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 transition-all duration-300"
+      (click)="prev()"
+    >
+      &lt;
+    </button>
+    <button
+      class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 transition-all duration-300"
+      (click)="next()"
+    >
+      &gt;
+    </button>
   </div>
-
-  <!-- Botões de navegação -->
-  <button
-    class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full"
-    (click)="prev()"
-  >
-    &lt;
-  </button>
-  <button
-    class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full"
-    (click)="next()"
-  >
-    &gt;
-  </button>
 </div>
+
+<!-- Estilos adicionais -->
+<style>
+  .carousel-container {
+    position: relative;
+  }
+  .carousel-inner {
+    display: flex;
+  }
+</style>
+
+<!-- Estilos adicionais -->
+<style>
+  .carousel-container {
+    position: relative;
+  }
+  .carousel-inner {
+    display: flex;
+  }
+</style>
 
 <ng-template #loading>
   <div class="text-center text-gray-500">

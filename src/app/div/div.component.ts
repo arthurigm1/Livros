@@ -103,26 +103,16 @@ export class DivComponent {
   toggleCarrinho() {
     this.mostrarCarrinho = !this.mostrarCarrinho; // Alterna a visibilidade do carrinho
   }
-  // Função chamada ao adicionar ou remover item
+
   adicionarItemCarrinho(item: any): void {
     this.itensCarrinho.push(item);
+    this.cdr.detectChanges();
   }
 
-  // Função para remover item do carrinho
-  removerItemCarrinho(index: number): void {
-    this.itensCarrinho.splice(index, 1);
-    if (this.itensCarrinho.length === 0) {
-      this.mostrarCarrinho = false; // Oculta o carrinho quando estiver vazio
-    }
-  }
-
-  carregarCarrinho() {
+  carregarCarrinho(): void {
     this.carrinhoService.listarItens().subscribe(
       (itens) => {
-        this.itensCarrinho = itens.map((item) => ({
-          ...item,
-          quantidade: item.quantidade || 1, // Garante um valor padrão'
-        }));
+        this.itensCarrinho = itens;
       },
       (error) => {
         console.error('Erro ao carregar o carrinho:', error);
@@ -136,7 +126,61 @@ export class DivComponent {
       0
     );
   }
-  finalizarCompra() {}
+
+  adicionarLivroAoCarrinho(livroId: number): void {
+    this.carrinhoService.adicionarAoCarrinho(livroId).subscribe(
+      (response) => {
+        this.toastService.success('Livro adicionado no Carrinho');
+        this.carregarCarrinho();
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        this.toastService.error('Erro Interno!');
+      }
+    );
+  }
+
+  removerLivro(livroId: number): void {
+    // Encontrar o item no carrinho
+    const item = this.itensCarrinho.find((item) => item.livroId === livroId);
+
+    if (item && item.quantidade > 1) {
+      // Reduzir a quantidade localmente
+      item.quantidade--;
+
+      // Atualizar o carrinho no back-end (só a quantidade)
+      this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
+        next: (response) => {
+          // Atualizar o total do carrinho
+          this.toastService.success(
+            'Uma unidade do livro removida com sucesso!'
+          );
+        },
+        error: () => {
+          // Caso haja erro, revertê-lo localmente
+          item.quantidade++;
+          this.toastService.error('Erro ao remover o livro');
+        },
+      });
+    } else if (item && item.quantidade === 1) {
+      // Se a quantidade for 1, remova o item completamente
+      this.itensCarrinho = this.itensCarrinho.filter(
+        (item) => item.livroId !== livroId
+      );
+
+      // Atualizar o carrinho no back-end para remover completamente o item
+      this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
+        next: (response) => {
+          this.toastService.success('Livro removido do carrinho com sucesso!');
+        },
+        error: () => {
+          // Caso haja erro, recarregar o item
+          this.itensCarrinho.push(item);
+          this.toastService.error('Erro ao remover o livro');
+        },
+      });
+    }
+  }
 
   // Método para fechar o carrinho ao clicar fora dele
   @HostListener('document:click', ['$event'])
@@ -149,45 +193,10 @@ export class DivComponent {
       this.perfilMenuAberto = false;
     }
   }
-  // Método para alterar a quantidade de um item no carrinho
-  alterarQuantidade(index: number, valor: number): void {
-    if (this.itensCarrinho[index]) {
-      this.itensCarrinho[index].quantidade += valor;
-
-      // Remove o item do carrinho se a quantidade for zero ou menos
-      if (this.itensCarrinho[index].quantidade <= 0) {
-        this.removerItemCarrinho(index);
-      }
-    }
-  }
-
-  adicionarLivroAoCarrinho(livroId: number): void {
-    this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
-      next: (response: any) => {
-        this.toastService.success('Livro adicionado no Carrinho', '', {
-          positionClass: 'toast-top-center', // Centraliza o toast na tela
-        });
-      },
-      error: () => this.toastService.error('Erro Interno!'),
-    });
-  }
-  removerLivro(livroId: number): void {
-    this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
-      next: (response: any) => {
-        this.toastService.success('Livro removido com Sucesso!');
-        this.cdr.detectChanges();
-      },
-      error: () => this.toastService.error('Erro Interno!'),
-    });
-  }
-
   toggleDropdown() {
     this.dropdownAberto = !this.dropdownAberto;
   }
-  buscar() {
-    console.log();
-    // Aqui você pode chamar o serviço para realizar a pesquisa no back-end
-  }
+
   livros: any[] = [];
 
   @Output() livrosAtualizados = new EventEmitter<any[]>();

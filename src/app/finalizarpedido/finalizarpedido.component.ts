@@ -8,6 +8,7 @@ import { Endereco } from '../interface/Endereco.interface';
 import { EnderecoService } from '../endereco.service';
 import { CommonModule } from '@angular/common';
 import { PedidoService } from '../pedido.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-finalizarpedido',
@@ -25,7 +26,7 @@ export class FinalizarpedidoComponent implements OnInit {
   };
   itensCarrinho: LivroCarrinho[] = [];
   enderecos: Endereco[] = [];
-  qrCodeUrl: string = '';
+  qrCodeUrl: any;
 
   ngOnInit(): void {
     this.carregarUsuario();
@@ -36,7 +37,8 @@ export class FinalizarpedidoComponent implements OnInit {
     private usuarioService: UsuarioService,
     private carrinhoService: CarrinhoService,
     private enderecoService: EnderecoService,
-    private pedidoService: PedidoService
+    private pedidoService: PedidoService,
+    private sanitizer: DomSanitizer
   ) {}
 
   carregarUsuario(): void {
@@ -66,6 +68,7 @@ export class FinalizarpedidoComponent implements OnInit {
   }
 
   finalizarCompra(): void {
+    // Montando o pedido para envio ao serviço
     const pedido = {
       itens: this.itensCarrinho.map((item) => ({
         livro: item.livroId,
@@ -78,9 +81,11 @@ export class FinalizarpedidoComponent implements OnInit {
       ),
     };
 
+    // Enviando o pedido para o serviço e recebendo o QR Code
     this.pedidoService.criarPedido(pedido).subscribe(
       (qrCodeBase64) => {
-        this.qrCodeUrl = `data:image/png;base64,${qrCodeBase64}`; // Adiciona o prefixo base64 para imagem
+        console.log('QR Code Base64:', qrCodeBase64);
+        this.qrCodeUrl = qrCodeBase64;
       },
       (error) => {
         console.error('Erro ao finalizar o pedido:', error);

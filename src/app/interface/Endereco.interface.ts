@@ -1,5 +1,5 @@
 export interface Endereco {
-  id?: number; // Caso o ID seja opcional
+  id: string; // Caso o ID seja opcional
   cep: string;
   logradouro: string;
   complemento: string;

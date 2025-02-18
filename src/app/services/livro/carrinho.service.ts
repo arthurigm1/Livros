@@ -40,4 +40,19 @@ export class CarrinhoService {
 
     return this.httpClient.delete<any>(url, { headers });
   }
+
+  atualizarQuantidade(
+    livroId: string,
+    quantidade: number
+  ): Observable<LivroCarrinho> {
+    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const url = `${this.apiUrl}/${livroId}`; // Caminho para o endpoint PUT
+
+    // Dados a serem enviados no corpo da requisição
+    const body = { quantidade };
+
+    return this.httpClient.put<LivroCarrinho>(url, body, { headers }); // Envia o corpo com os dados e os headers
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Endereco } from './interface/Endereco.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +33,12 @@ export class EnderecoService {
   }
 
   // Editar um endereço
-  editarEndereco(id: string, endereco: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, endereco);
+  editarEndereco(id: string, endereco: Endereco): Observable<Endereco> {
+    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<Endereco>(`${this.baseUrl}/${id}`, endereco, {
+      headers,
+    });
   }
 
   // Buscar informações de um CEP utilizando a API ViaCEP

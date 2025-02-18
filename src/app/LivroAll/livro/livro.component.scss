@@ -36,3 +36,30 @@ button {
         transform: scale(1.05);
     }
 }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.carousel-container {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.carousel-item {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Efeito de Parallax na imagem */
+.carousel-item img {
+    transition: transform 0.3s ease-out;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.05);
+}

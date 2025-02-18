@@ -14,7 +14,7 @@
         />
       </div>
 
-      <div class="flex flex-col justify-center">
+      <div class="flex flex-col justify-center flex-1">
         <div *ngIf="!editando">
           <p class="text-lg font-medium text-gray-900">{{ usuario.nome }}</p>
           <p class="text-sm text-gray-600">{{ usuario.email }}</p>
@@ -22,54 +22,101 @@
           <p class="text-sm text-gray-600">
             Data de Nascimento: {{ usuario.dataNascimento }}
           </p>
-          <button
-            class="mt-2 text-blue-500 hover:text-blue-700 transition-all cursor-pointer"
-            (click)="editando = true"
-          >
-            Editar Perfil
-          </button>
-          <button
-            class="mt-2 text-red-500 hover:text-red-700 transition-all cursor-pointer ml-4"
-            (click)="abrirModalAlterarSenha()"
-          >
-            Alterar Senha
-          </button>
+          <div class="mt-2 space-x-4">
+            <button
+              class="text-blue-500 hover:text-blue-700 transition-all cursor-pointer"
+              (click)="editando = true"
+            >
+              Editar Perfil
+            </button>
+            <button
+              class="text-red-500 hover:text-red-700 transition-all cursor-pointer"
+              (click)="abrirModalAlterarSenha()"
+            >
+              Alterar Senha
+            </button>
+          </div>
         </div>
 
         <div *ngIf="editando">
-          <input
-            class="border p-2 rounded w-full mb-2"
-            [(ngModel)]="usuario.nome"
-            placeholder="Nome"
-          />
-          <input
-            class="border p-2 rounded w-full mb-2"
-            [(ngModel)]="usuario.email"
-            placeholder="E-mail"
-          />
-          <input
-            class="border p-2 rounded w-full mb-2"
-            [(ngModel)]="usuario.cpf"
-            placeholder="CPF"
-          />
-          <input
-            class="border p-2 rounded w-full mb-2"
-            [(ngModel)]="usuario.dataNascimento"
-            type="date"
-          />
+          <form #perfilForm="ngForm" (ngSubmit)="salvarEdicao()">
+            <input
+              class="border p-2 rounded w-full mb-2"
+              [(ngModel)]="usuario.nome"
+              name="nome"
+              placeholder="Nome"
+              required
+              minlength="3"
+              #nome="ngModel"
+            />
+            <div
+              *ngIf="nome.invalid && nome.touched"
+              class="text-red-500 text-sm"
+            >
+              Nome é obrigatório e deve ter pelo menos 3 caracteres.
+            </div>
 
-          <button
-            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
-            (click)="salvarEdicao()"
-          >
-            Salvar
-          </button>
-          <button
-            class="bg-gray-400 text-white px-4 py-2 rounded ml-2 hover:bg-gray-600 transition-all"
-            (click)="editando = false"
-          >
-            Cancelar
-          </button>
+            <input
+              class="border p-2 rounded w-full mb-2"
+              [(ngModel)]="usuario.email"
+              name="email"
+              placeholder="E-mail"
+              required
+              email
+              #email="ngModel"
+            />
+            <div
+              *ngIf="email.invalid && email.touched"
+              class="text-red-500 text-sm"
+            >
+              E-mail inválido.
+            </div>
+
+            <input
+              class="border p-2 rounded w-full mb-2"
+              [(ngModel)]="usuario.cpf"
+              name="cpf"
+              placeholder="CPF"
+              required
+              #cpf="ngModel"
+            />
+            <div
+              *ngIf="cpf.invalid && cpf.touched"
+              class="text-red-500 text-sm"
+            >
+              CPF inválido. Formato esperado: xxx.xxx.xxx-xx
+            </div>
+
+            <input
+              class="border p-2 rounded w-full mb-2"
+              [(ngModel)]="usuario.dataNascimento"
+              name="dataNascimento"
+              type="date"
+              required
+              #dataNascimento="ngModel"
+            />
+            <div
+              *ngIf="dataNascimento.invalid && dataNascimento.touched"
+              class="text-red-500 text-sm"
+            >
+              Data de nascimento é obrigatória.
+            </div>
+
+            <div class="mt-4 space-x-4">
+              <button
+                class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
+                [disabled]="perfilForm.invalid"
+              >
+                Salvar
+              </button>
+              <button
+                class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 transition-all"
+                (click)="editando = false"
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -78,31 +125,33 @@
   <!-- Modal de Alteração de Senha -->
   <div
     *ngIf="showAlterarSenhaModal"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-md"
+    class="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-md z-50"
   >
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
       <h2 class="text-xl font-semibold text-gray-800">Alterar Senha</h2>
 
-      <input
-        class="border p-2 rounded w-full mb-2"
-        [(ngModel)]="senhaAtual"
-        type="password"
-        placeholder="Senha Atual"
-      />
-      <input
-        class="border p-2 rounded w-full mb-2"
-        [(ngModel)]="novaSenha"
-        type="password"
-        placeholder="Nova Senha"
-      />
-      <input
-        class="border p-2 rounded w-full mb-2"
-        [(ngModel)]="confirmarSenha"
-        type="password"
-        placeholder="Confirmar Nova Senha"
-      />
+      <div class="space-y-4 mt-4">
+        <input
+          class="border p-2 rounded w-full mb-2"
+          [(ngModel)]="senhaAtual"
+          type="password"
+          placeholder="Senha Atual"
+        />
+        <input
+          class="border p-2 rounded w-full mb-2"
+          [(ngModel)]="novaSenha"
+          type="password"
+          placeholder="Nova Senha"
+        />
+        <input
+          class="border p-2 rounded w-full mb-2"
+          [(ngModel)]="confirmarSenha"
+          type="password"
+          placeholder="Confirmar Nova Senha"
+        />
+      </div>
 
-      <div class="flex justify-end">
+      <div class="flex justify-end mt-4">
         <button
           class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
           (click)="alterarSenha()"
@@ -119,38 +168,43 @@
     </div>
   </div>
 
+  <!-- Meus Pedidos -->
   <div
     class="bg-white p-6 rounded-lg shadow-lg animate__animated animate__fadeIn"
   >
     <h2 class="text-2xl font-semibold text-gray-800">Meus Pedidos</h2>
-    <div class="mt-4 space-y-4">
-      <div class="border p-4 rounded-lg flex justify-between items-center">
-        <p class="text-gray-800">Pedido #12345</p>
-        <p class="text-gray-500">Data: 12/02/2025</p>
-        <button
-          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all"
-        >
-          Ver Detalhes
-        </button>
+
+    <div *ngIf="loading" class="text-center text-gray-500">Carregando...</div>
+    <div *ngIf="pedidos.length === 0" class="text-center text-gray-500">
+      Nenhum pedido encontrado.
+    </div>
+
+    <div
+      *ngFor="let pedido of pedidos"
+      class="border p-4 rounded-lg mb-4 flex justify-between items-center"
+    >
+      <div>
+        <p class="text-lg font-semibold">Pedido #{{ pedido.id }}</p>
+        <p class="text-sm text-gray-600">Data: {{ pedido.status }}</p>
+        <p class="text-sm text-gray-600">
+          Valor Total: {{ pedido.valorTotal }}
+        </p>
       </div>
-      <div class="border p-4 rounded-lg flex justify-between items-center">
-        <p class="text-gray-800">Pedido #12346</p>
-        <p class="text-gray-500">Data: 13/02/2025</p>
+      <div>
         <button
-          class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all"
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all"
+          (click)="baixarRelatorio(pedido.id)"
         >
-          Ver Detalhes
+          Baixar Relatório
         </button>
       </div>
     </div>
   </div>
-  <!-- Endereços -->
   <div
     class="bg-white p-6 rounded-lg shadow-lg animate__animated animate__fadeIn"
   >
     <h2 class="text-2xl font-semibold text-gray-800">Meus Endereços</h2>
     <div class="mt-4 space-y-4">
-      <!-- Lista de Endereços -->
       <div
         *ngFor="let endereco of enderecos"
         class="border p-4 rounded-lg flex justify-between items-center"
@@ -158,8 +212,7 @@
         <div>
           <p class="text-gray-800">
             {{ endereco.logradouro }}, {{ endereco.complemento }},
-            {{ endereco.bairro }}, {{ endereco.localidade }}
-            {{ endereco.uf }}
+            {{ endereco.bairro }}, {{ endereco.localidade }} {{ endereco.uf }}
           </p>
           <p class="text-sm text-gray-600">{{ endereco.cep }}</p>
         </div>
@@ -180,7 +233,6 @@
       </div>
     </div>
 
-    <!-- Botão Adicionar Novo Endereço -->
     <button
       class="mt-4 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-all"
       (click)="abrirModalNovoEndereco()"
@@ -191,72 +243,136 @@
     <!-- Modal Novo Endereço -->
     <div
       *ngIf="showModalNovoEndereco"
-      class="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-md backdrop-blur-md transition-all animate__animated animate__fadeIn"
+      class="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-md"
     >
       <div class="bg-white p-6 rounded-xl shadow-lg w-96">
-        <h2 class="text-xl font-semibold text-gray-800">Novo Endereço</h2>
+        <h2 class="text-xl font-semibold text-gray-800">
+          {{ modoEdicaoEndereco ? "Editar Endereço" : "Novo Endereço" }}
+        </h2>
 
         <div class="space-y-4 mt-4">
-          <!-- CEP -->
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.cep"
             (blur)="buscarCep()"
             placeholder="CEP"
+            required
+            [readonly]="false"
           />
-
-          <!-- Rua -->
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.logradouro"
             placeholder="Rua"
-            [readonly]="!novoEndereco.logradouro"
-            [disabled]="true"
+            [readonly]="true"
           />
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.complemento"
+            placeholder="Complemento"
+            [readonly]="false"
+          />
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.bairro"
+            placeholder="Bairro"
+            [readonly]="true"
+          />
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.localidade"
+            placeholder="Cidade"
+            [readonly]="true"
+          />
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.uf"
+            placeholder="Estado"
+            [readonly]="true"
+          />
+        </div>
 
-          <!-- Número -->
+        <div class="flex justify-end mt-4 space-x-4">
+          <button
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
+            (click)="salvarEndereco()"
+          >
+            {{ modoEdicaoEndereco ? "Salvar Alterações" : "Salvar" }}
+          </button>
+          <button
+            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 transition-all"
+            (click)="fecharModalNovoEndereco()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Editar Endereço -->
+    <div
+      *ngIf="showModalEditarEndereco"
+      class="fixed inset-0 flex items-center justify-center bg-opacity-10 backdrop-blur-md"
+    >
+      <div class="bg-white p-6 rounded-xl shadow-lg w-96">
+        <h2 class="text-xl font-semibold text-gray-800">Editar Endereço</h2>
+
+        <div class="space-y-4 mt-4">
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.cep"
+            (blur)="buscarCep()"
+            placeholder="CEP"
+            required
+            [readonly]="false"
+          />
+          <input
+            class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            [(ngModel)]="novoEndereco.logradouro"
+            placeholder="Rua"
+            required
+            [readonly]="true"
+          />
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.complemento"
             placeholder="Complemento"
           />
-
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.bairro"
             placeholder="Bairro"
-            [disabled]="true"
+            required
+            [readonly]="true"
           />
-          <!-- Cidade -->
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.localidade"
             placeholder="Cidade"
-            [disabled]="true"
+            required
+            [readonly]="true"
           />
-
-          <!-- Estado -->
           <input
             class="border p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             [(ngModel)]="novoEndereco.uf"
             placeholder="Estado"
-            [disabled]="true"
+            required
+            [readonly]="true"
           />
+        </div>
 
-          <div class="flex justify-end mt-4">
-            <button
-              class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
-              (click)="salvarEndereco()"
-            >
-              Salvar
-            </button>
-            <button
-              class="bg-gray-400 text-white px-4 py-2 rounded ml-2 hover:bg-gray-600 transition-all"
-              (click)="fecharModalNovoEndereco()"
-            >
-              Cancelar
-            </button>
-          </div>
+        <div class="flex justify-end mt-4 space-x-4">
+          <button
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition-all"
+            (click)="salvarEndereco()"
+          >
+            Salvar Alterações
+          </button>
+          <button
+            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-600 transition-all"
+            (click)="fecharModalEditarEndereco()"
+          >
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
