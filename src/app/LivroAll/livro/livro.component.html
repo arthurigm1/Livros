@@ -1,31 +1,24 @@
 <app-filter (filtrar)="onFiltrar($event)"></app-filter>
-<link
-  href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap"
-  rel="stylesheet"
-/>
 
 <div
   *ngIf="livros.length > 0; else loading"
   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"
-  [@fadeInList]
 >
   <div
     *ngFor="let livro of livros"
     class="bg-white rounded-lg shadow-lg p-1 hover:shadow-2xl transition-shadow duration-300"
   >
-    <!-- Imagem do Livro com Estrela no Canto Superior Direito -->
     <div class="relative">
       <img
-        src="https://m.media-amazon.com/images/I/918C7lDsw5L._AC_UF1000,1000_QL80_.jpg"
+        [src]="livro.img"
         alt="Capa do Livro"
-        class="w-full h-40 object-contain rounded-md mb-4 cursor-pointer"
+        class="w-full h-50 object-contain rounded-md mb-4 cursor-pointer"
         (click)="selecionarLivro(livro.id)"
       />
 
-      <!-- Estrela no canto superior direito -->
       <button
         (click)="favoritarLivro(livro)"
-        class="teste absolute top-2 right-2 transition-transform duration-200 hover:scale-110 bg-transparent hover:bg-transparent"
+        class="absolute top-2 right-2 transition-transform duration-200 hover:scale-110 bg-transparent hover:bg-transparent"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +41,7 @@
       <h3 class="text-2xl font-bold text-gray-900 tracking-wide">
         {{ livro.titulo }}
       </h3>
-
-      <p class="league-spartan text-lg text-gray-700 font-semibold mt-2">
+      <p class="text-lg text-gray-700 font-semibold mt-2">
         <strong class="text-gray-900">Preço: </strong>
         <span class="text-green-600"
           >R$ {{ livro.preco | number : "1.2-2" }}</span
@@ -60,7 +52,7 @@
     <div class="flex gap-2 mt-4">
       <button
         (click)="adicionarLivroAoCarrinho(livro.id)"
-        class="league-spartan flex items-center justify-center gap-2 flex-1 bg-[#f4ebd0] text-black py-2 rounded-lg hover:bg-[#063831] transition-colors duration-200"
+        class="flex items-center justify-center gap-2 flex-1 bg-[#b68d40] text-black py-2 rounded-lg transition-colors duration-300 ease-in-out hover:bg-[#063831] hover:text-white cursor-pointer"
       >
         <img src="assets/img/cart.png" alt="Carrinho" class="w-6 h-6" />
         Comprar
@@ -68,140 +60,32 @@
     </div>
   </div>
 </div>
-<h2 class="text-4xl font-extrabold text-center my-8 text-gray-800">
-  Melhores Autores de Todos os Tempos!
-</h2>
 
-<div class="relative max-w-6xl mx-auto px-4">
-  <div class="overflow-hidden rounded-lg shadow-lg bg-gray-50">
-    <div
-      class="flex transition-transform duration-700 ease-in-out"
-      [style.transform]="'translateX(' + offset + '%)'"
-    >
-      <!-- Autor 1 -->
-      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
-        <div
-          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
-        >
-          <img
-            src="assets/autores/clarice.jpg"
-            alt="Clarice Lispector"
-            class="w-full h-64 object-cover rounded-t-lg"
-          />
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-              Clarice Lispector
-            </h3>
-            <p class="text-sm text-gray-600">
-              Escritora e jornalista brasileira.
-            </p>
-          </div>
-        </div>
-      </div>
+<!-- Botões de Paginação -->
+<div class="flex justify-center mt-4 space-x-4">
+  <button
+    (click)="paginaAnterior()"
+    [disabled]="paginaAtual === 1"
+    class="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+  >
+    Anterior
+  </button>
 
-      <!-- Autor 2 -->
-      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
-        <div
-          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
-        >
-          <img
-            src="assets/autores/carlos.jpg"
-            alt="Carlos Drummond"
-            class="w-full h-64 object-cover rounded-t-lg"
-          />
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-              Carlos Drummond
-            </h3>
-            <p class="text-sm text-gray-600">Poeta e escritor brasileiro.</p>
-          </div>
-        </div>
-      </div>
+  <span class="text-lg font-semibold"
+    >Página {{ paginaAtual }} de {{ totalPaginas }}</span
+  >
 
-      <!-- Autor 3 -->
-      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
-        <div
-          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
-        >
-          <img
-            src="assets/autores/machado.jpg"
-            alt="Machado de Assis"
-            class="w-full h-64 object-cover rounded-t-lg"
-          />
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-              Machado de Assis
-            </h3>
-            <p class="text-sm text-gray-600">
-              Escritor brasileiro, fundador da ABL.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Autor 4 -->
-      <div class="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 p-6">
-        <div
-          class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300"
-        >
-          <img
-            src="assets/autores/monteiro.jpg"
-            alt="Monteiro Lobato"
-            class="w-full h-64 object-cover rounded-t-lg"
-          />
-          <div class="p-4">
-            <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-              Monteiro Lobato
-            </h3>
-            <p class="text-sm text-gray-600">Escritor e editor brasileiro.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botões de navegação -->
-    <button
-      class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 transition-all duration-300"
-      (click)="prev()"
-    >
-      &lt;
-    </button>
-    <button
-      class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 transition-all duration-300"
-      (click)="next()"
-    >
-      &gt;
-    </button>
-  </div>
+  <button
+    (click)="proximaPagina()"
+    [disabled]="paginaAtual === totalPaginas"
+    class="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+  >
+    Próxima
+  </button>
 </div>
-
-<!-- Estilos adicionais -->
-<style>
-  .carousel-container {
-    position: relative;
-  }
-  .carousel-inner {
-    display: flex;
-  }
-</style>
-
-<!-- Estilos adicionais -->
-<style>
-  .carousel-container {
-    position: relative;
-  }
-  .carousel-inner {
-    display: flex;
-  }
-</style>
 
 <ng-template #loading>
   <div class="text-center text-gray-500">
-    <div class="animate-pulse space-y-4">
-      <div class="w-3/4 h-6 bg-gray-300 rounded"></div>
-      <div class="w-1/2 h-6 bg-gray-300 rounded"></div>
-      <div class="w-3/4 h-6 bg-gray-300 rounded"></div>
-    </div>
     <p>Carregando livros...</p>
-  </div></ng-template
->
+  </div>
+</ng-template>

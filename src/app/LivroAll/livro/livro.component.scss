@@ -1,15 +1,3 @@
-button {
-    cursor: pointer;
-}
-
-button.teste {
-    background-color: transparent;
-}
-
-button.teste:hover {
-    background-color: transparent;
-}
-
 .league-spartan {
     font-family: 'League Spartan', sans-serif;
 }
@@ -18,11 +6,7 @@ button.teste:hover {
     transition: transform 0.5s ease-in-out;
 }
 
-button {
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-}
+
 
 .swiper {
     width: 100%;

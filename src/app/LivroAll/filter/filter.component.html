@@ -1,46 +1,5 @@
-<div class="w-full relative">
-  <c-carousel
-    [activeIndex]="activeIndex"
-    [interval]="0"
-    class="relative w-full"
-  >
-    <c-carousel-inner>
-      <c-carousel-item
-        *ngFor="let slide of slides; let i = index"
-        [active]="i === activeIndex"
-        [ngClass]="{ 'carousel-item-active': i === activeIndex }"
-        class="transition-opacity flex-shrink-0 duration-10 ease-in-out opacity-100 scale-100"
-      >
-        <img
-          [src]="slide.src"
-          [alt]="slide.title"
-          class="w-[2600px]"
-          loading="lazy"
-        />
-      </c-carousel-item>
-    </c-carousel-inner>
-
-    <!-- Botão para voltar -->
-    <button
-      class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-900/50 p-4 rounded-full text-white hover:bg-gray-900 transition"
-      (click)="prevSlide()"
-    >
-      <i class="lucide lucide-chevron-left text-4xl"></i>
-    </button>
-
-    <!-- Botão para avançar -->
-    <button
-      class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-900/50 p-4 rounded-full text-white hover:bg-gray-900 transition"
-      (click)="nextSlide()"
-    >
-      <i class="lucide lucide-chevron-right text-4xl"></i>
-    </button>
-  </c-carousel>
-</div>
-<div
-  class="bg-white p-6 shadow-lg rounded-xl mb-6 transition-transform transform duration-300"
->
-  <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+<div class="bg-white p-8 shadow-lg rounded-xl mb-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="w-6 h-6 text-[#b68d40]"
@@ -57,15 +16,18 @@
     Filtrar Livros
   </h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Filtro de ISBN -->
     <div class="relative">
       <input
         type="text"
         [(ngModel)]="filtro.isbn"
         placeholder="Pesquisar por ISBN"
-        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
       />
+      <i
+        class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
     </div>
 
     <!-- Filtro de Título -->
@@ -74,8 +36,11 @@
         type="text"
         [(ngModel)]="filtro.titulo"
         placeholder="Pesquisar por título"
-        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
       />
+      <i
+        class="lucide lucide-book-open absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
     </div>
 
     <!-- Filtro de Autor -->
@@ -84,15 +49,18 @@
         type="text"
         [(ngModel)]="filtro.autor"
         placeholder="Pesquisar por autor"
-        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
       />
+      <i
+        class="lucide lucide-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
     </div>
 
     <!-- Filtro de Gênero -->
     <div class="relative">
       <select
         [(ngModel)]="filtro.genero"
-        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
       >
         <option value="">Selecione um Gênero</option>
         <option value="FICCAO">Ficção</option>
@@ -114,6 +82,9 @@
         <option value="HQ">HQ</option>
         <option value="AUTOAJUDA">Autoajuda</option>
       </select>
+      <i
+        class="lucide lucide-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
     </div>
 
     <!-- Filtro de Ano de Publicação -->
@@ -122,8 +93,11 @@
         type="number"
         [(ngModel)]="filtro.anoPublicacao"
         placeholder="Ano de publicação"
-        class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
       />
+      <i
+        class="lucide lucide-calendar absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
     </div>
   </div>
 
@@ -131,41 +105,18 @@
     <!-- Aplicar Filtro -->
     <button
       (click)="aplicarFiltro()"
-      class="flex items-center gap-2 bg-[#f4ebd0] text-black px-4 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
+      class="flex items-center gap-2 bg-[#b68d40] text-white px-6 py-3 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-5 h-5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
+      <i class="lucide lucide-filter"></i>
       Aplicar Filtro
     </button>
 
     <!-- Limpar Filtro -->
     <button
       (click)="limparFiltro()"
-      class="flex items-center gap-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-all transform hover:scale-105"
+      class="flex items-center gap-2 bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-all transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-5 h-5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
-      </svg>
+      <i class="lucide lucide-x"></i>
       Limpar
     </button>
   </div>

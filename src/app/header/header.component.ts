@@ -10,6 +10,8 @@ import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolis
 import { LivrosdetalhesComponent } from '../LivroAll/livrosdetalhes/livrosdetalhes.component';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { FinalizarpedidoComponent } from '../finalizarpedido/finalizarpedido.component';
+import { EditoraComponent } from '../editora/editora.component';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-header',
@@ -24,12 +26,14 @@ import { FinalizarpedidoComponent } from '../finalizarpedido/finalizarpedido.com
     LivrosdetalhesComponent,
     PerfilComponent,
     FinalizarpedidoComponent,
+    EditoraComponent,
+    HomeComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() componenteAtual: string = 'livros'; // Componente inicial
+  @Input() componenteAtual: string = 'home'; // Componente inicial
   livros: any[] = []; // Armazenará os livros para serem passados ao app-livrolistafilter
 
   @Input() livrofiltro: number = 0;

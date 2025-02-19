@@ -1,45 +1,67 @@
-<div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl">
-  <h2 class="text-3xl font-bold mb-8 text-gray-900">Finalizar Pedido</h2>
+<div
+  class="max-w-4xl mx-auto p-8 bg-[#f4ebd0] shadow-2xl rounded-2xl transform transition-all duration-500 hover:scale-105"
+>
+  <h2
+    class="text-4xl font-bold mb-8 text-[#063831] text-center animate-fade-in"
+  >
+    Finalizar Pedido
+  </h2>
 
   <!-- Dados do Usuário -->
-  <div class="mb-8 p-6 border rounded-lg bg-gray-50 shadow-md">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Dados do Cliente</h3>
-    <p class="text-gray-700"><strong>Nome:</strong> {{ usuario.nome }}</p>
-    <p class="text-gray-700"><strong>Email:</strong> {{ usuario.email }}</p>
-    <p class="text-gray-700"><strong>CPF:</strong> {{ usuario.cpf }}</p>
-    <p class="text-gray-700">
+  <div
+    class="mb-8 p-6 border-2 border-[#b68d40] rounded-lg bg-white shadow-lg transform transition-all duration-300 hover:shadow-xl"
+  >
+    <h3 class="text-2xl font-semibold text-[#063831] mb-4">Dados do Cliente</h3>
+    <p class="text-[#063831]"><strong>Nome:</strong> {{ usuario.nome }}</p>
+    <p class="text-[#063831]"><strong>Email:</strong> {{ usuario.email }}</p>
+    <p class="text-[#063831]"><strong>CPF:</strong> {{ usuario.cpf }}</p>
+    <p class="text-[#063831]">
       <strong>Data de Nascimento:</strong> {{ usuario.dataNascimento }}
     </p>
   </div>
-
-  <!-- Endereços -->
-  <div class="mb-8 p-6 border rounded-lg bg-gray-50 shadow-md">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+  <div>
+    <!-- Endereços -->
+    <h3 class="text-2xl font-semibold text-[#063831] mb-4 border-b-10">
       Endereços de Entrega
     </h3>
-    <ul class="space-y-2">
-      <li *ngFor="let endereco of enderecos" class="text-gray-700">
-        <p>
-          {{ endereco.logradouro }}, {{ endereco.complemento }}<br />
+    <ul class="space-y-4">
+      <li
+        *ngFor="let endereco of enderecos"
+        class="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-100 transition"
+      >
+        <input
+          type="radio"
+          name="endereco"
+          [value]="endereco"
+          required
+          class="w-5 h-5 text-[#b68d40] focus:ring-[#b68d40] cursor-pointer"
+        />
+        <p class="text-[#063831]">
+          <strong>{{ endereco.logradouro }}, {{ endereco.complemento }}</strong
+          ><br />
           {{ endereco.bairro }}, {{ endereco.localidade }} - {{ endereco.uf }}
         </p>
       </li>
     </ul>
   </div>
-
+  <h3 class="text-2xl font-semibold text-[#063831] mb-4 border-b-10"></h3>
   <!-- Itens do Carrinho -->
-  <div class="mb-8 p-6 border rounded-lg bg-gray-50 shadow-md">
-    <h3 class="text-xl font-semibold text-gray-800 mb-4">Itens do Pedido</h3>
+  <div
+    class="mb-8 p-6 border-2 border-[#b68d40] rounded-lg bg-white shadow-lg transform transition-all duration-300 hover:shadow-xl"
+  >
+    <h3 class="text-2xl font-semibold text-[#063831] mb-4">Itens do Pedido</h3>
     <ul class="space-y-4">
       <li
         *ngFor="let item of itensCarrinho"
-        class="flex justify-between items-center py-4 border-b"
+        class="flex justify-between items-center py-4 border-b border-[#b68d40]"
       >
         <div>
-          <p class="text-gray-800 font-semibold">{{ item.titulo }}</p>
-          <p class="text-gray-600 text-sm">Quantidade: {{ item.quantidade }}</p>
+          <p class="text-[#063831] font-semibold">{{ item.titulo }}</p>
+          <p class="text-[#063831] text-sm">
+            Quantidade: {{ item.quantidade }}
+          </p>
         </div>
-        <p class="text-gray-800 font-semibold">
+        <p class="text-[#063831] font-semibold">
           R$ {{ item.preco | number : "1.2-2" }}
         </p>
       </li>
@@ -50,21 +72,21 @@
   <div class="text-center">
     <button
       (click)="finalizarCompra()"
-      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+      class="px-8 py-4 bg-[#b68d40] text-[#f4ebd0] font-semibold rounded-lg shadow-lg hover:bg-[#063831] hover:text-[#f4ebd0] transition-all duration-300 transform hover:scale-105"
     >
       Gerar QR Code
     </button>
   </div>
 
   <!-- Exibição do QR Code -->
-  <div *ngIf="qrCodeUrl" class="mt-8 text-center">
-    <h3 class="text-2xl font-semibold mb-4 text-gray-800">
+  <div *ngIf="qrCodeUrl" class="mt-8 text-center animate-fade-in">
+    <h3 class="text-3xl font-semibold mb-4 text-[#063831]">
       QR Code para Pagamento
     </h3>
     <img
       [src]="qrCodeUrl"
       alt="QR Code de Pagamento"
-      class="mx-auto w-64 h-64 rounded-lg shadow-md"
+      class="mx-auto w-72 h-72 rounded-lg shadow-lg border-4 border-[#b68d40]"
     />
   </div>
 </div>

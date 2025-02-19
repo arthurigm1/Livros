@@ -1,10 +1,75 @@
-<div class="p-4">
-  <button
-    (click)="voltarParaLista()"
-    class="mt-4 bg-gray-500 text-white py-2 px-4 rounded"
-  >
-    Voltar
-  </button>
-  <h2 class="text-2xl font-bold">{{ livroId }}</h2>
-  {{ livroId }}
+<div class="flex items-center justify-center min-h-screen bg-gray-100 p-0">
+  <div class="bg-white shadow-xl rounded-lg overflow-hidden max-w-6xl w-full">
+    <!-- Container principal -->
+    <div class="flex flex-col md:flex-row">
+      <!-- Imagem do Livro -->
+      <div class="md:w-1/2 p-6">
+        <img
+          [src]="livro.img"
+          alt="Capa do Livro"
+          class="w-full h-auto rounded-lg shadow-md"
+        />
+      </div>
+
+      <!-- Informações do Livro -->
+      <div class="md:w-1/2 p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+          {{ livro.titulo }}
+        </h1>
+
+        <!-- Detalhes do Livro -->
+        <div class="space-y-4">
+          <p class="text-lg text-gray-700">
+            <strong>ISBN:</strong> {{ livro.isbn }}
+          </p>
+          <p class="text-lg text-gray-700">
+            <strong>Gênero:</strong> {{ livro.genero }}
+          </p>
+          <p class="text-lg text-gray-700">
+            <strong>Data de Publicação:</strong> {{ livro.dataPublicacao }}
+          </p>
+          <p class="text-lg text-gray-700">
+            <strong>Descrição:</strong> {{ livro.descricao }}
+          </p>
+        </div>
+
+        <!-- Informações do Autor -->
+        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            Sobre o Autor
+          </h2>
+          <p class="text-gray-700">
+            <strong>Nome:</strong> {{ livro.autor.nome }}
+          </p>
+          <p class="text-gray-700">
+            <strong>Nacionalidade:</strong> {{ livro.autor.nacionalidade }}
+          </p>
+          <p class="text-gray-700">
+            <strong>Data de Nascimento:</strong>
+            {{ livro.autor.dataNascimento }}
+          </p>
+        </div>
+
+        <!-- Preço e Botões -->
+        <div class="mt-6">
+          <p class="text-3xl font-bold text-green-600 mb-4">
+            R$ {{ livro.preco | number : "1.2-2" }}
+          </p>
+          <div class="flex flex-col md:flex-row gap-4">
+            <button
+              class="bg-[#b68d40] hover:bg-[#f4ebd0] text-white font-bold py-3 px-6 rounded-lg transition flex-1 cursor-pointer"
+            >
+              Adicionar ao Carrinho
+            </button>
+            <button
+              (click)="voltarParaLista()"
+              class="bg-[#063831] hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1 cursor-pointer"
+            >
+              Voltar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

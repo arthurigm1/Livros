@@ -10,34 +10,47 @@
   >
     <div
       *ngFor="let autor of autores"
-      class="bg-white rounded-lg shadow-lg p-4 hover:shadow-2xl transition-shadow duration-300 autor-item"
+      class="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300 autor-item"
       [@fadeInList]
     >
+      <!-- Imagem do Autor -->
       <img
         src="https://s2.glbimg.com/Ecj1Ne9SZuc5gQzJC44S96yPUhk=/e.glbimg.com/og/ed/f/original/2019/05/17/machado_de_assis_real.jpg"
-        alt="Capa do Livro"
-        class="w-full h-40 object-contain rounded-md mb-4"
+        alt="{{ autor.nome }}"
+        class="w-full max-h-48 object-contain rounded-md mb-4"
       />
-      <h3 class="text-xl font-semibold text-gray-800">{{ autor.nome }}</h3>
-      <p class="text-gray-600 text-sm">
+
+      <!-- Nome do Autor -->
+      <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ autor.nome }}</h3>
+
+      <!-- Informações do Autor -->
+      <p class="text-gray-600 text-sm mb-1">
         <strong>Data de Nascimento:</strong> {{ autor.dataNascimento }}
       </p>
-      <p class="text-gray-600 text-sm">
+      <p class="text-gray-600 text-sm mb-4">
         <strong>Nacionalidade:</strong> {{ autor.nacionalidade }}
       </p>
+      <p class="text-gray-600 text-sm mb-4">
+        <strong>descricao:</strong> {{ autor.descricao }}
+      </p>
 
+      <!-- Lista de Livros do Autor -->
       <div *ngIf="autor.livros?.length > 0" class="mt-4">
-        <h4 class="text-lg font-semibold text-gray-700">Livros:</h4>
+        <h4 class="text-lg font-semibold text-gray-700 mb-2">Livros:</h4>
         <ul class="list-disc pl-5">
-          <li *ngFor="let livro of autor.livros" class="text-gray-600 text-sm">
+          <li
+            *ngFor="let livro of autor.livros"
+            class="text-gray-600 text-sm mb-1"
+          >
             {{ livro.titulo }} - {{ livro.isbn }}
           </li>
         </ul>
       </div>
 
-      <div class="flex gap-2 mt-4">
+      <!-- Botão para Ver Livros -->
+      <div class="flex gap-2 mt-6">
         <button
-          class="flex-1 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200"
+          class="flex-1 bg-[#b68d40] text-white py-2 rounded-lg hover:bg-[#063831] transition-colors duration-200 shadow-md hover:shadow-lg"
         >
           Ver Livros
         </button>

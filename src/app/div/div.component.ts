@@ -130,12 +130,16 @@ export class DivComponent {
   adicionarLivroAoCarrinho(livroId: number): void {
     this.carrinhoService.adicionarAoCarrinho(livroId).subscribe(
       (response) => {
-        this.toastService.success('Livro adicionado no Carrinho');
+        this.toastService.success('Livro adicionado no Carrinho', '', {
+          positionClass: 'toast-top-center',
+        });
         this.carregarCarrinho();
         this.cdr.detectChanges();
       },
       (error) => {
-        this.toastService.error('Erro Interno!');
+        this.toastService.error('Erro Interno!', '', {
+          positionClass: 'toast-top-center',
+        });
       }
     );
   }
@@ -153,13 +157,19 @@ export class DivComponent {
         next: (response) => {
           // Atualizar o total do carrinho
           this.toastService.success(
-            'Uma unidade do livro removida com sucesso!'
+            'Uma unidade do livro removida com sucesso!',
+            '',
+            {
+              positionClass: 'toast-top-center',
+            }
           );
         },
         error: () => {
           // Caso haja erro, revertê-lo localmente
           item.quantidade++;
-          this.toastService.error('Erro ao remover o livro');
+          this.toastService.error('Erro ao remover o livro', '', {
+            positionClass: 'toast-top-center',
+          });
         },
       });
     } else if (item && item.quantidade === 1) {
@@ -171,12 +181,20 @@ export class DivComponent {
       // Atualizar o carrinho no back-end para remover completamente o item
       this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
         next: (response) => {
-          this.toastService.success('Livro removido do carrinho com sucesso!');
+          this.toastService.success(
+            'Livro removido do carrinho com sucesso!',
+            '',
+            {
+              positionClass: 'toast-top-center',
+            }
+          );
         },
         error: () => {
           // Caso haja erro, recarregar o item
           this.itensCarrinho.push(item);
-          this.toastService.error('Erro ao remover o livro');
+          this.toastService.error('Erro ao remover o livro', '', {
+            positionClass: 'toast-top-center',
+          });
         },
       });
     }

@@ -9,5 +9,6 @@ export interface ResultadoLivroDto {
     nome: string;
     dataNascimento: string;
   };
-   favorito?: boolean;  // Adiciona a propriedade como opcional
+  favorito?: boolean; // Adiciona a propriedade como opcional
+  img: string;
 }

@@ -7,6 +7,7 @@
         (componenteAlterado)="componenteAtual = $event"
       ></app-div>
 
+      <app-home *ngIf="componenteAtual === 'home'" />
       <!-- O conteúdo que será exibido abaixo da Div fixa -->
       <div class="flex-grow overflow-auto pb-20">
         <app-livro
@@ -18,6 +19,7 @@
           *ngIf="componenteAtual === 'finalizarpedido'"
         ></app-finalizarpedido>
         <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
+        <app-editora *ngIf="componenteAtual === 'editora'"></app-editora>
         <app-livrosdetalhes
           *ngIf="componenteAtual === 'detalhesLivro'"
           [livroId]="livrofiltro"

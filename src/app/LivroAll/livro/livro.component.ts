@@ -23,7 +23,6 @@ import {
 import { LivroService } from '../../services/livro/livro.service';
 import { FavoritoService } from '../../services/livro/favorito.service';
 import { DivComponent } from '../../div/div.component';
-import { SwiperModule } from 'swiper/types';
 
 @Component({
   selector: 'app-livro',
@@ -45,7 +44,8 @@ import { SwiperModule } from 'swiper/types';
 })
 export class LivrosComponent implements OnInit {
   itensCarrinho: LivroCarrinho[] = [];
-  livros: ResultadoLivroDto[] = [];
+  todosLivros: ResultadoLivroDto[] = []; // Mantém todos os livros carregados
+  livros: ResultadoLivroDto[] = []; // Contém apenas os livros visíveis na página atual
   isLoggedIn$: Observable<boolean>; // Observável para o estado de login
   favoritosIds: number[] = []; // Lista dos IDs dos livros favoritos do usuário
   @Output() livroSelecionado = new EventEmitter<any>(); // Evento para enviar livro selecionado
@@ -53,7 +53,9 @@ export class LivrosComponent implements OnInit {
   @Output() componenteAlterado: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
-
+  paginaAtual: number = 1;
+  tamanhoPagina: number = 10; // Número de livros por página
+  totalPaginas: number = 0;
   constructor(
     private favoritoService: FavoritoService,
     private livroService: LivroService,
@@ -65,14 +67,16 @@ export class LivrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Carregar todos os livros
     this.livroService.buscarLivros().subscribe(
       (data) => {
-        this.livros = data.map((livro) => {
-          // Verificar se o livro está nos favoritos, usando IDs
+        this.todosLivros = data.map((livro) => {
           livro.favorito = this.isFavorito(livro);
           return livro;
         });
+        this.totalPaginas = Math.ceil(
+          this.todosLivros.length / this.tamanhoPagina
+        );
+        this.atualizarPagina(); // Atualizar a exibição inicial dos livros paginados
       },
       (error) => {
         console.error('Erro ao carregar livros', error);
@@ -87,7 +91,7 @@ export class LivrosComponent implements OnInit {
             // Armazenar apenas os IDs dos livros favoritos
             this.favoritosIds = favoritos.map((livro) => livro.id); // Aqui, pegamos apenas os IDs
             // Marcar os livros como favoritos ou não com base nos IDs
-            this.livros = this.livros.map((livro) => {
+            this.todosLivros = this.todosLivros.map((livro) => {
               livro.favorito = this.isFavorito(livro);
               return livro;
             });
@@ -98,43 +102,26 @@ export class LivrosComponent implements OnInit {
         );
       }
     });
-
-    const swiper = new Swiper('.swiper', {
-      slidesPerView: 3, // Exibe 3 slides por vez
-      spaceBetween: 1, // Espaço entre os slides
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
   }
-  autores = [
-    {
-      nome: 'Clarice',
-      foto: 'assets/autores/clarice.jpg',
-    },
-    {
-      nome: 'Carlos',
-      foto: 'assets/autores/carlos.jpg',
-    },
-    {
-      nome: 'Autor 3',
-      foto: 'assets/autores/carlos.jpg', // Adicione mais fotos conforme necessário
-    },
-    {
-      nome: 'Autor 4',
-      foto: 'assets/autores/carlos.jpg',
-    },
-    {
-      nome: 'Autor 5',
-      foto: 'assets/autores/clarice.jpg',
-    },
-  ];
+  atualizarPagina(): void {
+    const inicio = (this.paginaAtual - 1) * this.tamanhoPagina;
+    const fim = inicio + this.tamanhoPagina;
+    this.livros = this.todosLivros.slice(inicio, fim);
+  }
+
+  proximaPagina(): void {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.paginaAtual++;
+      this.atualizarPagina();
+    }
+  }
+
+  paginaAnterior(): void {
+    if (this.paginaAtual > 1) {
+      this.paginaAtual--;
+      this.atualizarPagina();
+    }
+  }
   private isFavorito(livro: ResultadoLivroDto): boolean {
     // Verificar se o livro está nos favoritos, usando apenas os IDs
     return this.favoritosIds.includes(livro.id);
@@ -148,11 +135,25 @@ export class LivrosComponent implements OnInit {
   }
 
   adicionarLivroAoCarrinho(livroId: number): void {
-    this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
-      next: (response: any) => {
-        this.toastService.success('Livro adicionado no Carrinho');
-      },
-      error: () => this.toastService.error('Erro Interno!'),
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.carrinhoService.adicionarAoCarrinho(livroId).subscribe({
+          next: (response: any) => {
+            this.toastService.success('Livro adicionado no Carrinho');
+          },
+          error: () => this.toastService.error('Erro Interno!'),
+        });
+      } else {
+        this.toastService.error(
+          'Você precisa estar logado para adicionar um livro no Carrinho',
+          'Atenção',
+          {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+          }
+        );
+      }
     });
   }
 
@@ -214,26 +215,8 @@ export class LivrosComponent implements OnInit {
     // Atualizar favoritos no LocalStorage com os IDs
     localStorage.setItem('favoritos', JSON.stringify(this.favoritosIds));
   }
-  currentIndex = 0;
-  totalItems = 2; // Número total de imagens
-  offset = 0;
 
-  next() {
-    this.currentIndex = (this.currentIndex + 1) % this.totalItems;
-    this.updateOffset();
-  }
-
-  prev() {
-    this.currentIndex =
-      (this.currentIndex - 1 + this.totalItems) % this.totalItems;
-    this.updateOffset();
-  }
-
-  updateOffset() {
-    this.offset = -this.currentIndex * 100;
-  }
   selecionarLivro(id: number) {
-    console.log('🔍 Emitindo evento com ID:', id);
     this.componenteAlterado.emit('detalhesLivro');
     this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
   }

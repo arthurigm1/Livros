@@ -70,7 +70,7 @@ export class LoginComponent {
 
   recuperarSenha() {
     const dialogRef = this.dialog.open(ForgotPasswordDialogComponentComponent, {
-      width: '400px',
+      width: '350px',
     });
 
     dialogRef.afterClosed().subscribe((email: string) => {

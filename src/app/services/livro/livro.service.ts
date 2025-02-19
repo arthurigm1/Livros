@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ResultadoLivroDto } from '../../interface/ResultadoLivroDto.interface';
+import { LivroDetalhadoDto } from '../../interface/livro-detalhado.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -43,5 +44,11 @@ export class LivroService {
     return this.httpClient.get<ResultadoLivroDto[]>(this.apiUrl + '/livros', {
       params,
     });
+  }
+
+  obterDetalhes(id: string): Observable<LivroDetalhadoDto> {
+    return this.httpClient.get<LivroDetalhadoDto>(
+      `${this.apiUrl}/livros/${id}`
+    );
   }
 }
