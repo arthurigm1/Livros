@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario, UsuarioService } from '../usuario.service';
+import { Usuario, UsuarioService } from '../services/user/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { EnderecoService } from '../endereco.service';
+import { EnderecoService } from '../services/user/endereco.service';
 import { Endereco } from '../interface/Endereco.interface';
-import { PedidoService } from '../pedido.service';
+import { PedidoService } from '../services/user/pedido.service';
 import { Pedido } from '../interface/Pedido.interface';
 
 @Component({
@@ -78,7 +78,16 @@ export class PerfilComponent implements OnInit {
       },
     });
   }
+  secaoAtiva: string = 'perfil'; // Define a seção inicial como 'perfil'
+  currentSection: string = 'profile'; // A seção inicial é 'profile'
 
+  // Função para alternar as seções
+  setSection(section: string): void {
+    this.currentSection = section;
+  }
+  selecionarSecao(secao: string) {
+    this.secaoAtiva = secao;
+  }
   abrirModalAlterarSenha(): void {
     this.showAlterarSenhaModal = true;
   }

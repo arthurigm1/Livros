@@ -1,8 +1,6 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100 p-0">
   <div class="bg-white shadow-xl rounded-lg overflow-hidden max-w-6xl w-full">
-    <!-- Container principal -->
     <div class="flex flex-col md:flex-row">
-      <!-- Imagem do Livro -->
       <div class="md:w-1/2 p-6">
         <img
           [src]="livro.img"
@@ -10,14 +8,10 @@
           class="w-full h-auto rounded-lg shadow-md"
         />
       </div>
-
-      <!-- Informações do Livro -->
       <div class="md:w-1/2 p-6">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">
           {{ livro.titulo }}
         </h1>
-
-        <!-- Detalhes do Livro -->
         <div class="space-y-4">
           <p class="text-lg text-gray-700">
             <strong>ISBN:</strong> {{ livro.isbn }}
@@ -32,8 +26,6 @@
             <strong>Descrição:</strong> {{ livro.descricao }}
           </p>
         </div>
-
-        <!-- Informações do Autor -->
         <div class="mt-6 p-4 bg-gray-50 rounded-lg">
           <h2 class="text-xl font-semibold text-gray-800 mb-2">
             Sobre o Autor
@@ -49,14 +41,13 @@
             {{ livro.autor.dataNascimento }}
           </p>
         </div>
-
-        <!-- Preço e Botões -->
         <div class="mt-6">
           <p class="text-3xl font-bold text-green-600 mb-4">
             R$ {{ livro.preco | number : "1.2-2" }}
           </p>
           <div class="flex flex-col md:flex-row gap-4">
             <button
+              (click)="adicionarLivroAoCarrinho(livro.id)"
               class="bg-[#b68d40] hover:bg-[#f4ebd0] text-white font-bold py-3 px-6 rounded-lg transition flex-1 cursor-pointer"
             >
               Adicionar ao Carrinho
@@ -66,6 +57,47 @@
               class="bg-[#063831] hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition flex-1 cursor-pointer"
             >
               Voltar
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Avaliações</h2>
+          <div *ngFor="let avaliacao of avaliacoes">
+            <div class="flex items-center">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <span
+                  [class.text-yellow-500]="star <= avaliacao.nota"
+                  class="text-gray-300 text-xl"
+                  >&#9733;</span
+                >
+              </ng-container>
+              <p class="ml-2 text-gray-700">{{ avaliacao.comentario }}</p>
+            </div>
+            <hr class="my-3" />
+          </div>
+          <div class="mt-4">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              Deixe sua Avaliação
+            </h3>
+            <div class="flex items-center space-x-2">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <span
+                  (click)="novaAvaliacao.nota = star"
+                  [class.text-yellow-500]="star <= novaAvaliacao.nota"
+                  class="cursor-pointer text-gray-300 text-2xl"
+                  >&#9733;</span
+                >
+              </ng-container>
+            </div>
+            <input
+              type="text"
+              class="border p-2 rounded w-full mt-2"
+              placeholder="Deixe um comentário..."
+            />
+            <button
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-3 w-full"
+            >
+              Enviar Avaliação
             </button>
           </div>
         </div>

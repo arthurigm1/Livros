@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario, UsuarioService } from '../usuario.service';
+import { Usuario, UsuarioService } from '../services/user/usuario.service';
 import {
   CarrinhoService,
   LivroCarrinho,
 } from '../services/livro/carrinho.service';
 import { Endereco } from '../interface/Endereco.interface';
-import { EnderecoService } from '../endereco.service';
+import { EnderecoService } from '../services/user/endereco.service';
 import { CommonModule } from '@angular/common';
-import { PedidoService } from '../pedido.service';
+import { PedidoService } from '../services/user/pedido.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormModule } from '@coreui/angular';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-finalizarpedido',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './finalizarpedido.component.html',
   styleUrl: './finalizarpedido.component.scss',
 })
@@ -27,6 +29,7 @@ export class FinalizarpedidoComponent implements OnInit {
   itensCarrinho: LivroCarrinho[] = [];
   enderecos: Endereco[] = [];
   qrCodeUrl: any;
+  selecionadoEnderecoid: string | null = null;
 
   ngOnInit(): void {
     this.carregarUsuario();
@@ -68,7 +71,7 @@ export class FinalizarpedidoComponent implements OnInit {
   }
 
   finalizarCompra(): void {
-    // Montando o pedido para envio ao serviço
+    console.log(this.selecionadoEnderecoid);
     const pedido = {
       itens: this.itensCarrinho.map((item) => ({
         livro: item.livroId,
@@ -82,14 +85,16 @@ export class FinalizarpedidoComponent implements OnInit {
     };
 
     // Enviando o pedido para o serviço e recebendo o QR Code
-    this.pedidoService.criarPedido(pedido).subscribe(
-      (qrCodeBase64) => {
-        console.log('QR Code Base64:', qrCodeBase64);
-        this.qrCodeUrl = qrCodeBase64;
-      },
-      (error) => {
-        console.error('Erro ao finalizar o pedido:', error);
-      }
-    );
+    this.pedidoService
+      .criarPedido(pedido, this.selecionadoEnderecoid)
+      .subscribe(
+        (qrCodeBase64) => {
+          console.log('QR Code Base64:', qrCodeBase64);
+          this.qrCodeUrl = qrCodeBase64;
+        },
+        (error) => {
+          console.error('Erro ao finalizar o pedido:', error);
+        }
+      );
   }
 }

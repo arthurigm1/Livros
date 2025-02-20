@@ -40,6 +40,15 @@ export class LivroService {
     if (filtro.anoPublicacao) {
       params = params.set('ano-publicacao', filtro.anoPublicacao.toString());
     }
+    if (filtro.nomeEditora) {
+      params = params.set('nome-editora', filtro.nomeEditora);
+    }
+    if (filtro.precoMinimo !== null && filtro.precoMinimo !== undefined) {
+      params = params.set('preco-minimo', filtro.precoMinimo.toString());
+    }
+    if (filtro.precoMaximo !== null && filtro.precoMaximo !== undefined) {
+      params = params.set('preco-maximo', filtro.precoMaximo.toString());
+    }
 
     return this.httpClient.get<ResultadoLivroDto[]>(this.apiUrl + '/livros', {
       params,

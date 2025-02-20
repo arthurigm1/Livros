@@ -9,13 +9,13 @@
     [@fadeInList]
   >
     <div
-      *ngFor="let autor of autores"
+      *ngFor="let autor of autoresExibidos"
       class="bg-white rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300 autor-item"
       [@fadeInList]
     >
       <!-- Imagem do Autor -->
       <img
-        src="https://s2.glbimg.com/Ecj1Ne9SZuc5gQzJC44S96yPUhk=/e.glbimg.com/og/ed/f/original/2019/05/17/machado_de_assis_real.jpg"
+        [src]="autor.img"
         alt="{{ autor.nome }}"
         class="w-full max-h-48 object-contain rounded-md mb-4"
       />
@@ -31,7 +31,7 @@
         <strong>Nacionalidade:</strong> {{ autor.nacionalidade }}
       </p>
       <p class="text-gray-600 text-sm mb-4">
-        <strong>descricao:</strong> {{ autor.descricao }}
+        {{ autor.descricao }}
       </p>
 
       <!-- Lista de Livros do Autor -->
@@ -56,6 +56,28 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <div class="flex justify-center mt-4 space-x-4">
+    <button
+      (click)="paginaAnterior()"
+      [disabled]="paginaAtual === 1"
+      class="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+    >
+      Anterior
+    </button>
+
+    <span class="text-lg font-semibold"
+      >Página {{ paginaAtual }} de {{ totalPaginas }}</span
+    >
+
+    <button
+      (click)="proximaPagina()"
+      [disabled]="paginaAtual === totalPaginas"
+      class="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+    >
+      Próxima
+    </button>
   </div>
 </ng-template>
 

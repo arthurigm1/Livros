@@ -10,7 +10,7 @@
     <img
       [src]="slide.src"
       [alt]="slide.title"
-      class="w-[2600px]"
+      class="w-[2600px] h-[350px]"
       loading="lazy"
     />
   </swiper-slide>
@@ -22,23 +22,135 @@
 
   <!-- Swiper -->
   <swiper-container
-    class="w-full max-w-3xl px-4 bg-transparent"
+    class="w-full max-w-7xl px-4 bg-transparent"
     space-between="24"
-    slides-per-view="3"
+    slides-per-view="5"
     grab-cursor="true"
   >
     <swiper-slide
-      *ngFor="let autor of autores"
+      *ngFor="let autor of autoresExibidos"
       class="flex flex-col items-center rounded-lg p-6"
     >
       <img
-        [src]="autor.imagem"
+        [src]="autor.img"
         [alt]="autor.nome"
         class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
       />
       <h4 class="text-xl font-semibold text-[#b68d40] text-center">
         {{ autor.nome }}
       </h4>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div class="relative flex flex-col items-center py-12 bg-transparent">
+  <!-- Título -->
+  <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
+    Livros Mais Vendidos no Brasil!
+  </h2>
+
+  <swiper-container
+    class="w-full max-w-7xl px-4 bg-transparent"
+    space-between="20"
+    slides-per-view="3"
+    grab-cursor="true"
+    breakpoints='{
+      "640": { "slidesPerView": 1 },
+      "768": { "slidesPerView": 2 },
+      "1024": { "slidesPerView": 3 }
+    }'
+  >
+    <swiper-slide
+      *ngFor="let livro of livros"
+      class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
+    >
+      <!-- Imagem do Livro -->
+      <img
+        [src]="livro.img"
+        [alt]="livro.nome"
+        class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+        (click)="selecionarLivro(livro.id)"
+      />
+
+      <!-- Título do Livro -->
+      <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
+        {{ livro.titulo }}
+      </h4>
+      <!-- Botão de Comprar -->
+      <button
+        class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+        (click)="adicionarLivroAoCarrinho(livro.id)"
+      >
+        Comprar: R$ {{ livro.preco }}
+      </button>
+    </swiper-slide>
+  </swiper-container>
+</div>
+
+<div class="relative flex flex-col items-center py-12 bg-transparent">
+  <!-- Título -->
+  <h2 class="text-3xl font-bold text-[#063831] mb-2">Editoras</h2>
+
+  <swiper-container
+    class="w-full max-w-7xl px-4 bg-transparent"
+    space-between="24"
+    slides-per-view="5"
+    grab-cursor="true"
+  >
+    <swiper-slide
+      *ngFor="let editora of editoras"
+      class="flex flex-col items-center rounded-lg p-6"
+    >
+      <img
+        [src]="editora.img"
+        [alt]="editora.nome"
+        class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+      />
+      <h4 class="text-xl font-semibold text-[#b68d40] text-center">
+        {{ editora.nome }}
+      </h4>
+    </swiper-slide>
+  </swiper-container>
+</div>
+<div class="relative flex flex-col items-center py-12 bg-transparent">
+  <!-- Título -->
+  <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
+    Livros de Tecnologia!
+  </h2>
+
+  <swiper-container
+    class="w-full max-w-7xl px-4 bg-transparent"
+    space-between="20"
+    slides-per-view="3"
+    grab-cursor="true"
+    breakpoints='{
+      "640": { "slidesPerView": 1 },
+      "768": { "slidesPerView": 2 },
+      "1024": { "slidesPerView": 3 }
+    }'
+  >
+    <swiper-slide
+      *ngFor="let livro of livrotec"
+      class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
+    >
+      <!-- Imagem do Livro -->
+      <img
+        [src]="livro.img"
+        [alt]="livro.nome"
+        class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+        (click)="selecionarLivro(livro.id)"
+      />
+
+      <!-- Título do Livro -->
+      <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
+        {{ livro.titulo }}
+      </h4>
+      <!-- Botão de Comprar -->
+      <button
+        class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+        (click)="adicionarLivroAoCarrinho(livro.id)"
+      >
+        Comprar: R$ {{ livro.preco }}
+      </button>
     </swiper-slide>
   </swiper-container>
 </div>

@@ -1,305 +1,247 @@
-<div class="container mx-auto p-6 space-y-8">
-  <!-- Perfil -->
-  <div
-    class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl transform transition-all hover:scale-105 animate__animated animate__fadeIn"
-  >
-    <h2 class="text-3xl font-bold text-[#063831] mb-6">Meu Perfil</h2>
-    <div class="flex space-x-6 items-center">
-      <div
-        class="w-32 h-32 rounded-full border-4 border-[#b68d40] overflow-hidden"
-      >
-        <img
-          src="https://via.placeholder.com/150"
-          alt="Foto de Perfil"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      <div class="flex flex-col justify-center flex-1">
-        <div *ngIf="!editando" class="space-y-2">
-          <p class="text-2xl font-semibold text-[#063831]">
-            {{ usuario.nome }}
-          </p>
-          <p class="text-lg text-[#063831]">{{ usuario.email }}</p>
-          <p class="text-lg text-[#063831]">CPF: {{ usuario.cpf }}</p>
-          <p class="text-lg text-[#063831]">
-            Data de Nascimento: {{ usuario.dataNascimento }}
-          </p>
-          <div class="mt-4 space-x-4">
+<div
+  class="flex justify-center items-center border-15 border-gray-100 bg-gray-100"
+>
+  <div class="w-full max-w-5xl bg-white shadow-lg rounded-2xl p-6">
+    <h1 class="text-3xl font-semibold text-gray-900 mb-6 text-center">
+      Bem vindo! {{ usuario.nome }}
+    </h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Sidebar -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+          Meu Perfil
+        </h2>
+        <ul class="space-y-4">
+          <li>
             <button
-              class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-              (click)="editando = true"
+              class="w-full text-left px-4 py-3 bg-white hover:bg-gray-100 rounded-lg transition shadow-md"
+              (click)="setSection('profile')"
             >
-              Editar Perfil
+              Meu Perfil
             </button>
+          </li>
+          <li>
             <button
-              class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
-              (click)="abrirModalAlterarSenha()"
+              class="w-full text-left px-4 py-3 bg-white hover:bg-gray-100 rounded-lg transition shadow-md"
+              (click)="setSection('addresses')"
+            >
+              Meus Endereços
+            </button>
+          </li>
+          <li>
+            <button
+              class="w-full text-left px-4 py-3 bg-white hover:bg-gray-100 rounded-lg transition shadow-md"
+              (click)="setSection('orders')"
+            >
+              Meus Pedidos
+            </button>
+          </li>
+          <li>
+            <button
+              class="w-full text-left px-4 py-3 bg-white hover:bg-gray-100 rounded-lg transition shadow-md"
+              (click)="setSection('alterarSenha')"
             >
               Alterar Senha
             </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-span-2 bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">
+          Detalhes do Perfil
+        </h2>
+
+        <!-- Seções de conteúdo -->
+        <div *ngIf="currentSection === 'profile'">
+          <div class="flex flex-col justify-center flex-1">
+            <div *ngIf="!editando" class="space-y-2">
+              <p class="text-2xl font-semibold text-[#063831]">
+                Nome: {{ usuario.nome }}
+              </p>
+              <p class="text-lg text-[#063831]">
+                Seu email: {{ usuario.email }}
+              </p>
+              <p class="text-lg text-[#063831]">CPF: {{ usuario.cpf }}</p>
+              <p class="text-lg text-[#063831]">
+                Data de Nascimento: {{ usuario.dataNascimento }}
+              </p>
+              <div class="mt-4 space-x-4">
+                <button
+                  class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
+                  (click)="editando = true"
+                >
+                  Editar Perfil
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="editando" class="space-y-4">
+              <form #perfilForm="ngForm" (ngSubmit)="salvarEdicao()">
+                <input
+                  class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
+                  [(ngModel)]="usuario.nome"
+                  name="nome"
+                  placeholder="Nome"
+                  required
+                  minlength="3"
+                  #nome="ngModel"
+                />
+                <div
+                  *ngIf="nome.invalid && nome.touched"
+                  class="text-red-500 text-sm"
+                >
+                  Nome é obrigatório e deve ter pelo menos 3 caracteres.
+                </div>
+
+                <input
+                  class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
+                  [(ngModel)]="usuario.email"
+                  name="email"
+                  placeholder="E-mail"
+                  required
+                  email
+                  #email="ngModel"
+                />
+                <div
+                  *ngIf="email.invalid && email.touched"
+                  class="text-red-500 text-sm"
+                >
+                  E-mail inválido.
+                </div>
+
+                <input
+                  class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
+                  [(ngModel)]="usuario.cpf"
+                  name="cpf"
+                  placeholder="CPF"
+                  required
+                  #cpf="ngModel"
+                />
+                <div
+                  *ngIf="cpf.invalid && cpf.touched"
+                  class="text-red-500 text-sm"
+                >
+                  CPF inválido. Formato esperado: xxx.xxx.xxx-xx
+                </div>
+
+                <input
+                  class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
+                  [(ngModel)]="usuario.dataNascimento"
+                  name="dataNascimento"
+                  type="date"
+                  required
+                  #dataNascimento="ngModel"
+                />
+                <div
+                  *ngIf="dataNascimento.invalid && dataNascimento.touched"
+                  class="text-red-500 text-sm"
+                >
+                  Data de nascimento é obrigatória.
+                </div>
+
+                <div class="mt-4 space-x-4">
+                  <button
+                    class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
+                    [disabled]="perfilForm.invalid"
+                  >
+                    Salvar
+                  </button>
+                  <button
+                    class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
+                    (click)="editando = false"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div *ngIf="editando" class="space-y-4">
-          <form #perfilForm="ngForm" (ngSubmit)="salvarEdicao()">
-            <input
-              class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-              [(ngModel)]="usuario.nome"
-              name="nome"
-              placeholder="Nome"
-              required
-              minlength="3"
-              #nome="ngModel"
-            />
-            <div
-              *ngIf="nome.invalid && nome.touched"
-              class="text-red-500 text-sm"
-            >
-              Nome é obrigatório e deve ter pelo menos 3 caracteres.
-            </div>
-            <input
-              class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-              [(ngModel)]="usuario.email"
-              name="email"
-              placeholder="E-mail"
-              required
-              email
-              #email="ngModel"
-            />
-            <div
-              *ngIf="email.invalid && email.touched"
-              class="text-red-500 text-sm"
-            >
-              E-mail inválido.
-            </div>
-            <input
-              class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-              [(ngModel)]="usuario.cpf"
-              name="cpf"
-              placeholder="CPF"
-              required
-              #cpf="ngModel"
-            />
-            <div
-              *ngIf="cpf.invalid && cpf.touched"
-              class="text-red-500 text-sm"
-            >
-              CPF inválido. Formato esperado: xxx.xxx.xxx-xx
-            </div>
-            <input
-              class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-              [(ngModel)]="usuario.dataNascimento"
-              name="dataNascimento"
-              type="date"
-              required
-              #dataNascimento="ngModel"
-            />
-            <div
-              *ngIf="dataNascimento.invalid && dataNascimento.touched"
-              class="text-red-500 text-sm"
-            >
-              Data de nascimento é obrigatória.
-            </div>
-            <div class="mt-4 space-x-4">
-              <button
-                class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-                [disabled]="perfilForm.invalid"
-              >
-                Salvar
-              </button>
-              <button
-                class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
-                (click)="editando = false"
-              >
-                Cancelar
-              </button>
-            </div>
-          </form>
+
+        <div *ngIf="currentSection === 'addresses'">
+          <p class="text-lg text-gray-600">Informações sobre os endereços.</p>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal de Alteração de Senha -->
-  <div
-    *ngIf="showAlterarSenhaModal"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm z-50"
-  >
-    <div
-      class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl w-96 transform transition-all hover:scale-105"
-    >
-      <h2 class="text-2xl font-bold text-[#063831] mb-6">Alterar Senha</h2>
-      <div class="space-y-4">
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="senhaAtual"
-          type="password"
-          placeholder="Senha Atual"
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novaSenha"
-          type="password"
-          placeholder="Nova Senha"
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="confirmarSenha"
-          type="password"
-          placeholder="Confirmar Nova Senha"
-        />
-      </div>
-      <div class="flex justify-end mt-6 space-x-4">
-        <button
-          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-          (click)="alterarSenha()"
-        >
-          Confirmar
-        </button>
-        <button
-          class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
-          (click)="fecharModalAlterarSenha()"
-        >
-          Cancelar
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Meus Pedidos -->
-  <div
-    class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl transform transition-all hover:scale-105 animate__animated animate__fadeIn"
-  >
-    <h2 class="text-3xl font-bold text-[#063831] mb-6">Meus Pedidos</h2>
-    <div *ngIf="loading" class="text-center text-[#063831]">Carregando...</div>
-
-    <div
-      *ngFor="let pedido of pedidos"
-      class="border-2 border-[#063831] p-6 rounded-lg mb-6 flex justify-between items-center transform transition-all hover:scale-105"
-    >
-      <div>
-        <p class="text-xl font-semibold text-[#063831]">
-          Pedido #{{ pedido.id }}
-        </p>
-        <p class="text-lg text-[#063831]">Data: {{ pedido.status }}</p>
-        <p class="text-lg text-[#063831]">
-          Valor Total: {{ pedido.valorTotal }}
-        </p>
-      </div>
-      <div>
-        <button
-          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-          (click)="baixarRelatorio(pedido.id)"
-        >
-          Baixar Relatório
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Meus Endereços -->
-  <div
-    class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl transform transition-all hover:scale-105 animate__animated animate__fadeIn"
-  >
-    <h2 class="text-3xl font-bold text-[#063831] mb-6">Meus Endereços</h2>
-    <div class="mt-4 space-y-4">
-      <div
-        *ngFor="let endereco of enderecos"
-        class="border-2 border-[#063831] p-6 rounded-lg flex justify-between items-center transform transition-all hover:scale-105"
-      >
-        <div>
-          <p class="text-xl text-[#063831]">
-            {{ endereco.logradouro }}, {{ endereco.complemento }},
-            {{ endereco.bairro }}, {{ endereco.localidade }} {{ endereco.uf }}
-          </p>
-          <p class="text-lg text-[#063831]">{{ endereco.cep }}</p>
-        </div>
-        <div class="flex space-x-4">
-          <button
-            class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-            (click)="editarEndereco(endereco)"
+        <div *ngIf="currentSection === 'orders'">
+          <div
+            class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl transform transition-all hover:scale-105 animate__animated animate__fadeIn"
           >
-            Editar
-          </button>
-          <button
-            class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
-            (click)="deletarEndereco(endereco.id)"
-          >
-            Excluir
-          </button>
+            <h2 class="text-3xl font-bold text-[#063831] mb-6">Meus Pedidos</h2>
+            <div *ngIf="loading" class="text-center text-[#063831]">
+              Carregando...
+            </div>
+            <div
+              *ngIf="pedidos.length === 0"
+              class="text-center text-[#063831]"
+            >
+              Nenhum pedido encontrado.
+            </div>
+            <div
+              *ngFor="let pedido of pedidos"
+              class="border-2 border-[#063831] p-6 rounded-lg mb-6 flex justify-between items-center transform transition-all hover:scale-105"
+            >
+              <div>
+                <p class="text-xl font-semibold text-[#063831]">
+                  Pedido #{{ pedido.id }}
+                </p>
+                <p class="text-lg text-[#063831]">Data: {{ pedido.status }}</p>
+                <p class="text-lg text-[#063831]">
+                  Valor Total: {{ pedido.valorTotal }}
+                </p>
+              </div>
+              <div>
+                <button
+                  class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
+                  (click)="baixarRelatorio(pedido.id)"
+                >
+                  Baixar Relatório
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <button
-      class="mt-6 bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-      (click)="abrirModalNovoEndereco()"
-    >
-      Adicionar Novo Endereço
-    </button>
-  </div>
-
-  <!-- Modal Novo/Editar Endereço -->
-  <div
-    *ngIf="showModalNovoEndereco || showModalEditarEndereco"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm z-50"
-  >
-    <div
-      class="bg-[#f4ebd0] p-8 rounded-lg shadow-2xl w-96 transform transition-all hover:scale-105"
-    >
-      <h2 class="text-2xl font-bold text-[#063831] mb-6">
-        {{ modoEdicaoEndereco ? "Editar Endereço" : "Novo Endereço" }}
-      </h2>
-      <div class="space-y-4">
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.cep"
-          (blur)="buscarCep()"
-          placeholder="CEP"
-          required
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.logradouro"
-          placeholder="Rua"
-          readonly
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.complemento"
-          placeholder="Complemento"
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.bairro"
-          placeholder="Bairro"
-          readonly
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.localidade"
-          placeholder="Cidade"
-          readonly
-        />
-        <input
-          class="border-2 border-[#063831] p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all"
-          [(ngModel)]="novoEndereco.uf"
-          placeholder="Estado"
-          readonly
-        />
-      </div>
-      <div class="flex justify-end mt-6 space-x-4">
-        <button
-          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg hover:bg-[#063831] transition-all transform hover:scale-105"
-          (click)="salvarEndereco()"
-        >
-          {{ modoEdicaoEndereco ? "Salvar Alterações" : "Salvar" }}
-        </button>
-        <button
-          class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105"
-          (click)="fecharModalNovoEndereco()"
-          (click)="fecharModalEditarEndereco()"
-        >
-          Cancelar
-        </button>
+        <div *ngIf="currentSection === 'alterarSenha'">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+            Alterar Senha
+          </h2>
+          <div class="space-y-4">
+            <input
+              class="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:border-gray-500 transition-all"
+              [(ngModel)]="senhaAtual"
+              type="password"
+              placeholder="Senha Atual"
+            />
+            <input
+              class="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:border-gray-500 transition-all"
+              [(ngModel)]="novaSenha"
+              type="password"
+              placeholder="Nova Senha"
+            />
+            <input
+              class="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:border-gray-500 transition-all"
+              [(ngModel)]="confirmarSenha"
+              type="password"
+              placeholder="Confirmar Nova Senha"
+            />
+          </div>
+          <div class="flex justify-end mt-6 space-x-4">
+            <button
+              class="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-all"
+              (click)="alterarSenha()"
+            >
+              Confirmar
+            </button>
+            <button
+              class="bg-gray-300 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-400 transition-all"
+              (click)="fecharModalAlterarSenha()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

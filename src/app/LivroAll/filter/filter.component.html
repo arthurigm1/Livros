@@ -99,8 +99,42 @@
         class="lucide lucide-calendar absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
       ></i>
     </div>
+    <div class="relative">
+      <input
+        type="text"
+        [(ngModel)]="filtro.nomeEditora"
+        placeholder="Pesquisar por editora"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
+      />
+      <i
+        class="lucide lucide-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
+    </div>
+    <div class="relative">
+      <input
+        type="number"
+        [(ngModel)]="filtro.precoMinimo"
+        placeholder="Preço mínimo"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
+      />
+      <i
+        class="lucide lucide-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
+    </div>
+    <div class="relative">
+      <input
+        type="number"
+        [(ngModel)]="filtro.precoMaximo"
+        placeholder="Preço máximo"
+        class="w-full p-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] focus:border-transparent transition-shadow shadow-sm hover:shadow-md"
+      />
+      <i
+        class="lucide lucide-dollar-sign absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
+    </div>
   </div>
-
+</div>
+<div>
   <div class="flex justify-end mt-6 gap-3">
     <!-- Aplicar Filtro -->
     <button

@@ -12,6 +12,7 @@ import { PerfilComponent } from '../perfil/perfil.component';
 import { FinalizarpedidoComponent } from '../finalizarpedido/finalizarpedido.component';
 import { EditoraComponent } from '../editora/editora.component';
 import { HomeComponent } from '../home/home.component';
+import { SobreComponent } from '../sobre/sobre.component';
 
 @Component({
   selector: 'app-header',
@@ -28,6 +29,7 @@ import { HomeComponent } from '../home/home.component';
     FinalizarpedidoComponent,
     EditoraComponent,
     HomeComponent,
+    SobreComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

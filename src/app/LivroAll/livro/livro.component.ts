@@ -88,9 +88,7 @@ export class LivrosComponent implements OnInit {
       if (isLoggedIn) {
         this.favoritoService.obterLivrosFavoritos().subscribe(
           (favoritos: ResultadoLivroDto[]) => {
-            // Armazenar apenas os IDs dos livros favoritos
-            this.favoritosIds = favoritos.map((livro) => livro.id); // Aqui, pegamos apenas os IDs
-            // Marcar os livros como favoritos ou não com base nos IDs
+            this.favoritosIds = favoritos.map((livro) => livro.id);
             this.todosLivros = this.todosLivros.map((livro) => {
               livro.favorito = this.isFavorito(livro);
               return livro;

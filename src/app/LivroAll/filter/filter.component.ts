@@ -26,10 +26,11 @@ export class FilterComponent {
     isbn: '',
     titulo: '',
     autor: '',
-    precoMin: null,
-    precoMax: null,
+    precoMinimo: null,
+    precoMaximo: null,
     genero: '',
     anoPublicacao: null,
+    nomeEditora: '',
   };
 
   @Output() filtrar = new EventEmitter<any>();
@@ -43,10 +44,11 @@ export class FilterComponent {
       isbn: '',
       titulo: '',
       autor: '',
-      precoMin: null,
-      precoMax: null,
+      precoMinimo: null,
+      precoMaximo: null,
       genero: '',
       anoPublicacao: null,
+      nomeEditora: '',
     };
     this.filtrar.emit(this.filtro);
   }

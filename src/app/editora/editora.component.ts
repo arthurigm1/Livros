@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { EditoraService } from '../services/editora.service';
 interface Editora {
   nome: string;
   img: string;
@@ -14,12 +15,11 @@ interface Editora {
 })
 export class EditoraComponent implements OnInit {
   editoras: Editora[] = [];
-  private apiUrl = 'http://localhost:8080/editoras'; // URL da sua API
 
-  constructor(private http: HttpClient) {}
+  constructor(private editoraService: EditoraService) {}
 
   ngOnInit() {
-    this.http.get<Editora[]>(this.apiUrl).subscribe((dados) => {
+    this.editoraService.getEditora().subscribe((dados) => {
       this.editoras = dados;
     });
   }

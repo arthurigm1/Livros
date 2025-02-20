@@ -1,15 +1,19 @@
 <main class="min-h-screen flex flex-col">
   <div class="flex-grow pt-5 flex flex-col overflow-hidden">
     <div class="component-container flex-grow overflow-auto pb-20">
-      <!-- Componente Div fixo -->
       <app-div
         (livrosAtualizados)="atualizarLivros($event)"
         (componenteAlterado)="componenteAtual = $event"
       ></app-div>
 
-      <app-home *ngIf="componenteAtual === 'home'" />
-      <!-- O conteúdo que será exibido abaixo da Div fixa -->
-      <div class="flex-grow overflow-auto pb-20">
+      <app-home
+        class="pt-10"
+        *ngIf="componenteAtual === 'home'"
+        (livrofiltro)="exibirDetalhes($event)"
+        (componenteAlterado)="componenteAtual = $event"
+      />
+
+      <div class="flex-grow overflow-auto pb-10 pt-10">
         <app-livro
           *ngIf="componenteAtual === 'livros'"
           (livrofiltro)="exibirDetalhes($event)"
@@ -29,8 +33,11 @@
         <app-livrolistafilter
           *ngIf="componenteAtual === 'filter'"
           [livros]="livros"
+          (livrofiltro)="exibirDetalhes($event)"
+          (componenteAlterado)="componenteAtual = $event"
         ></app-livrolistafilter>
         <app-favoritos *ngIf="componenteAtual === 'favoritos'"></app-favoritos>
+        <app-sobre *ngIf="componenteAtual === 'sobre'"></app-sobre>
       </div>
     </div>
   </div>

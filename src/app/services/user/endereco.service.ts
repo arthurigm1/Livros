@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Endereco } from './interface/Endereco.interface';
+import { Endereco } from '../../interface/Endereco.interface';
 
 @Injectable({
   providedIn: 'root',

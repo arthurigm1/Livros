@@ -6,7 +6,7 @@ export interface AutorDto {
 }
 
 export interface LivroDetalhadoDto {
-  id: string;
+  id: number;
   isbn: string;
   titulo: string;
   dataPublicacao: string;

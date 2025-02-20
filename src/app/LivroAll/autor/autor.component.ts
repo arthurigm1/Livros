@@ -31,8 +31,11 @@ import { AutorService } from '../../services/autores/autor.service';
 })
 export class AutorComponent implements OnInit {
   autores: any[] = [];
+  autoresExibidos: any[] = [];
   isLoading: boolean = true;
-
+  paginaAtual: number = 1;
+  tamanhoPagina: number = 5;
+  totalPaginas: number = 0;
   constructor(private autorService: AutorService) {}
 
   ngOnInit(): void {
@@ -44,11 +47,33 @@ export class AutorComponent implements OnInit {
       (data) => {
         this.autores = data;
         this.isLoading = false;
+        this.totalPaginas = Math.ceil(this.autores.length / this.tamanhoPagina);
+        this.atualizarPagina();
       },
       (error) => {
         console.error('Erro ao carregar autores', error);
         this.isLoading = false;
       }
     );
+  }
+
+  atualizarPagina(): void {
+    const inicio = (this.paginaAtual - 1) * this.tamanhoPagina;
+    const fim = inicio + this.tamanhoPagina;
+    this.autoresExibidos = this.autores.slice(inicio, fim);
+  }
+
+  proximaPagina(): void {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.paginaAtual++;
+      this.atualizarPagina();
+    }
+  }
+
+  paginaAnterior(): void {
+    if (this.paginaAtual > 1) {
+      this.paginaAtual--;
+      this.atualizarPagina();
+    }
   }
 }

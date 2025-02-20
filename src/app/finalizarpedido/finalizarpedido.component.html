@@ -32,7 +32,8 @@
         <input
           type="radio"
           name="endereco"
-          [value]="endereco"
+          [value]="endereco.id"
+          [(ngModel)]="selecionadoEnderecoid"
           required
           class="w-5 h-5 text-[#b68d40] focus:ring-[#b68d40] cursor-pointer"
         />

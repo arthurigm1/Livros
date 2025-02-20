@@ -3,6 +3,15 @@
   style="background-color: #063831"
 >
   <!-- Cor de fundo personalizada -->
+  <div
+    class="bg-[#f4ebd0] text-black py-2 px-6 flex items-center justify-center text-center"
+  >
+    <!-- Texto centralizado -->
+    <p class="text-sm">
+      Compre aqui livros novos, usados e seminovos de milhares de sebos e
+      livrarias.
+    </p>
+  </div>
 
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
@@ -77,7 +86,7 @@
               <h3 class="text-lg font-semibold text-gray-800">Meu Carrinho</h3>
               <button
                 (click)="toggleCarrinho()"
-                class="text-gray-500 hover:text-gray-700 transition-all cursor-pointer"
+                class="text-gray-500 hover:text-red-500 transition-all cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -310,6 +319,14 @@
           class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
         >
           Editoras
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="alterarComponente('sobre')"
+          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+        >
+          Sobre o Projeto
         </a>
       </li>
     </ul>
