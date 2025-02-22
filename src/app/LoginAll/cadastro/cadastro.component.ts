@@ -50,7 +50,7 @@ export class CadastroComponent implements OnInit {
           );
           this.router.navigate(['/']);
         },
-        error: (err) => this.toastService.error('Revise seus campos', err),
+        error: () => this.toastService.error('Revise seus campos'),
       });
     } else {
       this.toastService.error(

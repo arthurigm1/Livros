@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { LoginService } from './user/login.service';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -11,11 +8,7 @@ export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkToken());
   isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-
-    private loginService: LoginService
-  ) {}
+  constructor() {}
 
   private checkToken(): boolean {
     const token = localStorage.getItem('authToken');

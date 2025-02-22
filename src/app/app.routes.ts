@@ -3,9 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './LoginAll/login/login.component';
-
-import { AutorComponent } from './LivroAll/autor/autor.component';
-
 import { ResetPasswordComponent } from './LoginAll/reset-password/reset-password.component';
 
 export const routes: Routes = [
