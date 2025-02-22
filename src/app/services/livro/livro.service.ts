@@ -13,7 +13,7 @@ export class LivroService {
   private livrosSubject = new BehaviorSubject<any[]>([]);
   livros$ = this.livrosSubject.asObservable();
 
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `https://fullstacklivros-production.up.railway.app`;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 

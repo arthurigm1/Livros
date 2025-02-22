@@ -7,7 +7,8 @@ import { AvaliacaoLivro } from '../../interface/AvaliacaoLivro.interface';
   providedIn: 'root',
 })
 export class AvaliacaoService {
-  private apiUrl = 'http://localhost:8080/avaliacoes';
+  private apiUrl =
+    'https://fullstacklivros-production.up.railway.app/avaliacoes';
   constructor(private http: HttpClient) {}
 
   getAvaliacoes(livroId: number): Observable<AvaliacaoLivro[]> {

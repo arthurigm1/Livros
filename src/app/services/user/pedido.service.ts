@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PedidoService {
-  private apiUrl = 'http://localhost:8080/pedido';
+  private apiUrl = 'https://fullstacklivros-production.up.railway.app/pedido';
 
   constructor(private http: HttpClient) {}
 

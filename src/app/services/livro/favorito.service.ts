@@ -7,7 +7,7 @@ import { ResultadoLivroDto } from '../../interface/ResultadoLivroDto.interface';
   providedIn: 'root',
 })
 export class FavoritoService {
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `https://fullstacklivros-production.up.railway.app`;
   constructor(private http: HttpClient) {}
 
   favoritarLivro(livro: number): Observable<any> {

@@ -14,7 +14,7 @@ export interface Usuario {
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:8080/usuario';
+  private apiUrl = 'https://fullstacklivros-production.up.railway.app/usuario';
 
   constructor(private http: HttpClient) {}
 

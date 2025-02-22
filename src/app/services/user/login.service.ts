@@ -9,7 +9,7 @@ import { LoginResponse } from '../../types/login-response.type';
   providedIn: 'root',
 })
 export class LoginService {
-  apiUrl: string = 'http://localhost:8080/auth';
+  apiUrl: string = 'https://fullstacklivros-production.up.railway.app/auth';
 
   constructor(private httpClient: HttpClient, private router: Router) {} // INICIALIZANDO O HTTP CLIENT
 

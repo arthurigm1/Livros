@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EditoraService {
   constructor(private http: HttpClient) {}
-  private apiUrl = 'http://localhost:8080/editoras';
+  private apiUrl = 'https://fullstacklivros-production.up.railway.app/editoras';
   getEditora(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }

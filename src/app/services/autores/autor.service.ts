@@ -7,7 +7,7 @@ import { AutorDTO } from '../../interface/AutorDetalhes.dto';
   providedIn: 'root',
 })
 export class AutorService {
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `https://fullstacklivros-production.up.railway.app`;
   constructor(private http: HttpClient) {}
 
   getAutores(): Observable<any[]> {

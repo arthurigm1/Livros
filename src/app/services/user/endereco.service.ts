@@ -7,7 +7,8 @@ import { Endereco } from '../../interface/Endereco.interface';
   providedIn: 'root',
 })
 export class EnderecoService {
-  private baseUrl = 'http://localhost:8080/enderecos'; // URL da API para endereços
+  private baseUrl =
+    'https://fullstacklivros-production.up.railway.app/enderecos'; // URL da API para endereços
 
   constructor(private http: HttpClient) {}
 

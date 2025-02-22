@@ -13,7 +13,7 @@ export interface LivroCarrinho {
   providedIn: 'root',
 })
 export class CarrinhoService {
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `https://fullstacklivros-production.up.railway.app`;
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   adicionarAoCarrinho(livroId: number): Observable<any> {
