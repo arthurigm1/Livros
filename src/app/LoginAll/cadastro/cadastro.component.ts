@@ -48,14 +48,7 @@ export class CadastroComponent implements OnInit {
             'Cadastro realizado com sucesso',
             'Sucesso'
           );
-          this.router.navigate(['/livros']);
-        },
-        error: (err) => {
-          this.toastService.error(
-            'Ocorreu um erro ao realizar o cadastro',
-            'Erro'
-          );
-          console.error(err);
+          this.router.navigate(['/']);
         },
       });
     } else {

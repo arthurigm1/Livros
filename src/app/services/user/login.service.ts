@@ -25,7 +25,7 @@ export class LoginService {
 
   signup(nome: string, email: string, senha: string) {
     return this.httpClient
-      .post<LoginResponse>(this.apiUrl + '/register', { nome, email, senha })
+      .post<LoginResponse>(this.apiUrl + '/register', { email, nome, senha })
       .pipe(
         tap((value) => {
           sessionStorage.setItem('username', value.name);
