@@ -12,11 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordDialogComponentComponent } from '../forgot-password-dialog-component/forgot-password-dialog-component.component';
-import {
-  GoogleLoginProvider,
-  SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+
 import { HttpClient } from '@angular/common/http';
 declare const google: any;
 interface LoginForm {
@@ -39,7 +35,6 @@ export class LoginComponent {
     public authService: AuthService,
     private loginService: LoginService,
     private toastService: ToastrService,
-    private socialAuthService: SocialAuthService,
     private http: HttpClient
   ) {
     this.loginForm = new FormGroup({

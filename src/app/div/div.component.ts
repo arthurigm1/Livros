@@ -65,7 +65,7 @@ export class DivComponent {
 
   abrirLogin(): void {
     this.dialog.open(LoginComponent, {
-      width: '400px', // Tamanho do modal
+      width: '400px',
     });
   }
   perfilMenuAberto: boolean = false;
