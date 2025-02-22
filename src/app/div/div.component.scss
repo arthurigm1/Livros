@@ -142,10 +142,10 @@ a.router-link-active {
 
 .login-button:hover::after {
     transform: translate(-50%, -50%) scale(1);
-    /* Ativa o brilho */
+
 }
 
-/* Animação de pulsação */
+
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -162,5 +162,5 @@ a.router-link-active {
 
 .login-button:active {
     animation: pulse 0.3s ease-in-out;
-    /* Animação ao clicar */
+
 }

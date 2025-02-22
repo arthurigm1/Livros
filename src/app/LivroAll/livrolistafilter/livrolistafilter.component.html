@@ -2,7 +2,6 @@
   *ngIf="livros.length > 0; else semLivros"
   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
 >
-  <!-- Lista de livros -->
   <div
     *ngFor="let livro of livros"
     class="bg-white rounded-lg shadow-lg p-1 hover:shadow-2xl transition-shadow duration-300"

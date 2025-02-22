@@ -7,13 +7,18 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../../services/user/login.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordDialogComponentComponent } from '../forgot-password-dialog-component/forgot-password-dialog-component.component';
-
+import {
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
+import { HttpClient } from '@angular/common/http';
+declare const google: any;
 interface LoginForm {
   email: FormControl;
   senha: FormControl;
@@ -31,10 +36,11 @@ export class LoginComponent {
 
   constructor(
     private dialog: MatDialog,
-    private router: Router,
     public authService: AuthService,
     private loginService: LoginService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private socialAuthService: SocialAuthService,
+    private http: HttpClient
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -78,7 +84,7 @@ export class LoginComponent {
         this.loginService.forgotPassword(email).subscribe({
           next: (response) => {
             console.log('Resposta:', response);
-            this.toastService.success(response.message); // Agora acessa response.message
+            this.toastService.success(response.message);
           },
           error: (err) => {
             console.error('Erro:', err);

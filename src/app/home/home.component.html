@@ -4,7 +4,6 @@
   ></div>
 </div>
 
-<!-- Conteúdo Principal -->
 <div *ngIf="!isLoading">
   <swiper-container
     pagination="true"
@@ -51,7 +50,6 @@
     </swiper-container>
   </div>
   <div class="relative flex flex-col items-center py-12 bg-transparent">
-    <!-- Título -->
     <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
       Livros Mais Vendidos no Brasil!
     </h2>
@@ -66,7 +64,6 @@
         *ngFor="let livro of livros"
         class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
       >
-        <!-- Imagem do Livro -->
         <img
           [src]="livro.img"
           [alt]="livro.nome"
@@ -74,16 +71,15 @@
           (click)="selecionarLivro(livro.id)"
         />
 
-        <!-- Título do Livro -->
         <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
           {{ livro.titulo }}
         </h4>
-        <!-- Botão de Comprar -->
+
         <button
           class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
           (click)="adicionarLivroAoCarrinho(livro.id)"
         >
-          Comprar: R$ {{ livro.preco }}
+          Comprar R$ {{ livro.preco }}
         </button>
       </swiper-slide>
     </swiper-container>
@@ -115,7 +111,6 @@
     </swiper-container>
   </div>
   <div class="relative flex flex-col items-center py-12 bg-transparent">
-    <!-- Título -->
     <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
       Livros de Tecnologia!
     </h2>
@@ -130,7 +125,6 @@
         *ngFor="let livro of livrotec"
         class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
       >
-        <!-- Imagem do Livro -->
         <img
           [src]="livro.img"
           [alt]="livro.nome"
@@ -138,16 +132,15 @@
           (click)="selecionarLivro(livro.id)"
         />
 
-        <!-- Título do Livro -->
         <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
           {{ livro.titulo }}
         </h4>
-        <!-- Botão de Comprar -->
+
         <button
           class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
           (click)="adicionarLivroAoCarrinho(livro.id)"
         >
-          Comprar: R$ {{ livro.preco }}
+          Comprar R$ {{ livro.preco }}
         </button>
       </swiper-slide>
     </swiper-container>

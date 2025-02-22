@@ -42,25 +42,10 @@ export class HeaderComponent {
   livros: any[] = [];
   livro: any[] = [];
   @Input() livrofiltro: number = 0;
-  @Input() teste: string = 'teste';
 
-  exibirComponente(componente: string): void {
-    this.componenteAtual = componente;
-  }
-  // Método para atualizar livros
   atualizarLivros(livros: any[]) {
     console.log(livros);
-    this.livros = livros; // Atualiza os livros recebidos
-  }
-
-  atualizarLivrosAutor(livros: any[]) {
-    console.log('Livros recebidos no pai:', livros);
-    this.livros = livros; // Atualiza os livros no componente pai
-  }
-
-  teste2(teste: any) {
-    this.teste = teste;
-    console.log(teste);
+    this.livros = livros;
   }
 
   exibirDetalhes(livroId: number) {

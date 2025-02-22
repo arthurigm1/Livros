@@ -12,7 +12,6 @@
     class="livro-item bg-white rounded-lg shadow-lg p-4 hover:shadow-2xl transition-shadow duration-300"
     [@fadeInList]
   >
-    <!-- Imagem do Livro -->
     <img
       [src]="livro.img"
       alt="Capa do Livro"
@@ -33,7 +32,6 @@
       <strong>Preço:</strong> R$ {{ livro?.preco | number : "1.2-2" }}
     </p>
 
-    <!-- Botão para retirar dos favoritos -->
     <button
       (click)="removerfavorito(livro)"
       class="mt-4 w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300 cursor-pointer"

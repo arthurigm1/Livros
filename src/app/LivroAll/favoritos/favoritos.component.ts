@@ -21,20 +21,20 @@ import { ToastrService } from 'ngx-toastr';
   animations: [
     trigger('fadeInList', [
       transition(':enter', [
-        query('.livro-item', style({ opacity: 0 }), { optional: true }), // Inicia com todos os itens invisíveis
+        query('.livro-item', style({ opacity: 0 }), { optional: true }),
         query(
           '.livro-item',
           stagger('500ms', [animate('1000ms ease-out', style({ opacity: 1 }))]),
           { optional: true }
-        ), // Aparecem com intervalo de 500ms
+        ),
       ]),
     ]),
   ],
 })
 export class FavoritosComponent {
-  livrosFavoritos: ResultadoLivroDto[] = []; // Lista de livros favoritos
-  loading: boolean = true; // Variável para controlar o estado de carregamento
-  errorMessage: string = ''; // Variável para armazenar mensagens de erro
+  livrosFavoritos: ResultadoLivroDto[] = [];
+  loading: boolean = true;
+  errorMessage: string = '';
 
   constructor(
     private favoritoService: FavoritoService,
@@ -42,15 +42,13 @@ export class FavoritosComponent {
   ) {}
 
   ngOnInit(): void {
-    // Carregar os livros favoritos ao inicializar o componente
     this.carregarLivrosFavoritos();
   }
 
-  // Função para carregar livros favoritos
   carregarLivrosFavoritos(): void {
     this.favoritoService.obterLivrosFavoritos().subscribe(
       (data) => {
-        this.livrosFavoritos = data || []; // Garante que seja um array válido
+        this.livrosFavoritos = data || [];
         this.loading = false;
       },
       (error) => {

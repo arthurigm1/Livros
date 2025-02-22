@@ -7,7 +7,7 @@ import { AutorDTO } from '../../interface/AutorDetalhes.dto';
   providedIn: 'root',
 })
 export class AutorService {
-  private apiUrl = `http://localhost:8080`; // Altere 'environment.apiUrl' para a URL base da sua API
+  private apiUrl = `http://localhost:8080`;
   constructor(private http: HttpClient) {}
 
   getAutores(): Observable<any[]> {

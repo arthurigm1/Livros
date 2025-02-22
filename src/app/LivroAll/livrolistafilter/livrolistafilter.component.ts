@@ -23,7 +23,7 @@ import { ResultadoLivroDto } from '../../interface/ResultadoLivroDto.interface';
   styleUrl: './livrolistafilter.component.scss',
 })
 export class LivrolistafilterComponent implements OnInit {
-  @Input() livros: any[] = []; // Recebe os livros do componente pai
+  @Input() livros: any[] = [];
   @Output() componenteAlterado: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
@@ -58,17 +58,15 @@ export class LivrolistafilterComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['livros']) {
-      // Acessando com a notação de índice
-      this.livros = changes['livros'].currentValue; // Atualiza os livros quando houver mudança
+      this.livros = changes['livros'].currentValue;
     }
   }
   private isFavorito(livro: ResultadoLivroDto): boolean {
-    // Verificar se o livro está nos favoritos, usando apenas os IDs
     return this.favoritosIds.includes(livro.id);
   }
   selecionarLivro(id: number) {
     this.componenteAlterado.emit('detalhesLivro');
-    this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
+    this.livrofiltro.emit(id);
   }
   adicionarLivroAoCarrinho(livroId: number): void {
     this.isLoggedIn$.subscribe((isLoggedIn) => {
@@ -134,7 +132,6 @@ export class LivrolistafilterComponent implements OnInit {
     });
   }
   atualizarFavoritosNoLocalStorage() {
-    // Atualizar favoritos no LocalStorage com os IDs
     localStorage.setItem('favoritos', JSON.stringify(this.favoritosIds));
   }
 }

@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-livrosdetalhes',
-  standalone: true, // Adiciona suporte para standalone components
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './livrosdetalhes.component.html',
   styleUrl: './livrosdetalhes.component.scss',

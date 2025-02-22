@@ -10,14 +10,13 @@ import { LivroDetalhadoDto } from '../../interface/livro-detalhado.dto';
   providedIn: 'root',
 })
 export class LivroService {
-  private livrosSubject = new BehaviorSubject<any[]>([]); // Observable para manter os livros
-  livros$ = this.livrosSubject.asObservable(); // Exposição do Observable
+  private livrosSubject = new BehaviorSubject<any[]>([]);
+  livros$ = this.livrosSubject.asObservable();
 
-  private apiUrl = `http://localhost:8080`; // Altere 'environment.apiUrl' para a URL base da sua API
+  private apiUrl = `http://localhost:8080`;
 
-  constructor(private httpClient: HttpClient, private router: Router) {} // INICIALIZANDO O HTTP CLIENT
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
-  // Método para obter todos os livros com paginação
   buscarLivros(): Observable<ResultadoLivroDto[]> {
     return this.httpClient.get<ResultadoLivroDto[]>(this.apiUrl + '/livros');
   }

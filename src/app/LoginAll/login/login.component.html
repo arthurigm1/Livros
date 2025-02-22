@@ -1,11 +1,9 @@
 <div
   class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex justify-center items-center z-50 animate-fadeIn"
 >
-  <!-- Modal Container -->
   <div
     class="p-8 bg-white rounded-2xl shadow-2xl w-[400px] transform scale-95 animate-scaleIn relative border border-[#b68d40]"
   >
-    <!-- Botão de Fechar -->
     <button
       (click)="fechar()"
       class="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition duration-300 cursor-pointer"
@@ -26,12 +24,10 @@
       </svg>
     </button>
 
-    <!-- Título -->
     <h2 class="text-3xl font-bold text-[#063831] text-center mb-6">
       Bem-vindo!
     </h2>
 
-    <!-- Formulário -->
     <form [formGroup]="loginForm" (ngSubmit)="submit()" class="space-y-4">
       <label class="block">
         <span class="text-gray-700 font-medium">Email</span>
@@ -53,7 +49,6 @@
         />
       </label>
 
-      <!-- Link "Esqueci minha senha" -->
       <div class="text-right">
         <button
           type="button"
@@ -64,7 +59,6 @@
         </button>
       </div>
 
-      <!-- Botão de Login -->
       <button
         type="submit"
         class="w-full px-4 py-3 text-white bg-[#063831] rounded-lg hover:bg-[#b68d40] transition duration-300 shadow-md hover:shadow-lg cursor-pointer"
@@ -73,7 +67,6 @@
       </button>
     </form>
 
-    <!-- Login com Google -->
     <div class="mt-4 flex justify-center">
       <button
         class="w-full flex items-center justify-center gap-2 border border-gray-400 py-3 px-4 text-sm font-medium transition duration-300 shadow-md hover:shadow-lg text-gray-700 hover:text-white hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 rounded-lg cursor-pointer"
@@ -87,7 +80,6 @@
       </button>
     </div>
 
-    <!-- Cadastro -->
     <p class="text-center text-gray-700 mt-4">Não tem conta?</p>
     <button
       (click)="abrirCadastro()"

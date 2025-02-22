@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
-  cadastroForm!: FormGroup; // Usando '!' para indicar que será inicializado
+  cadastroForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -44,15 +44,13 @@ export class CadastroComponent implements OnInit {
 
       this.authService.signup(nome, email, senha).subscribe({
         next: (response) => {
-          // Sucesso no cadastro
           this.toastService.success(
             'Cadastro realizado com sucesso',
             'Sucesso'
           );
-          this.router.navigate(['/livros']); // Redireciona para os livros
+          this.router.navigate(['/livros']);
         },
         error: (err) => {
-          // Erro ao fazer o cadastro
           this.toastService.error(
             'Ocorreu um erro ao realizar o cadastro',
             'Erro'
@@ -69,13 +67,13 @@ export class CadastroComponent implements OnInit {
   }
 
   fechar(): void {
-    this.dialog.closeAll(); // Fecha todos os modais abertos
+    this.dialog.closeAll();
   }
-  // Método para abrir o modal de login
+
   abrirLogin(): void {
     this.dialog.closeAll();
     this.dialog.open(LoginComponent, {
-      width: '400px', // Tamanho do modal
+      width: '400px',
     });
   }
 }

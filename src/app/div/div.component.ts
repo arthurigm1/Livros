@@ -25,21 +25,21 @@ import { LivroService } from '../services/livro/livro.service';
 
 @Component({
   selector: 'app-div',
-  imports: [CommonModule, FormsModule], // Importando o módulo comum e LivrosComponent
+  imports: [CommonModule, FormsModule],
   templateUrl: './div.component.html',
-  styleUrls: ['./div.component.scss'], // Corrigido para 'styleUrls'
+  styleUrls: ['./div.component.scss'],
 })
 export class DivComponent {
   @Output() componenteAlterado: EventEmitter<string> =
-    new EventEmitter<string>(); // Emite a alteração do componente
+    new EventEmitter<string>();
 
-  isLoggedIn$: Observable<boolean>; // Observável para o estado de login
-  mostrarCarrinho = false; // Controle para mostrar ou esconder o carrinho
+  isLoggedIn$: Observable<boolean>;
+  mostrarCarrinho = false;
   itensCarrinho: LivroCarrinho[] = [];
   dropdownAberto = false;
 
-  filtroSelecionado: string = ''; // Valor do filtro selecionado
-  termoPesquisa: string = ''; // Valor do termo de pesquisa
+  filtroSelecionado: string = '';
+  termoPesquisa: string = '';
 
   @Input() quantidadeCarrinho: number = 0;
   constructor(
@@ -52,22 +52,17 @@ export class DivComponent {
     private cdr: ChangeDetectorRef,
     private livroService: LivroService
   ) {
-    this.isLoggedIn$ = this.authService.isLoggedIn$; // Assinando o estado de login do serviço
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
-  carrinho() {
-    this.itensCarrinho === null;
-  }
-  // Método que emite a mudança do componente
+
   alterarComponente(componente: string): void {
-    this.componenteAlterado.emit(componente); // Emite a alteração do componente
+    this.componenteAlterado.emit(componente);
   }
 
-  // Método para navegar para a página de autores
   irParaAutores(): void {
-    this.router.navigate(['/autores']); // Navega para a rota "/autores"
+    this.router.navigate(['/autores']);
   }
 
-  // Método para abrir o modal de login
   abrirLogin(): void {
     this.dialog.open(LoginComponent, {
       width: '400px', // Tamanho do modal
@@ -79,20 +74,18 @@ export class DivComponent {
     this.perfilMenuAberto = !this.perfilMenuAberto;
   }
 
-  // Método para realizar o logout
   logout(): void {
-    this.authService.logout(); // Chama o serviço de logout
-    this.toastService.info('Logout efetuado com sucesso'); // Exibe uma mensagem de sucesso
+    this.authService.logout();
+    this.toastService.info('Logout efetuado com sucesso');
     location.reload();
   }
 
-  // Método que carrega itens fictícios no carrinho
   ngOnInit() {
     this.carregarCarrinho();
     initFlowbite();
   }
   toggleCarrinho() {
-    this.mostrarCarrinho = !this.mostrarCarrinho; // Alterna a visibilidade do carrinho
+    this.mostrarCarrinho = !this.mostrarCarrinho;
   }
 
   adicionarItemCarrinho(item: any): void {
@@ -136,17 +129,13 @@ export class DivComponent {
   }
 
   removerLivro(livroId: number): void {
-    // Encontrar o item no carrinho
     const item = this.itensCarrinho.find((item) => item.livroId === livroId);
 
     if (item && item.quantidade > 1) {
-      // Reduzir a quantidade localmente
       item.quantidade--;
 
-      // Atualizar o carrinho no back-end (só a quantidade)
       this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
         next: (response) => {
-          // Atualizar o total do carrinho
           this.toastService.success(
             'Uma unidade do livro removida com sucesso!',
             '',
@@ -156,7 +145,6 @@ export class DivComponent {
           );
         },
         error: () => {
-          // Caso haja erro, revertê-lo localmente
           item.quantidade++;
           this.toastService.error('Erro ao remover o livro', '', {
             positionClass: 'toast-top-center',
@@ -164,12 +152,10 @@ export class DivComponent {
         },
       });
     } else if (item && item.quantidade === 1) {
-      // Se a quantidade for 1, remova o item completamente
       this.itensCarrinho = this.itensCarrinho.filter(
         (item) => item.livroId !== livroId
       );
 
-      // Atualizar o carrinho no back-end para remover completamente o item
       this.carrinhoService.removerUmaQuantidade(livroId).subscribe({
         next: (response) => {
           this.toastService.success(
@@ -181,7 +167,6 @@ export class DivComponent {
           );
         },
         error: () => {
-          // Caso haja erro, recarregar o item
           this.itensCarrinho.push(item);
           this.toastService.error('Erro ao remover o livro', '', {
             positionClass: 'toast-top-center',
@@ -191,7 +176,6 @@ export class DivComponent {
     }
   }
 
-  // Método para fechar o carrinho ao clicar fora dele
   @HostListener('document:click', ['$event'])
   fecharCarrinho(event: Event) {
     const target = event.target as HTMLElement;
@@ -201,9 +185,6 @@ export class DivComponent {
     if (!this.eRef.nativeElement.contains(event.target)) {
       this.perfilMenuAberto = false;
     }
-  }
-  toggleDropdown() {
-    this.dropdownAberto = !this.dropdownAberto;
   }
 
   livros: any[] = [];
@@ -231,8 +212,8 @@ export class DivComponent {
 
     this.livroService.buscarLivrosComFiltros(filtroAtualizado).subscribe(
       (livros) => {
-        this.livrosAtualizados.emit(livros); // Emite os livros para o componente pai
-        this.termoPesquisa = ''; // Limpa o termo de pesquisa
+        this.livrosAtualizados.emit(livros);
+        this.termoPesquisa = '';
       },
       (error) => {
         console.error('Erro ao buscar livros', error);

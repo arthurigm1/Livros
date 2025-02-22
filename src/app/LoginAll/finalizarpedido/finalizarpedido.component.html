@@ -2,8 +2,6 @@
   <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center">
     Finalizar Pedido
   </h2>
-
-  <!-- Dados do Usuário -->
   <div class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
     <h3 class="text-xl font-semibold text-gray-800 mb-4">Dados do Cliente</h3>
     <p class="text-gray-700"><strong>Nome:</strong> {{ usuario.nome }}</p>
@@ -14,7 +12,6 @@
     </p>
   </div>
 
-  <!-- Endereços de Entrega -->
   <div class="mb-8">
     <h3 class="text-xl font-semibold text-gray-800 mb-4">
       Endereços de Entrega
@@ -41,7 +38,6 @@
     </ul>
   </div>
 
-  <!-- Itens do Carrinho -->
   <div class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
     <h3 class="text-xl font-semibold text-gray-800 mb-4">Itens do Pedido</h3>
     <ul class="space-y-4">
@@ -66,7 +62,6 @@
     </div>
   </div>
 
-  <!-- Finalizar Compra -->
   <div class="text-center">
     <button
       (click)="finalizarCompra()"
@@ -76,7 +71,6 @@
     </button>
   </div>
 
-  <!-- Exibição do QR Code -->
   <div *ngIf="qrCodeUrl" class="mt-8 text-center">
     <h3 class="text-2xl font-semibold mb-4 text-[#063831]">
       QR Code para Pagamento

@@ -13,11 +13,11 @@ export interface LivroCarrinho {
   providedIn: 'root',
 })
 export class CarrinhoService {
-  private apiUrl = `http://localhost:8080`; // Altere 'environment.apiUrl' para a URL base da sua API
+  private apiUrl = `http://localhost:8080`;
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   adicionarAoCarrinho(livroId: number): Observable<any> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.apiUrl}/carrinhos`;
     const body = { livroId: livroId };
@@ -26,7 +26,7 @@ export class CarrinhoService {
   }
 
   listarItens(): Observable<LivroCarrinho[]> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.httpClient.get<LivroCarrinho[]>(this.apiUrl + '/carrinhos', {
@@ -34,9 +34,9 @@ export class CarrinhoService {
     });
   }
   removerUmaQuantidade(livroId: number): Observable<any> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `${this.apiUrl}/carrinhos/${livroId}`; // Passando livroId diretamente na URL
+    const url = `${this.apiUrl}/carrinhos/${livroId}`;
 
     return this.httpClient.delete<any>(url, { headers });
   }
@@ -45,14 +45,13 @@ export class CarrinhoService {
     livroId: string,
     quantidade: number
   ): Observable<LivroCarrinho> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    const url = `${this.apiUrl}/${livroId}`; // Caminho para o endpoint PUT
+    const url = `${this.apiUrl}/${livroId}`;
 
-    // Dados a serem enviados no corpo da requisição
     const body = { quantidade };
 
-    return this.httpClient.put<LivroCarrinho>(url, body, { headers }); // Envia o corpo com os dados e os headers
+    return this.httpClient.put<LivroCarrinho>(url, body, { headers });
   }
 }

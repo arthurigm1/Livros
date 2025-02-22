@@ -9,14 +9,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  CarouselComponent,
-  CarouselControlComponent,
-  CarouselInnerComponent,
-  CarouselItemComponent,
-  CarouselModule,
-} from '@coreui/angular';
-import carousel from 'flowbite/lib/esm/components/carousel';
+
 import { register as registerSwiperElements } from 'swiper/element/bundle';
 import { AutorService } from '../services/autores/autor.service';
 import { EditoraService } from '../services/livro/editora.service';
@@ -29,15 +22,7 @@ import { FormsModule } from '@angular/forms';
 registerSwiperElements();
 @Component({
   selector: 'app-home',
-  imports: [
-    CarouselComponent,
-    CarouselInnerComponent,
-    CarouselItemComponent,
-    CarouselControlComponent,
-    CarouselModule,
-    CommonModule,
-    FormsModule,
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -55,7 +40,7 @@ export class HomeComponent implements OnInit {
   }
   isLoading: boolean = true;
   @ViewChild('autoresSwiper') autoresSwiper!: ElementRef;
-  @ViewChild(CarouselComponent) carousel!: CarouselComponent;
+
   @Output() componenteAlterado: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
@@ -76,9 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   carregarDados(): void {
-    this.isLoading = true; // Ativa o estado de carregamento geral
-
-    // Carrega todos os dados simultaneamente
+    this.isLoading = true;
     forkJoin({
       autores: this.autorService.getAutores(),
       editoras: this.editoraService.getEditora(),
@@ -92,17 +75,17 @@ export class HomeComponent implements OnInit {
         this.editoras = data.editoras;
         this.livros = data.livros;
         this.livrotec = data.livrosTec;
-        this.isLoading = false; // Desativa o estado de carregamento geral
+        this.isLoading = false;
       },
       error: () => {
-        this.isLoading = false; // Desativa o estado de carregamento em caso de erro
+        this.isLoading = false;
       },
     });
   }
 
   selecionarLivro(id: number): void {
     this.componenteAlterado.emit('detalhesLivro');
-    this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
+    this.livrofiltro.emit(id);
   }
 
   adicionarLivroAoCarrinho(livroId: number): void {

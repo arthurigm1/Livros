@@ -13,7 +13,7 @@ import { Pedido } from '../../interface/Pedido.interface';
   selector: 'app-perfil',
   imports: [FormsModule, CommonModule],
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss'], // Corrigi 'styleUrl' para 'styleUrls'
+  styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario = {
@@ -23,7 +23,7 @@ export class PerfilComponent implements OnInit {
     cpf: '',
     dataNascimento: '',
   };
-  enderecos: Endereco[] = []; // Adicionando a lista de endereços
+  enderecos: Endereco[] = [];
   editando = false;
   showAlterarSenhaModal = false;
   senhaAtual = '';
@@ -78,10 +78,9 @@ export class PerfilComponent implements OnInit {
       },
     });
   }
-  secaoAtiva: string = 'perfil'; // Define a seção inicial como 'perfil'
-  currentSection: string = 'profile'; // A seção inicial é 'profile'
+  secaoAtiva: string = 'perfil';
+  currentSection: string = 'profile';
 
-  // Função para alternar as seções
   setSection(section: string): void {
     this.currentSection = section;
   }
@@ -126,7 +125,6 @@ export class PerfilComponent implements OnInit {
   }
 
   carregarEnderecos(): void {
-    // Chamada correta para pegar os endereços do usuário
     this.enderecoService.carregarEnderecos().subscribe((dados: any) => {
       this.enderecos = dados;
     });
@@ -134,7 +132,7 @@ export class PerfilComponent implements OnInit {
 
   abrirModalNovoEndereco(): void {
     this.showModalNovoEndereco = true;
-    this.modoEdicaoEndereco = false; // Modo de criação
+    this.modoEdicaoEndereco = false;
     this.novoEndereco = {
       id: '',
       cep: '',
@@ -143,19 +141,19 @@ export class PerfilComponent implements OnInit {
       bairro: '',
       localidade: '',
       uf: '',
-    }; // Limpar os campos
+    };
   }
 
   fecharModalNovoEndereco(): void {
-    this.showModalNovoEndereco = false; // Definir como false para fechar o modal
+    this.showModalNovoEndereco = false;
   }
 
   fecharModalEditarEndereco(): void {
-    this.showModalEditarEndereco = false; // Definir como false para fechar o modal
+    this.showModalEditarEndereco = false;
   }
 
   buscarCep(): void {
-    const cep = this.novoEndereco.cep.replace(/\D/g, ''); // Remove caracteres não numéricos
+    const cep = this.novoEndereco.cep.replace(/\D/g, '');
 
     if (cep.length === 8) {
       // Verifica se o CEP tem 8 caracteres
@@ -188,28 +186,27 @@ export class PerfilComponent implements OnInit {
           () => {
             this.fecharModalNovoEndereco();
             this.carregarEnderecos();
-            this.toastService.success('Endereço editado com sucesso!'); // Sucesso
+            this.toastService.success('Endereço editado com sucesso!');
             this.fecharModalEditarEndereco();
           },
           (erro) => {
             this.toastService.error(
               'Erro ao editar o endereço. Tente novamente.'
-            ); // Erro
+            );
           }
         );
     } else {
-      // Criar
       this.enderecoService.salvarEndereco(this.novoEndereco).subscribe(
         () => {
           this.fecharModalNovoEndereco();
           this.carregarEnderecos();
-          this.toastService.success('Endereço cadastrado com sucesso!'); // Sucesso
+          this.toastService.success('Endereço cadastrado com sucesso!');
           this.fecharModalEditarEndereco();
         },
         (erro) => {
           this.toastService.error(
             'Erro ao cadastrar o endereço. Tente novamente.'
-          ); // Erro
+          );
         }
       );
     }
@@ -225,7 +222,7 @@ export class PerfilComponent implements OnInit {
     this.enderecoService.deletarEndereco(id).subscribe({
       next: () => {
         this.toastService.success('Endereço excluído com sucesso!');
-        this.carregarEnderecos(); // Atualiza a lista de endereços
+        this.carregarEnderecos();
       },
       error: () => {
         this.toastService.error('Erro interno!');
@@ -235,18 +232,14 @@ export class PerfilComponent implements OnInit {
   baixarRelatorio(id: number): void {
     this.pedidoService.baixarRelatorio(id).subscribe(
       (response: Blob) => {
-        // Cria um objeto URL a partir do Blob recebido
         const url = window.URL.createObjectURL(response);
 
-        // Cria um link temporário
         const a = document.createElement('a');
         a.href = url;
-        a.download = `relatorio_pedido_${id}.pdf`; // Nome do arquivo para download
+        a.download = `relatorio_pedido_${id}.pdf`;
 
-        // Dispara o click no link para iniciar o download
         a.click();
 
-        // Libera a URL criada
         window.URL.revokeObjectURL(url);
       },
       (error) => {
@@ -256,7 +249,7 @@ export class PerfilComponent implements OnInit {
   }
 
   isCepValido(): boolean {
-    const cepRegex = /^[0-9]{5}-?[0-9]{3}$/; // Regex para validar o formato do CEP
+    const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
     return cepRegex.test(this.novoEndereco.cep);
   }
   carregarPedidos(): void {

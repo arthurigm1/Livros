@@ -11,7 +11,7 @@ export class AvaliacaoService {
   constructor(private http: HttpClient) {}
 
   getAvaliacoes(livroId: number): Observable<AvaliacaoLivro[]> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<AvaliacaoLivro[]>(`${this.apiUrl}/${livroId}`, {
       headers,
@@ -19,7 +19,7 @@ export class AvaliacaoService {
   }
 
   getMediaAvaliacao(livroId: number): Observable<{ mediaNota: number }> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<{ mediaNota: number }>(
       `${this.apiUrl}/media/${livroId}`,
@@ -33,7 +33,7 @@ export class AvaliacaoService {
     livroId: string,
     avaliacao: AvaliacaoLivro
   ): Observable<AvaliacaoLivro> {
-    const token = localStorage.getItem('authToken'); // Obtendo o token do localStorage
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<AvaliacaoLivro>(
       `${this.apiUrl}/${livroId}`,

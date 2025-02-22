@@ -35,7 +35,6 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Captura o token da URL
     this.route.queryParams.subscribe((params) => {
       this.token = params['token'];
     });
@@ -51,7 +50,7 @@ export class ResetPasswordComponent implements OnInit {
       .resetPassword(this.token, this.resetForm.value.senha)
       .subscribe({
         next: (response) => {
-          this.toastService.success(response.message); // Agora pega a mensagem do JSON
+          this.toastService.success(response.message);
           this.router.navigate(['']);
         },
         error: (error) => {

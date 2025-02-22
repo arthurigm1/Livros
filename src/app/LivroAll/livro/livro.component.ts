@@ -44,18 +44,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
 })
 export class LivrosComponent implements OnInit {
-  itensCarrinho: LivroCarrinho[] = [];
-  todosLivros: ResultadoLivroDto[] = []; // Mantém todos os livros carregados
-  livros: ResultadoLivroDto[] = []; // Contém apenas os livros visíveis na página atual
-  isLoggedIn$: Observable<boolean>; // Observável para o estado de login
-  favoritosIds: number[] = []; // Lista dos IDs dos livros favoritos do usuário
-  @Output() livroSelecionado = new EventEmitter<any>(); // Evento para enviar livro selecionado
+  todosLivros: ResultadoLivroDto[] = [];
+  livros: ResultadoLivroDto[] = [];
+  isLoggedIn$: Observable<boolean>;
+  favoritosIds: number[] = [];
+  @Output() livroSelecionado = new EventEmitter<any>();
 
   @Output() componenteAlterado: EventEmitter<string> =
     new EventEmitter<string>();
   @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
   paginaAtual: number = 1;
-  tamanhoPagina: number = 4; // Número de livros por página
+  tamanhoPagina: number = 4;
   totalPaginas: number = 0;
   constructor(
     private favoritoService: FavoritoService,
@@ -77,14 +76,13 @@ export class LivrosComponent implements OnInit {
         this.totalPaginas = Math.ceil(
           this.todosLivros.length / this.tamanhoPagina
         );
-        this.atualizarPagina(); // Atualizar a exibição inicial dos livros paginados
+        this.atualizarPagina();
       },
       (error) => {
         console.error('Erro ao carregar livros', error);
       }
     );
 
-    // Verificar se o usuário está logado e carregar os favoritos
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.favoritoService.obterLivrosFavoritos().subscribe(
@@ -123,7 +121,6 @@ export class LivrosComponent implements OnInit {
     }
   }
   private isFavorito(livro: ResultadoLivroDto): boolean {
-    // Verificar se o livro está nos favoritos, usando apenas os IDs
     return this.favoritosIds.includes(livro.id);
   }
   onFiltrarLivrosDiv(event: any) {
@@ -173,7 +170,6 @@ export class LivrosComponent implements OnInit {
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         if (livro.favorito) {
-          // Desfavoritar o livro
           this.favoritoService.desfavoritarLivro(livro.id).subscribe({
             next: (response) => {
               livro.favorito = false;
@@ -185,7 +181,6 @@ export class LivrosComponent implements OnInit {
             },
           });
         } else {
-          // Favoritar o livro
           this.favoritoService.favoritarLivro(livro.id).subscribe({
             next: (response) => {
               livro.favorito = true;
@@ -212,12 +207,11 @@ export class LivrosComponent implements OnInit {
   }
 
   atualizarFavoritosNoLocalStorage() {
-    // Atualizar favoritos no LocalStorage com os IDs
     localStorage.setItem('favoritos', JSON.stringify(this.favoritosIds));
   }
 
   selecionarLivro(id: number) {
     this.componenteAlterado.emit('detalhesLivro');
-    this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
+    this.livrofiltro.emit(id);
   }
 }

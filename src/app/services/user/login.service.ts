@@ -18,10 +18,7 @@ export class LoginService {
       .post<LoginResponse>(this.apiUrl + '/login', { email, senha })
       .pipe(
         tap((value) => {
-          console.log(value);
-          //sessionStorage.setItem("auth-token", value.token)
           localStorage.setItem('id', value.id);
-          //sessionStorage.setItem("id", value.id)
         })
       );
   }

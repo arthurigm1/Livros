@@ -55,7 +55,7 @@ export class FinalizarpedidoComponent implements OnInit {
       (itens) => {
         this.itensCarrinho = itens.map((item) => ({
           ...item,
-          quantidade: item.quantidade || 1, // Garante um valor padrão'
+          quantidade: item.quantidade || 1,
         }));
       },
       (error) => {
@@ -64,7 +64,6 @@ export class FinalizarpedidoComponent implements OnInit {
     );
   }
   carregarEnderecos(): void {
-    // Chamada correta para pegar os endereços do usuário
     this.enderecoService.carregarEnderecos().subscribe((dados: any) => {
       this.enderecos = dados;
     });
@@ -84,7 +83,6 @@ export class FinalizarpedidoComponent implements OnInit {
       ),
     };
 
-    // Enviando o pedido para o serviço e recebendo o QR Code
     this.pedidoService
       .criarPedido(pedido, this.selecionadoEnderecoid)
       .subscribe(
