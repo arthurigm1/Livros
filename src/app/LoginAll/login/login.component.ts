@@ -86,6 +86,7 @@ export class LoginComponent {
             console.log('Resposta:', response);
             this.toastService.success(response.message);
           },
+          error: () => this.toastService.error('Erro interno'),
         });
       }
     });
