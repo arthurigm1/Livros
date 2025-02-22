@@ -86,10 +86,6 @@ export class LoginComponent {
             console.log('Resposta:', response);
             this.toastService.success(response.message);
           },
-          error: (err) => {
-            console.error('Erro:', err);
-            this.toastService.error('Erro ao enviar e-mail!');
-          },
         });
       }
     });
