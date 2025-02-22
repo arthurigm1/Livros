@@ -20,17 +20,5 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('SEU_CLIENT_ID'), // Substitua pelo seu Client ID do Google
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    },
   ],
 };
