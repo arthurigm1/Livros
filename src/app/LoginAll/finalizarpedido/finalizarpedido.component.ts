@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario, UsuarioService } from '../services/user/usuario.service';
+import { Usuario, UsuarioService } from '../../services/user/usuario.service';
 import {
   CarrinhoService,
   LivroCarrinho,
-} from '../services/livro/carrinho.service';
-import { Endereco } from '../interface/Endereco.interface';
-import { EnderecoService } from '../services/user/endereco.service';
+} from '../../services/livro/carrinho.service';
+import { Endereco } from '../../interface/Endereco.interface';
+import { EnderecoService } from '../../services/user/endereco.service';
 import { CommonModule } from '@angular/common';
-import { PedidoService } from '../services/user/pedido.service';
+import { PedidoService } from '../../services/user/pedido.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormModule } from '@coreui/angular';
 import { FormsModule } from '@angular/forms';
@@ -96,5 +96,11 @@ export class FinalizarpedidoComponent implements OnInit {
           console.error('Erro ao finalizar o pedido:', error);
         }
       );
+  }
+  calcularTotal(): number {
+    return this.itensCarrinho.reduce(
+      (total, item) => total + item.preco * item.quantidade,
+      0
+    );
   }
 }

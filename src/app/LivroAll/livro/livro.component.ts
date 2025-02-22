@@ -23,6 +23,7 @@ import {
 import { LivroService } from '../../services/livro/livro.service';
 import { FavoritoService } from '../../services/livro/favorito.service';
 import { DivComponent } from '../../div/div.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-livro',
@@ -32,12 +33,12 @@ import { DivComponent } from '../../div/div.component';
   animations: [
     trigger('fadeInList', [
       transition(':enter', [
-        query('div', style({ opacity: 0 }), { optional: true }), // Inicialmente todos os itens ficam invisíveis
+        query('.livro-card', style({ opacity: 0 }), { optional: true }),
         query(
-          'div',
-          stagger('300ms', [animate('500ms ease-out', style({ opacity: 1 }))]),
+          '.livro-card',
+          stagger('500ms', [animate('500ms ease-out', style({ opacity: 1 }))]),
           { optional: true }
-        ), // Aparecem um a um com 100ms de intervalo
+        ),
       ]),
     ]),
   ],
@@ -54,7 +55,7 @@ export class LivrosComponent implements OnInit {
     new EventEmitter<string>();
   @Output() livrofiltro: EventEmitter<number> = new EventEmitter<number>();
   paginaAtual: number = 1;
-  tamanhoPagina: number = 10; // Número de livros por página
+  tamanhoPagina: number = 4; // Número de livros por página
   totalPaginas: number = 0;
   constructor(
     private favoritoService: FavoritoService,
@@ -101,6 +102,7 @@ export class LivrosComponent implements OnInit {
       }
     });
   }
+
   atualizarPagina(): void {
     const inicio = (this.paginaAtual - 1) * this.tamanhoPagina;
     const fim = inicio + this.tamanhoPagina;

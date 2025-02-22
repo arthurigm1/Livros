@@ -1,0 +1,90 @@
+<div class="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg">
+  <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center">
+    Finalizar Pedido
+  </h2>
+
+  <!-- Dados do Usuário -->
+  <div class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Dados do Cliente</h3>
+    <p class="text-gray-700"><strong>Nome:</strong> {{ usuario.nome }}</p>
+    <p class="text-gray-700"><strong>Email:</strong> {{ usuario.email }}</p>
+    <p class="text-gray-700"><strong>CPF:</strong> {{ usuario.cpf }}</p>
+    <p class="text-gray-700">
+      <strong>Data de Nascimento:</strong> {{ usuario.dataNascimento }}
+    </p>
+  </div>
+
+  <!-- Endereços de Entrega -->
+  <div class="mb-8">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">
+      Endereços de Entrega
+    </h3>
+    <ul class="space-y-4">
+      <li
+        *ngFor="let endereco of enderecos"
+        class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-100 transition"
+      >
+        <input
+          type="radio"
+          name="endereco"
+          [value]="endereco.id"
+          [(ngModel)]="selecionadoEnderecoid"
+          required
+          class="w-5 h-5 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+        />
+        <p class="text-gray-700">
+          <strong>{{ endereco.logradouro }}, {{ endereco.complemento }}</strong
+          ><br />
+          {{ endereco.bairro }}, {{ endereco.localidade }} - {{ endereco.uf }}
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Itens do Carrinho -->
+  <div class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Itens do Pedido</h3>
+    <ul class="space-y-4">
+      <li
+        *ngFor="let item of itensCarrinho"
+        class="flex justify-between items-center py-4 border-b border-gray-200"
+      >
+        <div>
+          <p class="text-gray-800 font-semibold">{{ item.titulo }}</p>
+          <p class="text-gray-600 text-sm">Quantidade: {{ item.quantidade }}</p>
+        </div>
+        <p class="text-gray-800 font-semibold">
+          R$ {{ item.preco | number : "1.2-2" }}
+        </p>
+      </li>
+    </ul>
+    <div class="flex justify-between items-center pt-4">
+      <p class="text-gray-800 font-semibold">Total:</p>
+      <p class="text-gray-800 font-bold">
+        R$ {{ calcularTotal() | number : "1.2-2" }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Finalizar Compra -->
+  <div class="text-center">
+    <button
+      (click)="finalizarCompra()"
+      class="bg-[#063831] text-white px-6 py-2 rounded-lg hover:bg-[#b68d40] transition-all transform hover:scale-105 cursor-pointer"
+    >
+      Gerar QR Code
+    </button>
+  </div>
+
+  <!-- Exibição do QR Code -->
+  <div *ngIf="qrCodeUrl" class="mt-8 text-center">
+    <h3 class="text-2xl font-semibold mb-4 text-[#063831]">
+      QR Code para Pagamento
+    </h3>
+    <img
+      [src]="qrCodeUrl"
+      alt="QR Code de Pagamento"
+      class="mx-auto w-64 h-64 rounded-lg shadow-md border-2 border-[#063831]"
+    />
+  </div>
+</div>

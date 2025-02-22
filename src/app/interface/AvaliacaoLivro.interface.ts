@@ -3,4 +3,5 @@ export interface AvaliacaoLivro {
   nota: number;
   comentario?: string;
   dataAvaliacao?: string;
+  usuarioNome?: string;
 }

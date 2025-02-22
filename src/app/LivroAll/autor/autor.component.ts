@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import {
@@ -10,6 +10,7 @@ import {
   stagger,
 } from '@angular/animations';
 import { AutorService } from '../../services/autores/autor.service';
+import { LivroService } from '../../services/livro/livro.service';
 
 @Component({
   selector: 'app-autor',
@@ -30,16 +31,38 @@ import { AutorService } from '../../services/autores/autor.service';
   ],
 })
 export class AutorComponent implements OnInit {
+  @Output() componenteAlterado: EventEmitter<string> =
+    new EventEmitter<string>();
+  @Output() livrosAtualizados: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() autorid: EventEmitter<number> = new EventEmitter<number>();
   autores: any[] = [];
   autoresExibidos: any[] = [];
   isLoading: boolean = true;
   paginaAtual: number = 1;
-  tamanhoPagina: number = 5;
+  tamanhoPagina: number = 8;
   totalPaginas: number = 0;
-  constructor(private autorService: AutorService) {}
+  constructor(
+    private autorService: AutorService,
+    private livroService: LivroService
+  ) {}
 
   ngOnInit(): void {
     this.carregarAutores();
+  }
+  buscarLivros(autorNome: string) {
+    const filtro = {
+      autor: autorNome,
+    };
+
+    this.livroService.buscarLivrosComFiltros(filtro).subscribe(
+      (livros) => {
+        this.livrosAtualizados.emit(livros);
+        this.componenteAlterado.emit('filter');
+      },
+      (error) => {
+        console.error('Erro ao buscar livros', error);
+      }
+    );
   }
 
   carregarAutores(): void {
@@ -75,5 +98,9 @@ export class AutorComponent implements OnInit {
       this.paginaAtual--;
       this.atualizarPagina();
     }
+  }
+  selecionarAutor(id: number) {
+    this.componenteAlterado.emit('autordetalhes');
+    this.autorid.emit(id);
   }
 }

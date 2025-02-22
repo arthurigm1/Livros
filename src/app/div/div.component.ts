@@ -41,15 +41,6 @@ export class DivComponent {
   filtroSelecionado: string = ''; // Valor do filtro selecionado
   termoPesquisa: string = ''; // Valor do termo de pesquisa
 
-  // Filtro específico que será passado para o serviço
-  filtro = {
-    isbn: '',
-    titulo: '',
-    autor: '',
-    genero: '',
-    anoPublicacao: null,
-  };
-
   @Input() quantidadeCarrinho: number = 0;
   constructor(
     public dialog: MatDialog,
@@ -225,6 +216,7 @@ export class DivComponent {
       autor: '',
       genero: '',
       anoPublicacao: null,
+      nomeEditora: '',
     };
 
     if (this.filtroSelecionado === 'isbn') {
@@ -233,6 +225,8 @@ export class DivComponent {
       filtroAtualizado.titulo = this.termoPesquisa;
     } else if (this.filtroSelecionado === 'autor') {
       filtroAtualizado.autor = this.termoPesquisa;
+    } else if (this.filtroSelecionado === 'nomeEditora') {
+      filtroAtualizado.nomeEditora = this.termoPesquisa;
     }
 
     this.livroService.buscarLivrosComFiltros(filtroAtualizado).subscribe(

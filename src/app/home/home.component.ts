@@ -19,12 +19,13 @@ import {
 import carousel from 'flowbite/lib/esm/components/carousel';
 import { register as registerSwiperElements } from 'swiper/element/bundle';
 import { AutorService } from '../services/autores/autor.service';
-import { EditoraService } from '../services/editora.service';
+import { EditoraService } from '../services/livro/editora.service';
 import { LivroService } from '../services/livro/livro.service';
 import { CarrinhoService } from '../services/livro/carrinho.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { FormsModule } from '@angular/forms';
 registerSwiperElements();
 @Component({
   selector: 'app-home',
@@ -35,6 +36,7 @@ registerSwiperElements();
     CarouselControlComponent,
     CarouselModule,
     CommonModule,
+    FormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -51,6 +53,7 @@ export class HomeComponent implements OnInit {
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
+  isLoading: boolean = true;
   @ViewChild('autoresSwiper') autoresSwiper!: ElementRef;
   @ViewChild(CarouselComponent) carousel!: CarouselComponent;
   @Output() componenteAlterado: EventEmitter<string> =
@@ -69,51 +72,35 @@ export class HomeComponent implements OnInit {
   ];
   isLoggedIn$: Observable<boolean>;
   ngOnInit(): void {
-    this.carregarAutores();
-    this.carregarEditoras();
-    this.carregarLivros();
-    this.carregarLivroTec();
+    this.carregarDados();
   }
 
-  carregarLivroTec(): void {
-    const filtro = { genero: 'TECNOLOGIA' }; // Definição do filtro apenas com o gênero desejado
+  carregarDados(): void {
+    this.isLoading = true; // Ativa o estado de carregamento geral
 
-    this.livroService.buscarLivrosComFiltros(filtro).subscribe(
-      (data) => {
-        this.livrotec = data;
+    // Carrega todos os dados simultaneamente
+    forkJoin({
+      autores: this.autorService.getAutores(),
+      editoras: this.editoraService.getEditora(),
+      livros: this.livroService.buscarLivros(),
+      livrosTec: this.livroService.buscarLivrosComFiltros({
+        genero: 'TECNOLOGIA',
+      }),
+    }).subscribe({
+      next: (data) => {
+        this.autoresExibidos = data.autores;
+        this.editoras = data.editoras;
+        this.livros = data.livros;
+        this.livrotec = data.livrosTec;
+        this.isLoading = false; // Desativa o estado de carregamento geral
       },
-      (error) => {
-        console.error('Erro ao buscar livros de tecnologia:', error);
-      }
-    );
-  }
-
-  carregarEditoras(): void {
-    this.editoraService.getEditora().subscribe((dados) => {
-      this.editoras = dados;
+      error: () => {
+        this.isLoading = false; // Desativa o estado de carregamento em caso de erro
+      },
     });
   }
-  carregarAutores(): void {
-    this.autorService.getAutores().subscribe(
-      (data) => {
-        this.autoresExibidos = data;
-      },
-      (error) => {
-        console.error('Erro ao carregar autores', error);
-      }
-    );
-  }
-  carregarLivros(): void {
-    this.livroService.buscarLivros().subscribe(
-      (data) => {
-        this.livros = data;
-      },
-      (error) => {
-        console.error('Erro ao carregar livros', error);
-      }
-    );
-  }
-  selecionarLivro(id: number) {
+
+  selecionarLivro(id: number): void {
     this.componenteAlterado.emit('detalhesLivro');
     this.livrofiltro.emit(id); // Emite o evento com o livro selecionado
   }

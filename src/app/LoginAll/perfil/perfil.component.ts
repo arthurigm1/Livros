@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario, UsuarioService } from '../services/user/usuario.service';
+import { Usuario, UsuarioService } from '../../services/user/usuario.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
-import { EnderecoService } from '../services/user/endereco.service';
-import { Endereco } from '../interface/Endereco.interface';
-import { PedidoService } from '../services/user/pedido.service';
-import { Pedido } from '../interface/Pedido.interface';
+import { EnderecoService } from '../../services/user/endereco.service';
+import { Endereco } from '../../interface/Endereco.interface';
+import { PedidoService } from '../../services/user/pedido.service';
+import { Pedido } from '../../interface/Pedido.interface';
 
 @Component({
   selector: 'app-perfil',
@@ -255,6 +255,10 @@ export class PerfilComponent implements OnInit {
     );
   }
 
+  isCepValido(): boolean {
+    const cepRegex = /^[0-9]{5}-?[0-9]{3}$/; // Regex para validar o formato do CEP
+    return cepRegex.test(this.novoEndereco.cep);
+  }
   carregarPedidos(): void {
     this.loading = true;
     this.pedidoService.getPedidos().subscribe(

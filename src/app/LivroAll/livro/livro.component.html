@@ -3,10 +3,11 @@
 <div
   *ngIf="livros.length > 0; else loading"
   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4"
+  @fadeInList
 >
   <div
     *ngFor="let livro of livros"
-    class="bg-white rounded-lg shadow-lg p-1 hover:shadow-2xl transition-shadow duration-300"
+    class="livro-card bg-white rounded-lg shadow-lg p-1 hover:shadow-2xl transition-shadow duration-300"
   >
     <div class="relative">
       <img

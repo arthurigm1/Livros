@@ -74,3 +74,93 @@ a.router-link-active {
     content: "";
     animation: typing 2s steps(10) forwards;
 }
+
+/* styles.css ou styles.scss */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientAnimation 3s ease infinite;
+}
+
+/* Estilos base do botão */
+.login-button {
+    background: linear-gradient(45deg, #063831, #b68d40);
+    /* Gradiente com as cores fornecidas */
+    color: #f4ebd0;
+    /* Cor do texto */
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    /* Bordas arredondadas */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil */
+}
+
+/* Efeito ao passar o mouse */
+.login-button:hover {
+    background: linear-gradient(45deg, #b68d40, #063831);
+    /* Inverte o gradiente */
+    transform: scale(1.05);
+    /* Aumenta ligeiramente o botão */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    /* Sombra mais intensa */
+}
+
+/* Efeito de brilho animado */
+.login-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(244, 235, 208, 0.4), transparent 70%);
+    /* Brilho com a cor #f4ebd0 */
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.login-button:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    /* Ativa o brilho */
+}
+
+/* Animação de pulsação */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.login-button:active {
+    animation: pulse 0.3s ease-in-out;
+    /* Animação ao clicar */
+}

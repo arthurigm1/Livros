@@ -1,4 +1,13 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100 p-0">
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-screen">
+  <div
+    class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#063831]"
+  ></div>
+</div>
+
+<div
+  *ngIf="!isLoading"
+  class="flex items-center justify-center min-h-screen bg-gray-100 p-0"
+>
   <div class="bg-white shadow-xl rounded-lg overflow-hidden max-w-6xl w-full">
     <div class="flex flex-col md:flex-row">
       <div class="md:w-1/2 p-6">
@@ -9,8 +18,24 @@
         />
       </div>
       <div class="md:w-1/2 p-6">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 flex items-center">
           {{ livro.titulo }}
+          <div class="flex items-center">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <span
+                [class.text-yellow-500]="star <= mediaNota"
+                [class.text-gray-300]="star > mediaNota"
+                class="text-xl"
+              >
+                &#9733;
+              </span>
+            </ng-container>
+
+            <!-- Exibição da média (por exemplo, 3.57) -->
+            <span class="ml-2 text-lg text-gray-700">
+              ({{ mediaNota.toFixed(2) }})
+            </span>
+          </div>
         </h1>
         <div class="space-y-4">
           <p class="text-lg text-gray-700">
@@ -72,6 +97,7 @@
                 >
               </ng-container>
               <p class="ml-2 text-gray-700">{{ avaliacao.comentario }}</p>
+              <p class="ml-2 text-gray-700">{{ avaliacao.usuarioNome }}</p>
             </div>
             <hr class="my-3" />
           </div>
@@ -91,10 +117,12 @@
             </div>
             <input
               type="text"
+              [(ngModel)]="novaAvaliacao.comentario"
               class="border p-2 rounded w-full mt-2"
               placeholder="Deixe um comentário..."
             />
             <button
+              (click)="adicionarAvaliacao()"
               class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-3 w-full"
             >
               Enviar Avaliação

@@ -1,6 +1,6 @@
 <main class="min-h-screen flex flex-col">
   <div class="flex-grow pt-5 flex flex-col overflow-hidden">
-    <div class="component-container flex-grow overflow-auto pb-20">
+    <div class="component-container flex-grow overflow-auto">
       <app-div
         (livrosAtualizados)="atualizarLivros($event)"
         (componenteAlterado)="componenteAtual = $event"
@@ -13,7 +13,7 @@
         (componenteAlterado)="componenteAtual = $event"
       />
 
-      <div class="flex-grow overflow-auto pb-10 pt-10">
+      <div class="flex-grow overflow-auto pt-10">
         <app-livro
           *ngIf="componenteAtual === 'livros'"
           (livrofiltro)="exibirDetalhes($event)"
@@ -22,8 +22,23 @@
         <app-finalizarpedido
           *ngIf="componenteAtual === 'finalizarpedido'"
         ></app-finalizarpedido>
-        <app-autor *ngIf="componenteAtual === 'autores'"></app-autor>
-        <app-editora *ngIf="componenteAtual === 'editora'"></app-editora>
+        <app-autor
+          (livrosAtualizados)="atualizarLivros($event)"
+          (autorid)="detalhesautor($event)"
+          *ngIf="componenteAtual === 'autores'"
+          (componenteAlterado)="componenteAtual = $event"
+        ></app-autor>
+        <app-autordetalhes
+          *ngIf="componenteAtual === 'autordetalhes'"
+          [autorid]="autorid"
+          (voltar)="componenteAtual = 'autores'"
+          (componenteAlterado)="componenteAtual = $event"
+        ></app-autordetalhes>
+        <app-editora
+          (livrosAtualizados)="atualizarLivros($event)"
+          (componenteAlterado)="componenteAtual = $event"
+          *ngIf="componenteAtual === 'editora'"
+        ></app-editora>
         <app-livrosdetalhes
           *ngIf="componenteAtual === 'detalhesLivro'"
           [livroId]="livrofiltro"

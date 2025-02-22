@@ -32,8 +32,8 @@
                  "node_modules/slick-carousel/slick/slick.css",
   "node_modules/slick-carousel/slick/slick-theme.css",
    "node_modules/flowbite/dist/flowbite.min.css",
-    "node_modules/swiper/swiper-bundle.min.css",
-    "node_modules/tailwindcss/tailwind.css"
+    "node_modules/swiper/swiper-bundle.min.css"
+   
 
             ],
             "scripts": [

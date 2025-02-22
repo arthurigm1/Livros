@@ -6,13 +6,14 @@ import { CarrinhoService } from '../../services/livro/carrinho.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { AvaliacaoService } from '../../avaliacao.service';
+import { AvaliacaoService } from '../../services/livro/avaliacao.service';
 import { AvaliacaoLivro } from '../../interface/AvaliacaoLivro.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-livrosdetalhes',
   standalone: true, // Adiciona suporte para standalone components
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './livrosdetalhes.component.html',
   styleUrl: './livrosdetalhes.component.scss',
 })
@@ -23,7 +24,14 @@ export class LivrosdetalhesComponent implements OnInit {
   livro!: LivroDetalhadoDto;
   erro: string = '';
   avaliacoes: AvaliacaoLivro[] = [];
-  novaAvaliacao: AvaliacaoLivro = { nota: 0, comentario: '' };
+  novaAvaliacao: AvaliacaoLivro = {
+    nota: 0,
+    comentario: '',
+  };
+  mediaAvaliacoes: number = 0;
+  estrelasCheias: number = 0;
+  porcentagemEstrelaParcial: number = 0;
+  isLoading: boolean = true;
   constructor(
     private livroService: LivroService,
     private carrinhoService: CarrinhoService,
@@ -33,21 +41,55 @@ export class LivrosdetalhesComponent implements OnInit {
   ) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
   }
-
+  mediaNota: number = 0;
   ngOnInit(): void {
     if (this.livroId) {
       this.livroService.obterDetalhes(this.livroId.toString()).subscribe({
-        next: (data) => (this.livro = data),
+        next: (data) => {
+          this.livro = data;
+          this.isLoading = false;
+          this.avaliacaoService.getMediaAvaliacao(this.livro.id).subscribe({
+            next: (media) => {
+              console.log();
+              this.mediaNota = media.mediaNota;
+            },
+            error: () => {
+              this.erro = 'Erro ao obter a média das avaliações';
+            },
+          });
+          this.carregarAvaliacoes();
+        },
         error: () => (this.erro = 'Livro não encontrado ou ID inválido'),
       });
     }
-    this.carregarAvaliacoes();
   }
+
   carregarAvaliacoes(): void {
+    this.avaliacaoService.getAvaliacoes(this.livro.id).subscribe((data) => {
+      this.avaliacoes = data;
+    });
+  }
+
+  adicionarAvaliacao(): void {
+    if (!this.livro || !this.livro.id) {
+      this.toastService.error('Erro: Livro não encontrado.');
+      return;
+    }
+
+    if (this.novaAvaliacao.nota === 0) {
+      this.toastService.warning('Por favor, selecione uma nota.');
+      return;
+    }
+
     this.avaliacaoService
-      .getAvaliacoes(this.livro.id.toString())
-      .subscribe((data) => {
-        this.avaliacoes = data;
+      .adicionarAvaliacao(this.livro.id.toString(), this.novaAvaliacao)
+      .subscribe({
+        next: () => {
+          this.toastService.success('Avaliação adicionada com sucesso!');
+          this.novaAvaliacao = { nota: 0, comentario: '' };
+          this.carregarAvaliacoes();
+        },
+        error: () => this.toastService.error('Faça seu Login!'),
       });
   }
 

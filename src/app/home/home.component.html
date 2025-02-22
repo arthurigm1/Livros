@@ -1,156 +1,155 @@
-<swiper-container
-  pagination="true"
-  pagination-dynamic-bullets="true"
-  autoplay-delay="2500"
->
-  <swiper-slide
-    *ngFor="let slide of slides; let i = index"
-    class="transition-opacity flex-shrink-0 duration-10 ease-in-out opacity-100 scale-100"
-  >
-    <img
-      [src]="slide.src"
-      [alt]="slide.title"
-      class="w-[2600px] h-[350px]"
-      loading="lazy"
-    />
-  </swiper-slide>
-</swiper-container>
+<div *ngIf="isLoading" class="flex justify-center items-center min-h-screen">
+  <div
+    class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#063831]"
+  ></div>
+</div>
 
-<div class="relative flex flex-col items-center py-12 bg-transparent">
-  <!-- Título -->
-  <h2 class="text-3xl font-bold text-[#063831] mb-2">Autores</h2>
-
-  <!-- Swiper -->
+<!-- Conteúdo Principal -->
+<div *ngIf="!isLoading">
   <swiper-container
-    class="w-full max-w-7xl px-4 bg-transparent"
-    space-between="24"
-    slides-per-view="5"
-    grab-cursor="true"
+    pagination="true"
+    pagination-dynamic-bullets="true"
+    autoplay-delay="2500"
   >
     <swiper-slide
-      *ngFor="let autor of autoresExibidos"
-      class="flex flex-col items-center rounded-lg p-6"
+      *ngFor="let slide of slides; let i = index"
+      class="transition-opacity flex-shrink-0 duration-10 ease-in-out opacity-100 scale-100"
     >
       <img
-        [src]="autor.img"
-        [alt]="autor.nome"
-        class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+        [src]="slide.src"
+        [alt]="slide.title"
+        class="w-[2600px] h-[350px]"
+        loading="lazy"
       />
-      <h4 class="text-xl font-semibold text-[#b68d40] text-center">
-        {{ autor.nome }}
-      </h4>
     </swiper-slide>
   </swiper-container>
-</div>
-<div class="relative flex flex-col items-center py-12 bg-transparent">
-  <!-- Título -->
-  <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
-    Livros Mais Vendidos no Brasil!
-  </h2>
 
-  <swiper-container
-    class="w-full max-w-7xl px-4 bg-transparent"
-    space-between="20"
-    slides-per-view="3"
-    grab-cursor="true"
-    breakpoints='{
-      "640": { "slidesPerView": 1 },
-      "768": { "slidesPerView": 2 },
-      "1024": { "slidesPerView": 3 }
-    }'
-  >
-    <swiper-slide
-      *ngFor="let livro of livros"
-      class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-2">Autores</h2>
+
+    <!-- Swiper -->
+    <swiper-container
+      class="w-full max-w-8xl px-4 bg-transparent"
+      space-between="4"
+      slides-per-view="6"
+      grab-cursor="true"
     >
-      <!-- Imagem do Livro -->
-      <img
-        [src]="livro.img"
-        [alt]="livro.nome"
-        class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
-        (click)="selecionarLivro(livro.id)"
-      />
-
-      <!-- Título do Livro -->
-      <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
-        {{ livro.titulo }}
-      </h4>
-      <!-- Botão de Comprar -->
-      <button
-        class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
-        (click)="adicionarLivroAoCarrinho(livro.id)"
+      <swiper-slide
+        *ngFor="let autor of autoresExibidos"
+        class="flex flex-col items-center rounded-lg"
       >
-        Comprar: R$ {{ livro.preco }}
-      </button>
-    </swiper-slide>
-  </swiper-container>
-</div>
+        <img
+          [src]="autor.img"
+          [alt]="autor.nome"
+          class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+        />
+        <h4 class="text-xl font-semibold text-[#b68d40] text-center">
+          {{ autor.nome }}
+        </h4>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
+      Livros Mais Vendidos no Brasil!
+    </h2>
 
-<div class="relative flex flex-col items-center py-12 bg-transparent">
-  <!-- Título -->
-  <h2 class="text-3xl font-bold text-[#063831] mb-2">Editoras</h2>
-
-  <swiper-container
-    class="w-full max-w-7xl px-4 bg-transparent"
-    space-between="24"
-    slides-per-view="5"
-    grab-cursor="true"
-  >
-    <swiper-slide
-      *ngFor="let editora of editoras"
-      class="flex flex-col items-center rounded-lg p-6"
+    <swiper-container
+      class="w-full max-w-6x2 px-4 bg-transparent"
+      space-between="20"
+      slides-per-view="4"
+      grab-cursor="true"
     >
-      <img
-        [src]="editora.img"
-        [alt]="editora.nome"
-        class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
-      />
-      <h4 class="text-xl font-semibold text-[#b68d40] text-center">
-        {{ editora.nome }}
-      </h4>
-    </swiper-slide>
-  </swiper-container>
-</div>
-<div class="relative flex flex-col items-center py-12 bg-transparent">
-  <!-- Título -->
-  <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
-    Livros de Tecnologia!
-  </h2>
-
-  <swiper-container
-    class="w-full max-w-7xl px-4 bg-transparent"
-    space-between="20"
-    slides-per-view="3"
-    grab-cursor="true"
-    breakpoints='{
-      "640": { "slidesPerView": 1 },
-      "768": { "slidesPerView": 2 },
-      "1024": { "slidesPerView": 3 }
-    }'
-  >
-    <swiper-slide
-      *ngFor="let livro of livrotec"
-      class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
-    >
-      <!-- Imagem do Livro -->
-      <img
-        [src]="livro.img"
-        [alt]="livro.nome"
-        class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
-        (click)="selecionarLivro(livro.id)"
-      />
-
-      <!-- Título do Livro -->
-      <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
-        {{ livro.titulo }}
-      </h4>
-      <!-- Botão de Comprar -->
-      <button
-        class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
-        (click)="adicionarLivroAoCarrinho(livro.id)"
+      <swiper-slide
+        *ngFor="let livro of livros"
+        class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
       >
-        Comprar: R$ {{ livro.preco }}
-      </button>
-    </swiper-slide>
-  </swiper-container>
+        <!-- Imagem do Livro -->
+        <img
+          [src]="livro.img"
+          [alt]="livro.nome"
+          class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+          (click)="selecionarLivro(livro.id)"
+        />
+
+        <!-- Título do Livro -->
+        <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
+          {{ livro.titulo }}
+        </h4>
+        <!-- Botão de Comprar -->
+        <button
+          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+          (click)="adicionarLivroAoCarrinho(livro.id)"
+        >
+          Comprar: R$ {{ livro.preco }}
+        </button>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-2">Editoras</h2>
+
+    <swiper-container
+      class="w-full max-w-7xl px-4 bg-transparent"
+      space-between="24"
+      slides-per-view="5"
+      grab-cursor="true"
+    >
+      <swiper-slide
+        *ngFor="let editora of editoras"
+        class="flex flex-col items-center rounded-lg p-6"
+      >
+        <img
+          [src]="editora.img"
+          [alt]="editora.nome"
+          class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+        />
+        <h4 class="text-xl font-semibold text-[#b68d40] text-center">
+          {{ editora.nome }}
+        </h4>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
+      Livros de Tecnologia!
+    </h2>
+
+    <swiper-container
+      class="w-full max-w-6x2 px-4 bg-transparent"
+      space-between="20"
+      slides-per-view="4"
+      grab-cursor="true"
+    >
+      <swiper-slide
+        *ngFor="let livro of livrotec"
+        class="flex flex-col items-center p-4 bg-white shadow-lg rounded-lg"
+      >
+        <!-- Imagem do Livro -->
+        <img
+          [src]="livro.img"
+          [alt]="livro.nome"
+          class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+          (click)="selecionarLivro(livro.id)"
+        />
+
+        <!-- Título do Livro -->
+        <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
+          {{ livro.titulo }}
+        </h4>
+        <!-- Botão de Comprar -->
+        <button
+          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+          (click)="adicionarLivroAoCarrinho(livro.id)"
+        >
+          Comprar: R$ {{ livro.preco }}
+        </button>
+      </swiper-slide>
+    </swiper-container>
+  </div>
 </div>
