@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 
 export interface Usuario {
   id: number;
@@ -15,26 +15,32 @@ export interface Usuario {
 })
 export class UsuarioService {
   private apiUrl = 'https://fullstacklivros-production.up.railway.app/usuario';
-
+  private timeoutDuration = 15000;
   constructor(private http: HttpClient) {}
 
   getUsuario(): Observable<Usuario> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Usuario>(`${this.apiUrl}`, { headers });
+    return this.http
+      .get<Usuario>(`${this.apiUrl}`, { headers })
+      .pipe(timeout(this.timeoutDuration));
   }
 
   updateUsuario(usuario: Usuario): Observable<Usuario> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<Usuario>(`${this.apiUrl}`, usuario, { headers });
+    return this.http
+      .put<Usuario>(`${this.apiUrl}`, usuario, { headers })
+      .pipe(timeout(this.timeoutDuration));
   }
 
   alterarSenha(alterarSenhaDTO: any): Observable<string> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<string>(`${this.apiUrl}/changepass`, alterarSenhaDTO, {
-      headers,
-    });
+    return this.http
+      .put<string>(`${this.apiUrl}/changepass`, alterarSenhaDTO, {
+        headers,
+      })
+      .pipe(timeout(this.timeoutDuration));
   }
 }

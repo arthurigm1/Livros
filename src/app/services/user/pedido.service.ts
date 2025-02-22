@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PedidoService {
   private apiUrl = 'https://fullstacklivros-production.up.railway.app/pedido';
-
+  private timeoutDuration = 15000;
   constructor(private http: HttpClient) {}
 
   criarPedido(pedido: any, enderecoId: any): Observable<string> {
@@ -23,15 +23,19 @@ export class PedidoService {
   getPedidos(): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`${this.apiUrl}`, { headers });
+    return this.http
+      .get<any>(`${this.apiUrl}`, { headers })
+      .pipe(timeout(this.timeoutDuration));
   }
 
   baixarRelatorio(id: number): Observable<Blob> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.apiUrl}/${id}/relatorio`, {
-      headers: headers,
-      responseType: 'blob',
-    });
+    return this.http
+      .get(`${this.apiUrl}/${id}/relatorio`, {
+        headers: headers,
+        responseType: 'blob',
+      })
+      .pipe(timeout(this.timeoutDuration));
   }
 }

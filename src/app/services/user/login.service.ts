@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, timeout } from 'rxjs';
 import { Router } from '@angular/router';
 import { LoginResponse } from '../../types/login-response.type';
 
@@ -10,6 +10,7 @@ import { LoginResponse } from '../../types/login-response.type';
 })
 export class LoginService {
   apiUrl: string = 'https://fullstacklivros-production.up.railway.app/auth';
+  private timeoutDuration = 15000;
 
   constructor(private httpClient: HttpClient, private router: Router) {} // INICIALIZANDO O HTTP CLIENT
 
@@ -17,6 +18,7 @@ export class LoginService {
     return this.httpClient
       .post<LoginResponse>(this.apiUrl + '/login', { email, senha })
       .pipe(
+        timeout(this.timeoutDuration),
         tap((value) => {
           localStorage.setItem('id', value.id);
         })
@@ -27,19 +29,26 @@ export class LoginService {
     return this.httpClient
       .post<LoginResponse>(this.apiUrl + '/register', { email, nome, senha })
       .pipe(
+        timeout(this.timeoutDuration),
         tap((value) => {
           sessionStorage.setItem('username', value.name);
         })
-      );
+      )
+      .pipe(timeout(this.timeoutDuration));
   }
+
   forgotPassword(email: string): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/forgot-password`, { email });
+    return this.httpClient
+      .post(`${this.apiUrl}/forgot-password`, { email })
+      .pipe(timeout(this.timeoutDuration));
   }
 
   resetPassword(token: string, password: string): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/reset-password`, {
-      token,
-      password,
-    });
+    return this.httpClient
+      .post(`${this.apiUrl}/reset-password`, {
+        token,
+        password,
+      })
+      .pipe(timeout(this.timeoutDuration));
   }
 }
