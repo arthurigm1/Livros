@@ -1,0 +1,30 @@
+<div class="flex justify-center items-center min-h-screen bg-[#f4ebd0] px-4">
+  <div
+    class="p-6 bg-white rounded-xl shadow-2xl border border-[#b68d40] w-full max-w-sm text-center"
+  >
+    <ng-container *ngIf="verificado; else erro">
+      <h2 class="text-2xl font-semibold text-[#063831] mb-4">
+        Conta Verificada!
+      </h2>
+      <p class="text-[#063831] mb-4">
+        Agora você pode acessar sua conta normalmente.
+      </p>
+      <a
+        routerLink="/login"
+        class="w-full inline-block px-4 py-3 text-white bg-[#063831] rounded-lg hover:bg-[#0a4a2a] transition-all shadow-md hover:shadow-lg cursor-pointer font-semibold"
+      >
+        Ir para o Login
+      </a>
+    </ng-container>
+
+    <ng-template #erro>
+      <h2 class="text-2xl font-semibold text-red-600 mb-4">
+        Erro na Verificação
+      </h2>
+      <p class="text-[#063831] mb-4">
+        Ocorreu um problema ao verificar sua conta. O código pode estar inválido
+        ou expirado.
+      </p>
+    </ng-template>
+  </div>
+</div>
