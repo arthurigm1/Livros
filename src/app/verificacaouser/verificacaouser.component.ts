@@ -50,7 +50,7 @@ export class VerificacaouserComponent implements OnInit {
               'Conta verificada com sucesso!',
               'Sucesso'
             );
-            setTimeout(() => this.router.navigate(['/login']), 2000);
+            setTimeout(() => this.router.navigate(['/']), 2000);
           } else {
             this.verificado = false;
             this.toastService.error('Código de verificação inválido!', 'Erro');
