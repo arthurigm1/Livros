@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './verificacaouser.component.scss',
 })
 export class VerificacaouserComponent implements OnInit {
-  token: string = '';
+  code: string = '';
   verificado: boolean | null = null;
 
   constructor(
@@ -23,13 +23,13 @@ export class VerificacaouserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.token = params['code'];
-      if (this.token) {
+      this.code = params['code'];
+      if (this.code) {
         this.verifyUser();
       } else {
         this.verificado = false;
         this.toastService.warning(
-          'Nenhum token de verificação encontrado!',
+          'Nenhum código de verificação encontrado!',
           'Aviso'
         );
       }
@@ -38,8 +38,8 @@ export class VerificacaouserComponent implements OnInit {
 
   verifyUser(): void {
     this.http
-      .get('https://fullstacklivros-production.up.railway.app/verify', {
-        params: { token: this.token },
+      .get('https://fullstacklivros-production.up.railway.app/auth/verify', {
+        params: { code: this.code },
         responseType: 'text',
       })
       .subscribe({
@@ -53,7 +53,7 @@ export class VerificacaouserComponent implements OnInit {
             setTimeout(() => this.router.navigate(['/login']), 2000);
           } else {
             this.verificado = false;
-            this.toastService.error('Token de verificação inválido!', 'Erro');
+            this.toastService.error('Código de verificação inválido!', 'Erro');
           }
         },
         error: () => {
