@@ -51,4 +51,8 @@ export class LoginService {
       })
       .pipe(timeout(this.timeoutDuration));
   }
+
+  verifyAccount(code: string): Observable<string> {
+    return this.httpClient.get<string>(` ${this.apiUrl}/verify?code=${code}`);
+  }
 }

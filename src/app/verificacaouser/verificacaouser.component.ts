@@ -24,9 +24,12 @@ export class VerificacaouserComponent {
     if (code) {
       // Chamando o backend para verificar o código
       this.http
-        .get(`http://localhost:8080/verify?code=${code}`, {
-          responseType: 'text',
-        })
+        .get(
+          `https://fullstacklivros-production.up.railway.app/verify?code=${code}`,
+          {
+            responseType: 'text',
+          }
+        )
         .subscribe(
           (response) => {
             this.verificado = response === 'verify_success';
