@@ -23,7 +23,7 @@ export class VerificacaouserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.token = params['token'];
+      this.token = params['code'];
       if (this.token) {
         this.verifyUser();
       } else {
