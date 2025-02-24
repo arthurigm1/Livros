@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-verificacaouser',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './verificacaouser.component.html',
   styleUrl: './verificacaouser.component.scss',
 })
