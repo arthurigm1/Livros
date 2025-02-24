@@ -11,6 +11,7 @@ import { PedidoService } from '../../services/user/pedido.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormModule } from '@coreui/angular';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-finalizarpedido',
@@ -41,7 +42,8 @@ export class FinalizarpedidoComponent implements OnInit {
     private carrinhoService: CarrinhoService,
     private enderecoService: EnderecoService,
     private pedidoService: PedidoService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private toastr: ToastrService
   ) {}
 
   carregarUsuario(): void {
@@ -87,11 +89,11 @@ export class FinalizarpedidoComponent implements OnInit {
       .criarPedido(pedido, this.selecionadoEnderecoid)
       .subscribe(
         (qrCodeBase64) => {
-          console.log('QR Code Base64:', qrCodeBase64);
+          this.toastr.success('Pedido finalizado com sucesso!', 'Sucesso');
           this.qrCodeUrl = qrCodeBase64;
         },
         (error) => {
-          console.error('Erro ao finalizar o pedido:', error);
+          this.toastr.error('Erro ao finalizar o pedido.', 'Erro');
         }
       );
   }
