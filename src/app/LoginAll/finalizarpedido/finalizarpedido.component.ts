@@ -89,11 +89,13 @@ export class FinalizarpedidoComponent implements OnInit {
       .criarPedido(pedido, this.selecionadoEnderecoid)
       .subscribe(
         (qrCodeBase64) => {
+          console.log(qrCodeBase64);
           this.toastr.success('Pedido finalizado com sucesso!', 'Sucesso');
-          this.qrCodeUrl = qrCodeBase64;
+          this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(qrCodeBase64);
         },
         (error) => {
           this.toastr.error('Erro ao finalizar o pedido.', 'Erro');
+          console.log(this.qrCodeUrl);
         }
       );
   }
