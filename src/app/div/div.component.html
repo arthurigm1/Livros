@@ -64,7 +64,7 @@
 
           <div
             *ngIf="mostrarCarrinho"
-            class="absolute fixed top-0 right-0 w-96 h-full bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out animate-slideIn flex flex-col"
+            class="absolute fixed top-0 right-0 w-96 h-full bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out animate-slideIn flex flex-col z-50"
           >
             <div
               class="p-4 flex justify-between items-center border-b border-gray-200"
@@ -195,7 +195,7 @@
 
         <button
           (click)="logout()"
-          class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105 cursor-pointer"
+          class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105 cursor-pointer z-10"
         >
           Logout
         </button>
