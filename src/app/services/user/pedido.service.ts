@@ -10,14 +10,20 @@ export class PedidoService {
   private timeoutDuration = 15000;
   constructor(private http: HttpClient) {}
 
-  criarPedido(pedido: any, enderecoId: any): Observable<string> {
+  criarPedido(
+    pedido: any,
+    enderecoId: any
+  ): Observable<{ qrCodeUrl: string; pixCopiaECola: string }> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.post(`${this.apiUrl}/${enderecoId}`, pedido, {
-      headers: headers,
-      responseType: 'text',
-    }) as Observable<string>;
+    return this.http.post<{ qrCodeUrl: string; pixCopiaECola: string }>(
+      `${this.apiUrl}/${enderecoId}`,
+      pedido,
+      {
+        headers: headers,
+      }
+    );
   }
 
   getPedidos(): Observable<any> {

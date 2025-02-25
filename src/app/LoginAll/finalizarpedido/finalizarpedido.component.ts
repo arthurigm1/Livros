@@ -31,7 +31,7 @@ export class FinalizarpedidoComponent implements OnInit {
   enderecos: Endereco[] = [];
   qrCodeUrl: any;
   selecionadoEnderecoid: string | null = null;
-
+  pixCopiaECola: any;
   ngOnInit(): void {
     this.carregarUsuario();
     this.carregarCarrinho();
@@ -72,7 +72,6 @@ export class FinalizarpedidoComponent implements OnInit {
   }
 
   finalizarCompra(): void {
-    console.log(this.selecionadoEnderecoid);
     const pedido = {
       itens: this.itensCarrinho.map((item) => ({
         livro: item.livroId,
@@ -84,25 +83,48 @@ export class FinalizarpedidoComponent implements OnInit {
         0
       ),
     };
-
+    if (!this.selecionadoEnderecoid) {
+      this.toastr.warning('Selecione um endereço para entrega.', 'Atenção');
+      return;
+    }
     this.pedidoService
       .criarPedido(pedido, this.selecionadoEnderecoid)
       .subscribe(
-        (qrCodeBase64) => {
-          console.log(qrCodeBase64);
-          this.toastr.success('Pedido finalizado com sucesso!', 'Sucesso');
-          this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(qrCodeBase64);
+        (response) => {
+          if (response.qrCodeUrl && response.pixCopiaECola) {
+            this.toastr.success('Pedido finalizado com sucesso!', 'Sucesso');
+
+            // Atualizando as variáveis com os dados retornados
+            this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(
+              response.qrCodeUrl
+            );
+            this.pixCopiaECola = response.pixCopiaECola;
+          } else {
+            this.toastr.error('Erro ao gerar o pagamento.', 'Erro');
+          }
         },
         (error) => {
           this.toastr.error('Erro ao finalizar o pedido.', 'Erro');
-          console.log(this.qrCodeUrl);
+          console.error('Erro:', error);
         }
       );
   }
+
   calcularTotal(): number {
     return this.itensCarrinho.reduce(
       (total, item) => total + item.preco * item.quantidade,
       0
     );
+  }
+
+  copiarPix(): void {
+    navigator.clipboard
+      .writeText(this.pixCopiaECola)
+      .then(() => {
+        this.toastr.success('Código PIX copiado!', 'Sucesso');
+      })
+      .catch(() => {
+        this.toastr.error('Erro ao copiar PIX.', 'Erro');
+      });
   }
 }
