@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AutorService } from '../services/autores/autor.service';
-import { AutorDTO } from '../interface/AutorDetalhes.dto';
+
 import { CommonModule } from '@angular/common';
+import { AutorService } from '../../services/autores/autor.service';
+import { AutorDTO } from '../../interface/AutorDetalhes.dto';
 
 @Component({
   selector: 'app-autordetalhes',

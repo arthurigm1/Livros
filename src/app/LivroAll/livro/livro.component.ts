@@ -22,8 +22,9 @@ import {
 } from '../../services/livro/carrinho.service';
 import { LivroService } from '../../services/livro/livro.service';
 import { FavoritoService } from '../../services/livro/favorito.service';
-import { DivComponent } from '../../div/div.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DivComponent } from '../../HomeAll/div/div.component';
 
 @Component({
   selector: 'app-livro',

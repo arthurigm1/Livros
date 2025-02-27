@@ -10,6 +10,14 @@ export class PedidoService {
   private timeoutDuration = 15000;
   constructor(private http: HttpClient) {}
 
+  getResumoPedido(): Observable<any> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .get<any>(`http://localhost:8080/pedido/resumo`, { headers })
+      .pipe(timeout(this.timeoutDuration));
+  }
+
   criarPedido(
     pedido: any,
     enderecoId: any

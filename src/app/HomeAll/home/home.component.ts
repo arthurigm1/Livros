@@ -11,14 +11,16 @@ import {
 } from '@angular/core';
 
 import { register as registerSwiperElements } from 'swiper/element/bundle';
-import { AutorService } from '../services/autores/autor.service';
-import { EditoraService } from '../services/livro/editora.service';
-import { LivroService } from '../services/livro/livro.service';
-import { CarrinhoService } from '../services/livro/carrinho.service';
+
 import { ToastrService } from 'ngx-toastr';
 import { forkJoin, Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+
 import { FormsModule } from '@angular/forms';
+import { AutorService } from '../../services/autores/autor.service';
+import { EditoraService } from '../../services/livro/editora.service';
+import { CarrinhoService } from '../../services/livro/carrinho.service';
+import { AuthService } from '../../services/auth.service';
+import { LivroService } from '../../services/livro/livro.service';
 registerSwiperElements();
 @Component({
   selector: 'app-home',

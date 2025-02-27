@@ -1,19 +1,21 @@
 import { Component, Input } from '@angular/core';
 
 import { DivComponent } from '../div/div.component';
-import { LivrosComponent } from '../LivroAll/livro/livro.component';
-import { AutorComponent } from '../LivroAll/autor/autor.component';
+
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
-import { FavoritosComponent } from '../LivroAll/favoritos/favoritos.component';
-import { LivrolistafilterComponent } from '../LivroAll/livrolistafilter/livrolistafilter.component';
-import { LivrosdetalhesComponent } from '../LivroAll/livrosdetalhes/livrosdetalhes.component';
-import { PerfilComponent } from '../LoginAll/perfil/perfil.component';
-import { FinalizarpedidoComponent } from '../LoginAll/finalizarpedido/finalizarpedido.component';
-import { EditoraComponent } from '../LivroAll/editora/editora.component';
+
 import { HomeComponent } from '../home/home.component';
 import { SobreComponent } from '../sobre/sobre.component';
-import { AutordetalhesComponent } from '../autordetalhes/autordetalhes.component';
+import { LivrosComponent } from '../../LivroAll/livro/livro.component';
+import { AutorComponent } from '../../LivroAll/autor/autor.component';
+import { FavoritosComponent } from '../../LivroAll/favoritos/favoritos.component';
+import { LivrolistafilterComponent } from '../../LivroAll/livrolistafilter/livrolistafilter.component';
+import { LivrosdetalhesComponent } from '../../LivroAll/livrosdetalhes/livrosdetalhes.component';
+import { PerfilComponent } from '../../LoginAll/perfil/perfil.component';
+import { FinalizarpedidoComponent } from '../../LoginAll/finalizarpedido/finalizarpedido.component';
+import { EditoraComponent } from '../../LivroAll/editora/editora.component';
+import { AutordetalhesComponent } from '../../LivroAll/autordetalhes/autordetalhes.component';
 
 @Component({
   selector: 'app-header',

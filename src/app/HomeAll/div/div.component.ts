@@ -8,20 +8,20 @@ import {
   Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from '../LoginAll/login/login.component';
-import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
+import { FormsModule } from '@angular/forms';
 import {
   CarrinhoService,
   LivroCarrinho,
-} from '../services/livro/carrinho.service';
-import { FormsModule } from '@angular/forms';
-import { LivroService } from '../services/livro/livro.service';
+} from '../../services/livro/carrinho.service';
+import { AuthService } from '../../services/auth.service';
+import { LivroService } from '../../services/livro/livro.service';
+import { LoginComponent } from '../../LoginAll/login/login.component';
 
 @Component({
   selector: 'app-div',

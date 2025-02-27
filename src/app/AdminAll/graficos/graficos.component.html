@@ -1,0 +1,44 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <div
+    class="bg-white shadow-lg rounded-lg p-6 transform transition-transform duration-300 hover:scale-105"
+  >
+    <h3 class="text-xl font-semibold mb-4">Valor Total</h3>
+    <p class="text-2xl font-bold text-blue-600">
+      R$ {{ valorTotal.toFixed(2) }}
+    </p>
+    <p class="text-gray-500">Valor total das vendas</p>
+  </div>
+  <div
+    class="bg-white shadow-lg rounded-lg p-6 transform transition-transform duration-300 hover:scale-105"
+  >
+    <h3 class="text-xl font-semibold mb-4">Pago</h3>
+    <p class="text-2xl font-bold text-green-600">
+      R$ {{ valorPago.toFixed(2) }}
+    </p>
+    <p class="text-gray-500">Valor já pago</p>
+  </div>
+  <div
+    class="bg-white shadow-lg rounded-lg p-6 transform transition-transform duration-300 hover:scale-105"
+  >
+    <h3 class="text-xl font-semibold mb-4">Aguardando</h3>
+    <p class="text-2xl font-bold text-red-600">
+      R$ {{ valorAguardandoPagamento.toFixed(2) }}
+    </p>
+    <p class="text-gray-500">Valor pendente</p>
+  </div>
+</div>
+
+<!-- Gráficos -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Gráfico de Barras -->
+  <div class="bg-white shadow-lg rounded-lg p-6 animate-slide-in-left">
+    <h2 class="text-xl font-semibold mb-4">Contagem de Pagamentos</h2>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Gráfico de Pizza -->
+  <div class="bg-white shadow-lg rounded-lg p-6 animate-slide-in-right">
+    <h2 class="text-xl font-semibold mb-4">Status do Pagamento</h2>
+    <canvas id="pie-chart"></canvas>
+  </div>
+</div>

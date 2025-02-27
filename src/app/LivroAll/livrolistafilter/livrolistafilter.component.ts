@@ -8,13 +8,14 @@ import {
 } from '@angular/core';
 import { LivroService } from '../../services/livro/livro.service';
 import { CommonModule } from '@angular/common';
-import { DivComponent } from '../../div/div.component';
+
 import { Observable } from 'rxjs';
 import { CarrinhoService } from '../../services/livro/carrinho.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { FavoritoService } from '../../services/livro/favorito.service';
 import { ResultadoLivroDto } from '../../interface/ResultadoLivroDto.interface';
+import { DivComponent } from '../../HomeAll/div/div.component';
 
 @Component({
   selector: 'app-livrolistafilter',

@@ -1,0 +1,161 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Botão de Toggle para Sidebar (visível apenas em telas pequenas) -->
+  <button
+    class="md:hidden fixed top-4 left-4 p-2 bg-gray-800 text-white rounded-lg z-50 hover:bg-gray-700 transition-colors"
+    (click)="toggleSidebar()"
+  >
+    ☰
+  </button>
+
+  <!-- Sidebar -->
+  <div
+    class="bg-gray-800 text-white h-screen fixed z-30 transition-all duration-300"
+    [ngClass]="{
+      '-translate-x-full': !isSidebarOpen,
+      'translate-x-0': isSidebarOpen,
+      'w-20': isSidebarCollapsed,
+      'w-64': !isSidebarCollapsed
+    }"
+    (mouseenter)="expandSidebar()"
+    (mouseleave)="collapseSidebar()"
+    style="
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    "
+  >
+    <!-- Botão para recolher/expandir a sidebar -->
+    <button
+      class="absolute -right-3 top-6 p-2 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-colors"
+      (click)="toggleSidebarCollapse()"
+    >
+      {{ isSidebarCollapsed ? "☰" : "☰" }}
+    </button>
+
+    <!-- Cabeçalho da Sidebar -->
+    <div class="p-4 border-b border-gray-700">
+      <h2
+        *ngIf="!isSidebarCollapsed"
+        class="text-2xl font-semibold text-center"
+      >
+        Painel BackOffice
+      </h2>
+    </div>
+
+    <!-- Itens da Sidebar -->
+    <ul class="p-4">
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('grafico')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-chart-line text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
+            >Dashboard</span
+          >
+        </a>
+      </li>
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('livroadmin')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-book text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Livros</span>
+        </a>
+      </li>
+
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('categorias')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-tags text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
+            >Categorias</span
+          >
+        </a>
+      </li>
+
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('relatorios')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-file-alt text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
+            >Relatórios</span
+          >
+        </a>
+      </li>
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('usuarios')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fa-solid fa-circle-user text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Usuarios</span>
+        </a>
+      </li>
+
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('financas')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-wallet text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Finanças</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Rodapé da Sidebar -->
+    <div
+      class="absolute bottom-0 left-0 w-full p-4 bg-gray-700 border-t border-gray-600"
+    >
+      <div class="flex items-center space-x-3">
+        <!-- Avatar do Usuário -->
+        <div class="w-10 h-10 rounded-full overflow-hidden">
+          <img
+            src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"
+            alt="Avatar"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Nome e Email do Usuário -->
+        <div *ngIf="!isSidebarCollapsed">
+          <p class="text-sm">Admin</p>
+          <p class="text-xs text-gray-400">adminlivraria.com</p>
+        </div>
+      </div>
+
+      <!-- Botão de Logout -->
+      <button
+        (click)="logout()"
+        class="w-full mt-4 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 flex items-center justify-center cursor-pointer"
+      >
+        <i class="fas fa-sign-out-alt text-xl"></i>
+        <span *ngIf="!isSidebarCollapsed" class="ml-2">Sair</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div
+    class="flex-1 p-8 overflow-y-auto transition-margin duration-300"
+    [ngClass]="{
+      'ml-64': isSidebarOpen && !isSidebarCollapsed,
+      'ml-16': isSidebarOpen && isSidebarCollapsed,
+      'ml-0': !isSidebarOpen
+    }"
+  >
+    <h1 class="text-3xl font-semibold mb-6 animate-fade-in">
+      Bem-vindo ao Dashboard de Livros
+    </h1>
+
+    <!-- Renderização Condicional dos Componentes -->
+    <app-graficos *ngIf="componente === 'grafico'" />
+    <app-livroadmin *ngIf="componente === 'livroadmin'" />
+    <app-usuarios *ngIf="componente === 'usuarios'"></app-usuarios>
+  </div>
+</div>

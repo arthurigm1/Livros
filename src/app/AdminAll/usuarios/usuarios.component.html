@@ -1,0 +1,71 @@
+<div class="p-8 bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen">
+  <!-- Título da Página -->
+  <h1
+    class="text-4xl font-extrabold text-gray-800 mb-8 text-center animate-fade-in"
+  >
+    Gerenciamento de Usuários
+  </h1>
+
+  <!-- Botão para Adicionar Novo Usuário -->
+  <div class="flex justify-center mb-8">
+    <button
+      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center"
+    >
+      <i class="fas fa-plus mr-2"></i> Adicionar Novo Usuário
+    </button>
+  </div>
+
+  <!-- Lista de Usuários -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Card de Usuário -->
+    <div
+      *ngFor="let user of users"
+      class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center"
+    >
+      <!-- Ícone de Usuário -->
+      <div
+        class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center mb-4"
+      >
+        <i class="fas fa-user text-gray-600 text-3xl"></i>
+      </div>
+
+      <!-- Email do Usuário -->
+      <h2 class="text-lg font-semibold text-gray-800 mb-2">
+        {{ user.email }}
+      </h2>
+
+      <!-- Role do Usuário -->
+      <p class="text-sm text-gray-600 mb-4">
+        <span class="font-medium">Role:</span>
+        <span
+          [ngClass]="{
+            'text-green-600 font-bold': user.role === 'ADMIN',
+            'text-blue-600 font-bold': user.role === 'USER',
+            'text-gray-500 italic': !user.role
+          }"
+        >
+          {{ user.role || "Sem função definida" }}
+        </span>
+      </p>
+
+      <!-- Botões de Ação -->
+      <div class="flex space-x-4">
+        <!-- Botão de Editar -->
+        <button
+          class="px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 flex items-center"
+        >
+          <i class="fas fa-edit mr-2"></i> Editar
+        </button>
+
+        <!-- Botão de Excluir -->
+        <button
+          (click)="deleteUser(user.id)"
+          class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 flex items-center"
+        >
+          <i class="fas fa-trash mr-2"></i>
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

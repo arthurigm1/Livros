@@ -7,15 +7,14 @@ import { Router } from '@angular/router';
   template: '<p>Processando login...</p>',
 })
 export class LoginCallbackComponent implements OnInit {
-
   constructor(private oauthService: OAuthService, private router: Router) {}
 
   ngOnInit() {
     this.oauthService.tryLogin().then(() => {
       if (this.oauthService.hasValidAccessToken()) {
-        this.router.navigate(['/home']);  // Navega para a página inicial
+        this.router.navigate(['/home']);
       } else {
-        this.router.navigate(['/login']);  // Redireciona para o login caso falhe
+        this.router.navigate(['/login']);
       }
     });
   }

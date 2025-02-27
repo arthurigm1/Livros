@@ -1,0 +1,32 @@
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-4">Login Administrativo</h2>
+    <form (submit)="login()">
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="w-full px-3 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        type="password"
+        [(ngModel)]="senha"
+        name="senha"
+        placeholder="Senha"
+        required
+        class="w-full px-3 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <button
+        type="submit"
+        class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+      >
+        Entrar
+      </button>
+    </form>
+    <p *ngIf="errorMessage" class="text-red-500 text-sm mt-2">
+      {{ errorMessage }}
+    </p>
+  </div>
+</div>
