@@ -34,8 +34,8 @@ Chart.register(
   styleUrl: './graficos.component.scss',
 })
 export class GraficosComponent {
-  chart: any = null; // Gráfico de barras
-  chartpizza: any = null; // Gráfico de pizza
+  chart: any = null;
+  chartpizza: any = null;
   isSidebarOpen: boolean = true;
 
   valorTotal: number = 0;
@@ -51,23 +51,19 @@ export class GraficosComponent {
   ) {}
 
   ngOnInit() {
-    // Verifica se o usuário é admin
     if (!this.authService.isAdminAuthenticated()) {
       this.router.navigate(['/admin']);
       return;
     }
 
-    // Busca os dados do backend
     this.pedidoService.getResumoPedido().subscribe(
       (response) => {
-        // Atualiza os valores com a resposta do backend
         this.valorTotal = response.valorTotal;
         this.valorPago = response.valorPago;
         this.valorAguardandoPagamento = response.valorAguardandoPagamento;
         this.countPago = response.countPago;
         this.countAguardandoPagamento = response.countAguardandoPagamento;
 
-        // Inicializa os gráficos com os dados atualizados
         this.initCharts();
       },
       (error) => {
@@ -77,7 +73,6 @@ export class GraficosComponent {
   }
 
   initCharts() {
-    // Gráfico de Pizza (Status do Pagamento)
     this.chartpizza = new Chart('pie-chart', {
       type: 'pie',
       data: {
@@ -109,7 +104,7 @@ export class GraficosComponent {
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
-        labels: ['Pago', 'Aguardando Pagamento'],
+        labels: ['QTD Pago', 'QTD Aguardando Pagamento'],
         datasets: [
           {
             label: 'Quantidade de Pagamentos',

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { EditoraService } from '../../services/livro/editora.service';
+import { EditoraService } from '../../services/editora/editora.service';
 import { LivroService } from '../../services/livro/livro.service';
 interface Editora {
   nome: string;

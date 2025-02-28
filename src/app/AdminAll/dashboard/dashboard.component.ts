@@ -10,6 +10,8 @@ import { LivrosComponent } from '../../LivroAll/livro/livro.component';
 import { ToastrService } from 'ngx-toastr';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { PedidosadmComponent } from '../pedidosadm/pedidosadm.component';
+import { EditoraadminComponent } from '../editoraadmin/editoraadmin.component';
+import { AutoradminComponent } from '../autoradmin/autoradmin.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,8 @@ import { PedidosadmComponent } from '../pedidosadm/pedidosadm.component';
     LivroadminComponent,
     UsuariosComponent,
     PedidosadmComponent,
+    EditoraadminComponent,
+    AutoradminComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],

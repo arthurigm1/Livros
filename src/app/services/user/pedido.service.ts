@@ -15,7 +15,7 @@ export class PedidoService {
     const token = localStorage.getItem('adminToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
-      .get<any>(`http://localhost:8080/pedido/resumo`, { headers })
+      .get<any>(`${this.apiUrl}/pedido/resumo`, { headers })
       .pipe(timeout(this.timeoutDuration));
   }
 
@@ -58,7 +58,7 @@ export class PedidoService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get('http://localhost:8080/pedido/relatorio', {
+      .get(`${this.apiUrl}/pedido/relatorio`, {
         headers: headers,
         responseType: 'blob',
       })
@@ -68,7 +68,7 @@ export class PedidoService {
     const token = localStorage.getItem('adminToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
-      .get<PedidoAdminDto[]>(`http://localhost:8080/pedido/pedidos`, {
+      .get<PedidoAdminDto[]>(`${this.apiUrl}/pedido/pedidos`, {
         headers,
       })
       .pipe(timeout(this.timeoutDuration));

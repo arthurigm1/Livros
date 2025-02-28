@@ -8,7 +8,7 @@ import { LoginResponse } from '../../interface/login-response.type';
   providedIn: 'root',
 })
 export class UsuarioadminService {
-  private apiUrl = 'http://localhost:8080/admin';
+  private apiUrl = 'https://fullstacklivros-production.up.railway.app/admin';
 
   constructor(private http: HttpClient) {}
   getAllUsers(): Observable<User[]> {

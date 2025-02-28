@@ -15,7 +15,8 @@ export class AuthService {
   isAdminLoggedIn$: Observable<boolean> =
     this.isAdminLoggedInSubject.asObservable();
 
-  private apiUrl = 'http://localhost:8080/admin/login';
+  private apiUrl =
+    'https://fullstacklivros-production.up.railway.app/admin/login';
 
   constructor(private http: HttpClient) {}
 

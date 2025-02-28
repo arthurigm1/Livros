@@ -22,19 +22,15 @@ export class LivroService {
     return this.httpClient.get<ResultadoLivroDto[]>(this.apiUrl + '/livros');
   }
   buscarLivrosadmin(): Observable<LivrosAdminDto[]> {
-    return this.httpClient.get<LivrosAdminDto[]>(
-      'http://localhost:8080/livros'
-    );
+    return this.httpClient.get<LivrosAdminDto[]>(`${this.apiUrl}/livros`);
   }
   cadastrarLivro(CadastroLivroDto: any): Observable<any> {
     const token = localStorage.getItem('adminToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.httpClient.post(
-      'http://localhost:8080/livros',
-      CadastroLivroDto,
-      { headers }
-    );
+    return this.httpClient.post(`${this.apiUrl}/livros`, CadastroLivroDto, {
+      headers,
+    });
   }
 
   buscarLivrosComFiltros(filtro: any): Observable<ResultadoLivroDto[]> {
@@ -80,7 +76,7 @@ export class LivroService {
     const token = localStorage.getItem('adminToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.httpClient.delete(`http://localhost:8080/livros/${id}`, {
+    return this.httpClient.delete(`${this.apiUrl}/livros/${id}`, {
       headers,
     });
   }
@@ -89,7 +85,7 @@ export class LivroService {
     const token = localStorage.getItem('adminToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.httpClient.put<void>(
-      `http://localhost:8080/livros/${id}`,
+      `${this.apiUrl}/livros/${id}`,
       livroAtualizado,
       {
         headers,

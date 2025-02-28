@@ -17,7 +17,7 @@ import { forkJoin, Observable } from 'rxjs';
 
 import { FormsModule } from '@angular/forms';
 import { AutorService } from '../../services/autores/autor.service';
-import { EditoraService } from '../../services/livro/editora.service';
+import { EditoraService } from '../../services/editora/editora.service';
 import { CarrinhoService } from '../../services/livro/carrinho.service';
 import { AuthService } from '../../services/auth.service';
 import { LivroService } from '../../services/livro/livro.service';

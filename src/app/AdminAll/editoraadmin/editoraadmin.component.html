@@ -1,0 +1,119 @@
+<div class="p-8 bg-gray-50 min-h-screen rounded-lg">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">Editoras Cadastradas</h1>
+
+  <!-- Botão para Adicionar Nova Editora -->
+  <div class="flex justify-end mb-4">
+    <button
+      (click)="abrirModal()"
+      class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-200"
+    >
+      Adicionar Nova Editora
+    </button>
+  </div>
+
+  <!-- Modal para Adicionar ou Editar Editora -->
+  <div
+    *ngIf="isModalOpen"
+    class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex justify-center items-center"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+        {{ editoraEmEdicao ? "Editar Editora" : "Adicionar Nova Editora" }}
+      </h2>
+
+      <form (ngSubmit)="salvarEditora()">
+        <div class="mb-4">
+          <label for="nome" class="block text-gray-700">Nome da Editora</label>
+          <input
+            id="nome"
+            [(ngModel)]="novaEditora.nome"
+            name="nome"
+            type="text"
+            required
+            class="mt-2 p-2 w-full border border-gray-300 rounded-md"
+            placeholder="Nome da Editora"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="img" class="block text-gray-700"
+            >Imagem da Editora (URL)</label
+          >
+          <input
+            id="img"
+            [(ngModel)]="novaEditora.img"
+            name="img"
+            type="text"
+            class="mt-2 p-2 w-full border border-gray-300 rounded-md"
+            placeholder="URL da Imagem"
+          />
+        </div>
+
+        <div class="flex justify-end gap-2">
+          <button
+            type="button"
+            (click)="fecharModal()"
+            class="px-4 py-2 bg-gray-300 text-black rounded-md"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Exibição das Editoras -->
+  <div
+    *ngIf="editoras.length > 0"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+  >
+    <div
+      *ngFor="let editora of editoras"
+      class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+    >
+      <div class="h-48 bg-gray-200 flex items-center justify-center">
+        <img
+          *ngIf="editora.img"
+          [src]="editora.img"
+          alt="Logo da Editora"
+          class="w-full h-full object-cover"
+        />
+        <span *ngIf="!editora.img" class="text-gray-500">Sem imagem</span>
+      </div>
+
+      <div class="p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">
+          {{ editora.nome }}
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Livros publicados: {{ editora.quantidadeLivros || 0 }}
+        </p>
+
+        <div class="flex gap-2">
+          <button
+            (click)="abrirModal(editora)"
+            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
+          >
+            Editar
+          </button>
+          <button
+            (click)="deletarEditora(editora.id)"
+            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200"
+          >
+            Deletar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensagem caso não haja editoras cadastradas -->
+  <div *ngIf="editoras.length === 0" class="text-center text-gray-600">
+    Nenhuma editora cadastrada.
+  </div>
+</div>

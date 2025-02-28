@@ -6,7 +6,7 @@ import { ResetPasswordComponent } from './LoginAll/reset-password/reset-password
 import { VerificacaouserComponent } from './LoginAll/verificacaouser/verificacaouser.component';
 import { HeaderComponent } from './HomeAll/header/header.component';
 import { HomeadminComponent } from './AdminAll/homeadmin/homeadmin.component';
-import { AuthGuard } from './auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { DashboardComponent } from './AdminAll/dashboard/dashboard.component';
 
 export const routes: Routes = [

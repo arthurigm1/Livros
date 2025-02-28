@@ -1,4 +1,4 @@
-<div class="flex h-screen bg-gray-100">
+<div class="flex h-screen bg-gray-100 rounded-lg">
   <!-- Botão de Toggle para Sidebar (visível apenas em telas pequenas) -->
   <button
     class="md:hidden fixed top-4 left-4 p-2 bg-gray-800 text-white rounded-lg z-50 hover:bg-gray-700 transition-colors"
@@ -64,17 +64,6 @@
         </a>
       </li>
 
-      <li class="mb-4">
-        <a
-          (click)="changeComponent('relatorios')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
-        >
-          <i class="fas fa-file-alt text-xl w-6"></i>
-          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
-            >Relatórios</span
-          >
-        </a>
-      </li>
       <li class="mb-4">
         <a
           (click)="changeComponent('editoras')"
@@ -164,5 +153,7 @@
     <app-livroadmin *ngIf="componente === 'livroadmin'" />
     <app-usuarios *ngIf="componente === 'usuarios'"></app-usuarios>
     <app-pedidosadm *ngIf="componente === 'pedidos'"></app-pedidosadm>
+    <app-editoraadmin *ngIf="componente === 'editoras'"></app-editoraadmin>
+    <app-autoradmin *ngIf="componente === 'autores'"></app-autoradmin>
   </div>
 </div>
