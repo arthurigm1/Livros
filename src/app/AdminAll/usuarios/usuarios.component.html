@@ -7,7 +7,6 @@
     Gerenciamento de Usuários
   </h1>
 
-  <!-- Botão para Adicionar Novo Usuário -->
   <div class="flex justify-center mb-8">
     <button
       (click)="openModal()"
@@ -17,7 +16,6 @@
     </button>
   </div>
 
-  <!-- Lista de Usuários -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <div
       *ngFor="let user of users"
@@ -42,7 +40,6 @@
         </span>
       </p>
 
-      <!-- Botões de Ação -->
       <div class="flex space-x-4">
         <button
           class="px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 flex items-center"
@@ -59,7 +56,6 @@
     </div>
   </div>
 
-  <!-- Modal de Adicionar Usuário -->
   <div
     *ngIf="isModalOpen"
     class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex items-center justify-center z-50"
@@ -67,7 +63,6 @@
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
       <h2 class="text-xl font-bold mb-4">Adicionar Novo Usuário ADMIN!</h2>
 
-      <!-- Email -->
       <label class="block text-sm font-medium text-gray-700">Email:</label>
       <input
         [(ngModel)]="newUser.email"
@@ -76,7 +71,6 @@
         placeholder="Digite o email"
       />
 
-      <!-- Senha -->
       <label class="block text-sm font-medium text-gray-700">Senha:</label>
       <input
         [(ngModel)]="newUser.senha"

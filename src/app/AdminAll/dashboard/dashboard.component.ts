@@ -38,24 +38,20 @@ export class DashboardComponent implements OnInit {
 
   isSidebarCollapsed: boolean = false;
 
-  // Função para alternar a sidebar
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-  // Função para recolher/expandir a sidebar
   toggleSidebarCollapse() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  // Função para expandir a sidebar ao passar o mouse
   expandSidebar() {
     if (this.isSidebarCollapsed) {
       this.isSidebarCollapsed = false;
     }
   }
 
-  // Função para recolher a sidebar ao retirar o mouse
   collapseSidebar() {
     if (!this.isSidebarCollapsed) {
       this.isSidebarCollapsed = true;
@@ -63,7 +59,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Verifica se o usuário é admin
     if (!this.authService.isAdminAuthenticated()) {
       this.router.navigate(['/admin']);
       return;

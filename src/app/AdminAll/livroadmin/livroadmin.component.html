@@ -4,7 +4,6 @@
     {{ quantidadeLivros }}
   </h1>
 
-  <!-- Botão para abrir o modal -->
   <div class="flex justify-end mb-4">
     <button
       (click)="abrirModal()"
@@ -14,13 +13,12 @@
     </button>
   </div>
 
-  <!-- Modal -->
   <div
     *ngIf="modalAberto"
     class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex justify-center items-center z-50"
   >
     <div
-      class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[80vh] overflow-y-auto"
+      class="bg-white p-6 rounded-lg shadow-lg w-[500px] max-h-[90vh] overflow-y-auto"
     >
       <h2 class="text-2xl font-semibold text-gray-800 mb-6">
         Cadastrar Novo Livro
@@ -172,13 +170,12 @@
     </div>
   </div>
 
-  <!-- Modal de Atualização -->
   <div
     *ngIf="modalEditarAberto"
     class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex justify-center items-center z-50"
   >
     <div
-      class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-[80vh] overflow-y-auto"
+      class="bg-white p-6 rounded-lg shadow-lg w-[500px] max-h-[90vh] overflow-y-auto"
     >
       <h2 class="text-2xl font-semibold text-gray-800 mb-6">Atualizar Livro</h2>
       <form (submit)="atualizarLivro()" class="space-y-5">
@@ -344,7 +341,6 @@
     </div>
   </div>
 
-  <!-- Tabela de livros -->
   <div class="overflow-x-auto mt-8 shadow-lg rounded-lg">
     <table class="w-full table-auto border-separate border-spacing-0">
       <thead class="bg-gray-800 text-white">

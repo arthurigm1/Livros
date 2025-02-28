@@ -121,8 +121,8 @@ export class AutoradminComponent {
       .subscribe({
         next: () => {
           this.toastService.success('Autor atualizado com sucesso!');
-          this.fecharModalEditar(); // Fecha o modal após salvar
-          this.carregarAutores(); // Atualiza a lista de autores
+          this.fecharModalEditar();
+          this.carregarAutores();
         },
         error: (err) => {
           this.toastService.error('Erro ao atualizar autor. Tente novamente.');

@@ -3,7 +3,6 @@
     Gerenciamento de Autores
   </h1>
 
-  <!-- Botão para adicionar novo autor -->
   <div class="flex justify-end mb-6">
     <button
       (click)="abrirModal()"
@@ -13,7 +12,6 @@
     </button>
   </div>
 
-  <!-- Tabela de autores -->
   <div class="overflow-x-auto mt-8 shadow-lg rounded-lg">
     <table class="w-full table-auto border-separate border-spacing-0">
       <thead class="bg-gray-800 text-white">
@@ -117,7 +115,6 @@
   </div>
 </div>
 
-<!-- Modal para adicionar novo autor -->
 <div
   *ngIf="mostrarModal"
   class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex items-center justify-center"
