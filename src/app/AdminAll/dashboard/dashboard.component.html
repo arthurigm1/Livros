@@ -66,18 +66,6 @@
 
       <li class="mb-4">
         <a
-          (click)="changeComponent('categorias')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
-        >
-          <i class="fas fa-tags text-xl w-6"></i>
-          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
-            >Categorias</span
-          >
-        </a>
-      </li>
-
-      <li class="mb-4">
-        <a
           (click)="changeComponent('relatorios')"
           class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
@@ -89,21 +77,39 @@
       </li>
       <li class="mb-4">
         <a
-          (click)="changeComponent('usuarios')"
+          (click)="changeComponent('editoras')"
           class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
-          <i class="fa-solid fa-circle-user text-xl w-6"></i>
-          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Usuarios</span>
+          <i class="fas fa-building text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Editoras</span>
+        </a>
+      </li>
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('autores')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fas fa-user text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Autores</span>
         </a>
       </li>
 
       <li class="mb-4">
         <a
-          (click)="changeComponent('financas')"
+          (click)="changeComponent('pedidos')"
           class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
-          <i class="fas fa-wallet text-xl w-6"></i>
-          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Finanças</span>
+          <i class="fas fa-shopping-cart text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Pedidos</span>
+        </a>
+      </li>
+      <li class="mb-4">
+        <a
+          (click)="changeComponent('usuarios')"
+          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+        >
+          <i class="fa-solid fa-circle-user text-xl w-6"></i>
+          <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Usuarios</span>
         </a>
       </li>
     </ul>
@@ -157,5 +163,6 @@
     <app-graficos *ngIf="componente === 'grafico'" />
     <app-livroadmin *ngIf="componente === 'livroadmin'" />
     <app-usuarios *ngIf="componente === 'usuarios'"></app-usuarios>
+    <app-pedidosadm *ngIf="componente === 'pedidos'"></app-pedidosadm>
   </div>
 </div>

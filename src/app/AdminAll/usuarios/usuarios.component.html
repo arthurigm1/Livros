@@ -9,6 +9,7 @@
   <!-- Botão para Adicionar Novo Usuário -->
   <div class="flex justify-center mb-8">
     <button
+      (click)="openModal()"
       class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center"
     >
       <i class="fas fa-plus mr-2"></i> Adicionar Novo Usuário
@@ -17,24 +18,16 @@
 
   <!-- Lista de Usuários -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Card de Usuário -->
     <div
       *ngFor="let user of users"
       class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center"
     >
-      <!-- Ícone de Usuário -->
       <div
         class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center mb-4"
       >
         <i class="fas fa-user text-gray-600 text-3xl"></i>
       </div>
-
-      <!-- Email do Usuário -->
-      <h2 class="text-lg font-semibold text-gray-800 mb-2">
-        {{ user.email }}
-      </h2>
-
-      <!-- Role do Usuário -->
+      <h2 class="text-lg font-semibold text-gray-800 mb-2">{{ user.email }}</h2>
       <p class="text-sm text-gray-600 mb-4">
         <span class="font-medium">Role:</span>
         <span
@@ -50,20 +43,59 @@
 
       <!-- Botões de Ação -->
       <div class="flex space-x-4">
-        <!-- Botão de Editar -->
         <button
           class="px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 flex items-center"
         >
           <i class="fas fa-edit mr-2"></i> Editar
         </button>
-
-        <!-- Botão de Excluir -->
         <button
           (click)="deleteUser(user.id)"
           class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 flex items-center"
         >
-          <i class="fas fa-trash mr-2"></i>
-          Excluir
+          <i class="fas fa-trash mr-2"></i> Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Adicionar Usuário -->
+  <div
+    *ngIf="isModalOpen"
+    class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex items-center justify-center z-50"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-xl font-bold mb-4">Adicionar Novo Usuário ADMIN!</h2>
+
+      <!-- Email -->
+      <label class="block text-sm font-medium text-gray-700">Email:</label>
+      <input
+        [(ngModel)]="newUser.email"
+        type="email"
+        class="w-full p-2 border rounded mb-4"
+        placeholder="Digite o email"
+      />
+
+      <!-- Senha -->
+      <label class="block text-sm font-medium text-gray-700">Senha:</label>
+      <input
+        [(ngModel)]="newUser.senha"
+        type="password"
+        class="w-full p-2 border rounded mb-4"
+        placeholder="Digite a senha"
+      />
+
+      <div class="flex justify-end space-x-4">
+        <button
+          (click)="closeModal()"
+          class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="addUser()"
+          class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700"
+        >
+          Adicionar
         </button>
       </div>
     </div>

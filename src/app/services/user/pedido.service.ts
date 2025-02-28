@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, timeout } from 'rxjs';
+import { Observable, tap, timeout } from 'rxjs';
+import { PedidoAdminDto } from '../../interface/PedidoAdmindto';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,26 @@ export class PedidoService {
       .get(`${this.apiUrl}/${id}/relatorio`, {
         headers: headers,
         responseType: 'blob',
+      })
+      .pipe(timeout(this.timeoutDuration));
+  }
+  baixarRelatorioPedidos(): Observable<Blob> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http
+      .get('http://localhost:8080/pedido/relatorio', {
+        headers: headers,
+        responseType: 'blob',
+      })
+      .pipe(timeout(this.timeoutDuration));
+  }
+  getallPedidos(): Observable<PedidoAdminDto[]> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .get<PedidoAdminDto[]>(`http://localhost:8080/pedido/pedidos`, {
+        headers,
       })
       .pipe(timeout(this.timeoutDuration));
   }

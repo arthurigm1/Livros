@@ -9,6 +9,7 @@ import { LivroadminComponent } from '../livroadmin/livroadmin.component';
 import { LivrosComponent } from '../../LivroAll/livro/livro.component';
 import { ToastrService } from 'ngx-toastr';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
+import { PedidosadmComponent } from '../pedidosadm/pedidosadm.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ import { UsuariosComponent } from '../usuarios/usuarios.component';
     GraficosComponent,
     LivroadminComponent,
     UsuariosComponent,
+    PedidosadmComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],

@@ -1,0 +1,153 @@
+<div class="p-8">
+  <h1 class="text-3xl font-bold text-gray-900 mt-6">
+    Pedidos Realizados por Clientes
+  </h1>
+
+  <div class="flex justify-end mb-4">
+    <button
+      (click)="baixarelatorio()"
+      class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition duration-200"
+    >
+      Exportar Pedidos PDF
+    </button>
+  </div>
+
+  <div class="overflow-x-auto mt-8 shadow-lg rounded-lg">
+    <table class="w-full table-auto border-separate border-spacing-0">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            ID
+          </th>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            Email
+          </th>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            Data
+          </th>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            Status
+          </th>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            Valor Total
+          </th>
+          <th
+            class="px-6 py-3 text-left text-base font-semibold text-white uppercase tracking-wider"
+          >
+            Ações
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let order of orders">
+          <td class="px-6 py-4 whitespace-nowrap text-base text-gray-900">
+            {{ order.id }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-base text-gray-900">
+            {{ order.email }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-base text-gray-900">
+            {{ order.dataCadastro | date : "short" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-base text-gray-900">
+            {{ order.status }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-base text-gray-900">
+            {{ order.valorTotal | currency : "BRL" }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-base">
+            <button
+              (click)="openItemsModal(order)"
+              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300"
+            >
+              Ver Itens
+            </button>
+            <button
+              (click)="openAddressModal(order)"
+              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md ml-2 transition duration-300"
+            >
+              Ver Endereço
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="showItemsModal"
+    class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex items-center justify-center p-4"
+  >
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+      <h3 class="text-xl font-bold mb-4">Itens do Pedido</h3>
+      <ul>
+        <li *ngFor="let item of selectedOrder?.itens" class="mb-4">
+          <div
+            class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300"
+          >
+            <p class="text-gray-700">
+              <span class="font-semibold text-lg text-blue-600">{{
+                item.tituloLivro
+              }}</span>
+            </p>
+            <div class="mt-2 text-gray-600">
+              <p>
+                <span class="font-medium">Quantidade:</span>
+                {{ item.quantidade }}
+              </p>
+              <p>
+                <span class="font-medium">Preço Unitário:</span>
+                {{ item.precoUnitario | currency : "BRL" }}
+              </p>
+              <p>
+                <span class="font-medium">Subtotal:</span>
+                {{ item.subtotal | currency : "BRL" }}
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <button
+        (click)="closeItemsModal()"
+        class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300"
+      >
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showAddressModal"
+    class="fixed inset-0 bg-opacity-40 backdrop-blur-md flex items-center justify-center p-4"
+  >
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+      <h3 class="text-xl font-bold mb-4">Endereço de Entrega</h3>
+      <p class="text-gray-700">
+        {{ selectedOrder?.endereco?.logradouro }},
+        {{ selectedOrder?.endereco?.complemento }}
+      </p>
+      <p class="text-gray-700">
+        {{ selectedOrder?.endereco?.bairro }},
+        {{ selectedOrder?.endereco?.localidade }} -
+        {{ selectedOrder?.endereco?.uf }}
+      </p>
+      <p class="text-gray-700">CEP: {{ selectedOrder?.endereco?.cep }}</p>
+      <button
+        (click)="closeAddressModal()"
+        class="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300"
+      >
+        Fechar
+      </button>
+    </div>
+  </div>
+</div>

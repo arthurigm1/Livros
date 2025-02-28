@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ResultadoLivroDto } from '../../interface/ResultadoLivroDto.interface';
 import { LivroDetalhadoDto } from '../../interface/livro-detalhado.dto';
+import { LivrosAdminDto } from '../../interface/LivrosAdminDto.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,21 @@ export class LivroService {
 
   buscarLivros(): Observable<ResultadoLivroDto[]> {
     return this.httpClient.get<ResultadoLivroDto[]>(this.apiUrl + '/livros');
+  }
+  buscarLivrosadmin(): Observable<LivrosAdminDto[]> {
+    return this.httpClient.get<LivrosAdminDto[]>(
+      'http://localhost:8080/livros'
+    );
+  }
+  cadastrarLivro(CadastroLivroDto: any): Observable<any> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.httpClient.post(
+      'http://localhost:8080/livros',
+      CadastroLivroDto,
+      { headers }
+    );
   }
 
   buscarLivrosComFiltros(filtro: any): Observable<ResultadoLivroDto[]> {
@@ -57,6 +73,27 @@ export class LivroService {
   obterDetalhes(id: string): Observable<LivroDetalhadoDto> {
     return this.httpClient.get<LivroDetalhadoDto>(
       `${this.apiUrl}/livros/${id}`
+    );
+  }
+
+  deletarlivro(id: number): Observable<any> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.httpClient.delete(`http://localhost:8080/livros/${id}`, {
+      headers,
+    });
+  }
+
+  atualizarLivro(id: string, livroAtualizado: any): Observable<void> {
+    const token = localStorage.getItem('adminToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.put<void>(
+      `http://localhost:8080/livros/${id}`,
+      livroAtualizado,
+      {
+        headers,
+      }
     );
   }
 }

@@ -16,6 +16,11 @@ export class UsuariosComponent {
   showModal = false;
   selectedUser: User | null = null;
   users: User[] = [];
+  isModalOpen = false;
+  newUser = {
+    email: '',
+    senha: '',
+  };
   constructor(
     private usuarioService: UsuarioadminService,
     private toastService: ToastrService
@@ -51,6 +56,7 @@ export class UsuariosComponent {
         this.usuarioService.deleteUser(userid).subscribe({
           next: () => {
             this.toastService.success('Usuário excluído com sucesso!');
+            this.loadUsers();
           },
           error: () => {
             this.toastService.error('Erro ao excluir usuário.');
@@ -59,6 +65,34 @@ export class UsuariosComponent {
       }
     });
   }
+  openModal() {
+    this.isModalOpen = true;
+  }
 
-  saveUser() {}
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  addUser() {
+    if (!this.newUser.email || !this.newUser.senha) {
+      this.toastService.error('Preencha todos os campos!');
+      return;
+    }
+
+    this.usuarioService
+      .signup(this.newUser.email, this.newUser.senha)
+      .subscribe({
+        next: () => {
+          this.toastService.success('Usuário cadastrado com sucesso!');
+          this.closeModal();
+          this.loadUsers();
+        },
+        error: (err) => {
+          console.error('Erro ao cadastrar usuário:', err);
+          this.toastService.error(
+            'Erro ao cadastrar usuário. Tente novamente.'
+          );
+        },
+      });
+  }
 }

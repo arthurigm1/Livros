@@ -85,7 +85,7 @@ export class GraficosComponent {
         datasets: [
           {
             label: 'Status do Pagamento',
-            backgroundColor: ['#3e95cd', '#c45850'],
+            backgroundColor: ['#7375a5', '#3e3e53'],
             data: [this.valorPago, this.valorAguardandoPagamento],
           },
         ],
@@ -115,7 +115,7 @@ export class GraficosComponent {
             label: 'Quantidade de Pagamentos',
             data: [this.countPago, this.countAguardandoPagamento],
             borderWidth: 1,
-            backgroundColor: ['#3e95cd', '#c45850'],
+            backgroundColor: ['#7375a5', '#3e3e53'],
           },
         ],
       },
