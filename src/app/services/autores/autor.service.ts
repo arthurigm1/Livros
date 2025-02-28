@@ -18,7 +18,7 @@ export class AutorService {
   }
   getAutoresAdmin(): Observable<any[]> {
     const token = localStorage.getItem('adminToken');
-    return this.http.get<any[]>(`${this.apiUrl}/admin`, {
+    return this.http.get<any[]>(`${this.apiUrl}/autores/admin`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
