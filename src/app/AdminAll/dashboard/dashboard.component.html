@@ -1,6 +1,6 @@
 <div class="flex h-screen bg-gray-100 rounded-lg">
   <button
-    class="md:hidden fixed top-4 left-4 p-2 bg-gray-800 text-white rounded-lg z-50 hover:bg-gray-700 transition-colors"
+    class="md:hidden fixed top-4 left-4 p-2 bg-[#001613] text-white rounded-lg z-50 hover:[#0e2522] transition-colors"
     (click)="toggleSidebar()"
   >
     ☰
@@ -22,7 +22,7 @@
     "
   >
     <button
-      class="absolute -right-3 top-6 p-2 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-colors"
+      class="absolute -right-3 top-6 p-2 bg-[#001613] text-white rounded-full shadow-lg hover:[#0e2522] transition-colors"
       (click)="toggleSidebarCollapse()"
     >
       {{ isSidebarCollapsed ? "☰" : "☰" }}
@@ -41,7 +41,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('grafico')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522] flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fas fa-chart-line text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg"
@@ -52,7 +52,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('livroadmin')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522] flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fas fa-book text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Livros</span>
@@ -62,7 +62,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('editoras')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522] flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fas fa-building text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Editoras</span>
@@ -71,7 +71,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('autores')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522] flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fas fa-user text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Autores</span>
@@ -81,7 +81,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('pedidos')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522] flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fas fa-shopping-cart text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Pedidos</span>
@@ -90,7 +90,7 @@
       <li class="mb-4">
         <a
           (click)="changeComponent('usuarios')"
-          class="hover:bg-gray-700 flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
+          class="hover:bg-[#0e2522]flex items-center p-3 rounded-lg transition-colors duration-200 cursor-pointer"
         >
           <i class="fa-solid fa-circle-user text-xl w-6"></i>
           <span *ngIf="!isSidebarCollapsed" class="ml-2 text-lg">Usuarios</span>
