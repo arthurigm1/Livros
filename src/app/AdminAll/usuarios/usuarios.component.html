@@ -10,7 +10,7 @@
   <div class="flex justify-center mb-8">
     <button
       (click)="openModal()"
-      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center"
+      class="px-6 py-3 bg-gray-800 text-white cursor-pointer font-semibold rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center"
     >
       <i class="fas fa-plus mr-2"></i> Adicionar Novo Usuário
     </button>
@@ -42,13 +42,13 @@
 
       <div class="flex space-x-4">
         <button
-          class="px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 flex items-center"
+          class="px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg shadow-md hover:bg-yellow-600 hover:shadow-lg transition-all duration-200 flex items-center cursor-pointer"
         >
           <i class="fas fa-edit mr-2"></i> Editar
         </button>
         <button
           (click)="deleteUser(user.id)"
-          class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 flex items-center"
+          class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg shadow-md hover:bg-red-700 hover:shadow-lg transition-all duration-200 flex items-center cursor-pointer"
         >
           <i class="fas fa-trash mr-2"></i> Excluir
         </button>
@@ -82,13 +82,13 @@
       <div class="flex justify-end space-x-4">
         <button
           (click)="closeModal()"
-          class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
+          class="px-4 py-2 bg-gray-300 text-white rounded shadow hover:bg-gray-100 cursor-pointer"
         >
           Cancelar
         </button>
         <button
           (click)="addUser()"
-          class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700"
+          class="px-4 py-2 bg-gray-800 text-white rounded shadow hover:bg-gray-600 cursor-pointer"
         >
           Adicionar
         </button>

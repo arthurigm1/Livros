@@ -50,13 +50,13 @@
           <button
             type="button"
             (click)="fecharModal()"
-            class="px-4 py-2 bg-gray-300 text-black rounded-md cursor-pointer"
+            class="px-4 py-2 bg-gray-300 hover:bg-gray-100 text-black rounded-md cursor-pointer"
           >
             Cancelar
           </button>
           <button
             type="submit"
-            class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-green-700 cursor-pointer"
+            class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-600 cursor-pointer"
           >
             Salvar
           </button>
@@ -94,13 +94,13 @@
         <div class="flex gap-2">
           <button
             (click)="abrirModal(editora)"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
+            class="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-600 transition duration-200 cursor-pointer"
           >
             Editar
           </button>
           <button
             (click)="deletarEditora(editora.id)"
-            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200"
+            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-200 cursor-pointer"
           >
             Deletar
           </button>
