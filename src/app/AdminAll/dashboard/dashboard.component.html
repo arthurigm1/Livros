@@ -1,13 +1,13 @@
-<div class="flex h-screen bg-gray-100 rounded-lg">
+<div class="flex h-screen bg-[#063831] rounded-lg">
   <button
-    class="md:hidden fixed top-4 left-4 p-2 bg-gray-800 text-white rounded-lg z-50 hover:bg-gray-700 transition-colors"
+    class="md:hidden fixed top-4 left-4 p-2 bg-[#063831] text-white rounded-lg z-50 hover:bg-gray-700 transition-colors"
     (click)="toggleSidebar()"
   >
     ☰
   </button>
 
   <div
-    class="bg-gray-800 text-white h-screen fixed z-30 transition-all duration-300"
+    class="text-white h-screen fixed z-30 transition-all duration-300"
     [ngClass]="{
       '-translate-x-full': !isSidebarOpen,
       'translate-x-0': isSidebarOpen,
@@ -19,10 +19,11 @@
     style="
       box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
       border-right: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: #063831;
     "
   >
     <button
-      class="absolute -right-3 top-6 p-2 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-colors"
+      class="absolute -right-3 top-6 p-2 [#063831] text-white rounded-full shadow-lg hover:bg-gray-700 transition-colors"
       (click)="toggleSidebarCollapse()"
     >
       {{ isSidebarCollapsed ? "☰" : "☰" }}
