@@ -6,7 +6,7 @@
   <div class="flex justify-end mb-6">
     <button
       (click)="abrirModal()"
-      class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200"
+      class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
     >
       Adicionar Novo Autor
     </button>
@@ -76,7 +76,7 @@
           <td class="p-1 flex justify-center space-x-2">
             <button
               (click)="abrirModalEditar(autor)"
-              class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition duration-200 flex items-center"
+              class="rounded-md bg-amber-600 py-2 px-4 border border-transparent text-center text-sm text-slate-800 transition-all shadow-md hover:shadow-lg focus:bg-amber-700 focus:shadow-none active:bg-amber-700 hover:bg-amber-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@
             </button>
             <button
               (click)="excluirAutor(autor.id)"
-              class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200 flex items-center"
+              class="rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
