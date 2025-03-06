@@ -9,7 +9,6 @@
     pagination="true"
     pagination-dynamic-bullets="true"
     autoplay-delay="2500"
-    class="w-full h-[180px] sm:h-[280px]"
   >
     <swiper-slide
       *ngFor="let slide of slides; let i = index"
@@ -18,7 +17,7 @@
       <img
         [src]="slide.src"
         [alt]="slide.title"
-        class="w-full h-full object-cover"
+        class="w-[2600px] h-[280px]"
         loading="lazy"
       />
     </swiper-slide>
@@ -32,22 +31,8 @@
     <swiper-container
       class="w-full max-w-8xl px-4 bg-transparent"
       space-between="4"
-      slides-per-view="2"
+      slides-per-view="6"
       grab-cursor="true"
-      breakpoints='{
-    "640": {
-      "slidesPerView": 3, 
-      "spaceBetween": 4
-    },
-    "768": {
-      "slidesPerView": 4, 
-      "spaceBetween": 4
-    },
-    "1024": {
-      "slidesPerView": 6,
-      "spaceBetween": 4
-    }
-  }'
     >
       <swiper-slide
         *ngFor="let autor of autoresExibidos"
@@ -56,11 +41,9 @@
         <img
           [src]="autor.img"
           [alt]="autor.nome"
-          class="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+          class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
         />
-        <h4
-          class="text-base md:text-lg lg:text-xl font-semibold text-[#b68d40] text-center"
-        >
+        <h4 class="text-xl font-semibold text-[#b68d40] text-center">
           {{ autor.nome }}
         </h4>
       </swiper-slide>
@@ -76,20 +59,6 @@
       space-between="20"
       slides-per-view="4"
       grab-cursor="true"
-      breakpoints='{
-    "640": {
-      "slidesPerView": 3, 
-      "spaceBetween": 4
-    },
-    "768": {
-      "slidesPerView": 4, 
-      "spaceBetween": 4
-    },
-    "1024": {
-      "slidesPerView": 6,
-      "spaceBetween": 4
-    }
-  }'
     >
       <swiper-slide
         *ngFor="let livro of livros"
@@ -125,20 +94,6 @@
       space-between="24"
       slides-per-view="5"
       grab-cursor="true"
-      breakpoints='{
-    "640": {
-      "slidesPerView": 3, 
-      "spaceBetween": 4
-    },
-    "768": {
-      "slidesPerView": 4, 
-      "spaceBetween": 4
-    },
-    "1024": {
-      "slidesPerView": 6,
-      "spaceBetween": 4
-    }
-  }'
     >
       <swiper-slide
         *ngFor="let editora of editoras"
@@ -165,20 +120,6 @@
       space-between="20"
       slides-per-view="4"
       grab-cursor="true"
-      breakpoints='{
-    "640": {
-      "slidesPerView": 3, 
-      "spaceBetween": 4
-    },
-    "768": {
-      "slidesPerView": 4, 
-      "spaceBetween": 4
-    },
-    "1024": {
-      "slidesPerView": 6,
-      "spaceBetween": 4
-    }
-  }'
     >
       <swiper-slide
         *ngFor="let livro of livrotec"
