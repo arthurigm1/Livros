@@ -93,8 +93,7 @@ export class FinalizarpedidoComponent implements OnInit {
         (response) => {
           if (response.qrCodeUrl && response.pixCopiaECola) {
             this.toastr.success('Pedido finalizado com sucesso!', 'Sucesso');
-
-            // Atualizando as variáveis com os dados retornados
+            
             this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(
               response.qrCodeUrl
             );
