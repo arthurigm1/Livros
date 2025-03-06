@@ -5,12 +5,10 @@
 </div>
 
 <div *ngIf="!isLoading">
-  <!-- Swiper de slides -->
   <swiper-container
     pagination="true"
     pagination-dynamic-bullets="true"
     autoplay-delay="2500"
-    class="w-full"
   >
     <swiper-slide
       *ngFor="let slide of slides; let i = index"
@@ -19,34 +17,22 @@
       <img
         [src]="slide.src"
         [alt]="slide.title"
-        class="w-full max-w-full max-h-[400px] object-cover"
+        class="w-[2600px] h-[280px]"
         loading="lazy"
       />
     </swiper-slide>
   </swiper-container>
 
-  <!-- Seção de Autores -->
-  <div class="relative flex flex-col items-center py-8 sm:py-12 bg-transparent">
-    <h2 class="text-2xl sm:text-3xl font-bold text-[#063831] mb-2">Autores</h2>
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-2">Autores</h2>
+
+    <!-- Swiper -->
     <swiper-container
       class="w-full max-w-8xl px-4 bg-transparent"
       space-between="4"
+      slides-per-view="6"
       grab-cursor="true"
-      [slidesPerView]="6"
-      breakpoints='{
-        "640": {
-          "slidesPerView": 3,
-          "spaceBetween": 4
-        },
-        "768": {
-          "slidesPerView": 4,
-          "spaceBetween": 4
-        },
-        "1024": {
-          "slidesPerView": 6,
-          "spaceBetween": 4
-        }
-      }'
     >
       <swiper-slide
         *ngFor="let autor of autoresExibidos"
@@ -55,43 +41,24 @@
         <img
           [src]="autor.img"
           [alt]="autor.nome"
-          class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+          class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
         />
-        <h4
-          class="text-base sm:text-lg md:text-xl font-semibold text-[#b68d40] text-center"
-        >
+        <h4 class="text-xl font-semibold text-[#b68d40] text-center">
           {{ autor.nome }}
         </h4>
       </swiper-slide>
     </swiper-container>
   </div>
-
-  <!-- Seção de Livros Mais Vendidos -->
-  <div class="relative flex flex-col items-center py-8 sm:py-12 bg-transparent">
-    <h2
-      class="text-2xl sm:text-3xl font-bold text-[#063831] mb-4 sm:mb-6 text-center"
-    >
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
       Livros Mais Vendidos no Brasil!
     </h2>
+
     <swiper-container
-      class="w-full max-w-6xl px-4 bg-transparent"
-      space-between="8"
+      class="w-full max-w-6x2 px-4 bg-transparent"
+      space-between="20"
+      slides-per-view="4"
       grab-cursor="true"
-      [slidesPerView]="4"
-      breakpoints='{
-        "640": {
-          "slidesPerView": 2,
-          "spaceBetween": 8
-        },
-        "768": {
-          "slidesPerView": 3,
-          "spaceBetween": 8
-        },
-        "1024": {
-          "slidesPerView": 4,
-          "spaceBetween": 8
-        }
-      }'
     >
       <swiper-slide
         *ngFor="let livro of livros"
@@ -100,16 +67,16 @@
         <img
           [src]="livro.img"
           [alt]="livro.nome"
-          class="w-48 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+          class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
           (click)="selecionarLivro(livro.id)"
         />
-        <h4
-          class="text-lg sm:text-xl font-semibold text-[#063831] text-center mb-2"
-        >
+
+        <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
           {{ livro.titulo }}
         </h4>
+
         <button
-          class="bg-[#b68d40] text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-base sm:text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
           (click)="adicionarLivroAoCarrinho(livro.id)"
         >
           Comprar R$ {{ livro.preco }}
@@ -118,73 +85,41 @@
     </swiper-container>
   </div>
 
-  <!-- Seção de Editoras -->
-  <div class="relative flex flex-col items-center py-8 sm:py-12 bg-transparent">
-    <h2 class="text-2xl sm:text-3xl font-bold text-[#063831] mb-2">Editoras</h2>
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <!-- Título -->
+    <h2 class="text-3xl font-bold text-[#063831] mb-2">Editoras</h2>
+
     <swiper-container
       class="w-full max-w-7xl px-4 bg-transparent"
-      space-between="8"
+      space-between="24"
+      slides-per-view="5"
       grab-cursor="true"
-      [slidesPerView]="6"
-      breakpoints='{
-        "640": {
-          "slidesPerView": 3,
-          "spaceBetween": 8
-        },
-        "768": {
-          "slidesPerView": 4,
-          "spaceBetween": 8
-        },
-        "1024": {
-          "slidesPerView": 5,
-          "spaceBetween": 8
-        }
-      }'
     >
       <swiper-slide
         *ngFor="let editora of editoras"
-        class="flex flex-col items-center rounded-lg p-4"
+        class="flex flex-col items-center rounded-lg p-6"
       >
         <img
           [src]="editora.img"
           [alt]="editora.nome"
-          class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
+          class="w-40 h-40 rounded-full object-cover mb-1 border-4 border-[#f4ebd0]"
         />
-        <h4
-          class="text-base sm:text-lg md:text-xl font-semibold text-[#b68d40] text-center"
-        >
+        <h4 class="text-xl font-semibold text-[#b68d40] text-center">
           {{ editora.nome }}
         </h4>
       </swiper-slide>
     </swiper-container>
   </div>
-
-  <!-- Seção de Livros de Tecnologia -->
-  <div class="relative flex flex-col items-center py-8 sm:py-12 bg-transparent">
-    <h2
-      class="text-2xl sm:text-3xl font-bold text-[#063831] mb-4 sm:mb-6 text-center"
-    >
+  <div class="relative flex flex-col items-center py-12 bg-transparent">
+    <h2 class="text-3xl font-bold text-[#063831] mb-6 text-center">
       Livros de Tecnologia!
     </h2>
+
     <swiper-container
-      class="w-full max-w-6xl px-4 bg-transparent"
-      space-between="8"
+      class="w-full max-w-6x2 px-4 bg-transparent"
+      space-between="20"
+      slides-per-view="4"
       grab-cursor="true"
-      [slidesPerView]="4"
-      breakpoints='{
-        "640": {
-          "slidesPerView": 2,
-          "spaceBetween": 8
-        },
-        "768": {
-          "slidesPerView": 3,
-          "spaceBetween": 8
-        },
-        "1024": {
-          "slidesPerView": 4,
-          "spaceBetween": 8
-        }
-      }'
     >
       <swiper-slide
         *ngFor="let livro of livrotec"
@@ -193,16 +128,16 @@
         <img
           [src]="livro.img"
           [alt]="livro.nome"
-          class="w-48 h-60 sm:w-56 sm:h-72 md:w-64 md:h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
+          class="w-64 h-80 object-cover mb-4 rounded-md border-4 border-[#f4ebd0] cursor-pointer"
           (click)="selecionarLivro(livro.id)"
         />
-        <h4
-          class="text-lg sm:text-xl font-semibold text-[#063831] text-center mb-2"
-        >
+
+        <h4 class="text-xl font-semibold text-[#063831] text-center mb-2">
           {{ livro.titulo }}
         </h4>
+
         <button
-          class="bg-[#b68d40] text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg text-base sm:text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
+          class="bg-[#b68d40] text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-[#946c30] transition cursor-pointer"
           (click)="adicionarLivroAoCarrinho(livro.id)"
         >
           Comprar R$ {{ livro.preco }}
