@@ -74,6 +74,20 @@
       space-between="20"
       slides-per-view="4"
       grab-cursor="true"
+      breakpoints='{
+        "640": {
+          "slidesPerView": 2,
+          "spaceBetween": 4
+        },
+        "768": {
+          "slidesPerView": 3,
+          "spaceBetween": 4
+        },
+        "1024": {
+          "slidesPerView": 4,
+          "spaceBetween": 4
+        }
+      }'
     >
       <swiper-slide
         *ngFor="let livro of livros"
@@ -109,6 +123,20 @@
       space-between="24"
       slides-per-view="5"
       grab-cursor="true"
+      breakpoints='{
+        "640": {
+          "slidesPerView": 3,
+          "spaceBetween": 4
+        },
+        "768": {
+          "slidesPerView": 4,
+          "spaceBetween": 4
+        },
+        "1024": {
+          "slidesPerView": 5,
+          "spaceBetween": 4
+        }
+      }'
     >
       <swiper-slide
         *ngFor="let editora of editoras"
@@ -135,6 +163,20 @@
       space-between="20"
       slides-per-view="4"
       grab-cursor="true"
+      breakpoints='{
+        "640": {
+          "slidesPerView": 2,
+          "spaceBetween": 4
+        },
+        "768": {
+          "slidesPerView": 3,
+          "spaceBetween": 4
+        },
+        "1024": {
+          "slidesPerView": 4,
+          "spaceBetween": 4
+        }
+      }'
     >
       <swiper-slide
         *ngFor="let livro of livrotec"
