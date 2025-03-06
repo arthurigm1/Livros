@@ -9,6 +9,7 @@
     pagination="true"
     pagination-dynamic-bullets="true"
     autoplay-delay="2500"
+    class="w-full"
   >
     <swiper-slide
       *ngFor="let slide of slides; let i = index"
@@ -17,7 +18,7 @@
       <img
         [src]="slide.src"
         [alt]="slide.title"
-        class="w-[2600px] h-[280px]"
+        class="w-full h-auto max-h-[280px] object-cover"
         loading="lazy"
       />
     </swiper-slide>
