@@ -9,6 +9,7 @@
     pagination="true"
     pagination-dynamic-bullets="true"
     autoplay-delay="2500"
+    class="w-full"
   >
     <swiper-slide
       *ngFor="let slide of slides; let i = index"
@@ -17,7 +18,7 @@
       <img
         [src]="slide.src"
         [alt]="slide.title"
-        class="w-[2600px] h-[280px]"
+        class="w-full max-w-full max-h-[400px] object-cover"
         loading="lazy"
       />
     </swiper-slide>
@@ -31,8 +32,22 @@
     <swiper-container
       class="w-full max-w-8xl px-4 bg-transparent"
       space-between="4"
-      slides-per-view="6"
       grab-cursor="true"
+      [slidesPerView]="6"
+      breakpoints='{
+        "640": {
+          "slidesPerView": 3,
+          "spaceBetween": 4
+        },
+        "768": {
+          "slidesPerView": 4,
+          "spaceBetween": 4
+        },
+        "1024": {
+          "slidesPerView": 6,
+          "spaceBetween": 4
+        }
+      }'
     >
       <swiper-slide
         *ngFor="let autor of autoresExibidos"
