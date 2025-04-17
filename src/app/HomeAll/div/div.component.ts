@@ -40,6 +40,17 @@ export class DivComponent {
 
   filtroSelecionado: string = '';
   termoPesquisa: string = '';
+  menuAberto: boolean = false;
+  perfilMenuAberto: boolean = false;
+  componenteAtual: string = 'home';
+
+  menuItems = [
+    { id: 'livros', label: 'Livros' },
+    { id: 'favoritos', label: 'Favoritos' },
+    { id: 'autores', label: 'Autores' },
+    { id: 'editora', label: 'Editoras' },
+    { id: 'sobre', label: 'Sobre o Projeto' },
+  ];
 
   @Input() quantidadeCarrinho: number = 0;
   constructor(
@@ -68,16 +79,15 @@ export class DivComponent {
       width: '400px',
     });
   }
-  perfilMenuAberto: boolean = false;
-
-  togglePerfilMenu() {
-    this.perfilMenuAberto = !this.perfilMenuAberto;
-  }
 
   logout(): void {
     this.authService.logout();
     this.toastService.info('Logout efetuado com sucesso');
     location.reload();
+  }
+
+  togglePerfilMenu() {
+    this.perfilMenuAberto = !this.perfilMenuAberto;
   }
 
   ngOnInit() {
@@ -219,5 +229,9 @@ export class DivComponent {
         console.error('Erro ao buscar livros', error);
       }
     );
+  }
+
+  toggleMenu() {
+    this.menuAberto = !this.menuAberto;
   }
 }

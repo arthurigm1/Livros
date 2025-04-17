@@ -1,72 +1,104 @@
 <nav
-  class="fixed w-full z-20 top-0 start-0 shadow-lg rounded-xs"
+  class="fixed w-full z-20 top-0 start-0 shadow-lg rounded-xs transition-all duration-300"
   style="background-color: #063831"
 >
+  <!-- Banner Superior -->
   <div
-    class="bg-[#f4ebd0] text-black py-2 px-6 flex items-center justify-center text-center"
+    class="bg-[#f4ebd0] text-black py-2 px-3 md:px-6 flex flex-wrap items-center justify-between text-center transition-all duration-300"
   >
-    <p class="text-sm flex-1">
+    <p class="text-xs md:text-sm flex-1 text-left">
       Compre aqui livros novos, usados e seminovos de milhares de sebos e
       livrarias.
     </p>
-
-    <a href="/admin" class="text-black ml-auto"> Área Administrativa </a>
+    <a
+      href="/admin"
+      class="hidden md:block text-black text-xs md:text-sm hover:text-[#b68d40] transition-colors duration-300"
+    >
+      Área Administrativa
+    </a>
   </div>
 
+  <!-- Container Principal -->
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 md:p-4 transition-all duration-300"
     style="background-color: #063831"
   >
+    <!-- Logo -->
     <a
       href="/"
-      class="flex items-center space-x-3 rtl:space-x-reverse border-none"
+      class="flex items-center space-x-3 rtl:space-x-reverse border-none hover:opacity-90 transition-opacity duration-300"
     >
       <img
         src="assets/img/pagiinova.png"
-        alt=""
-        class="border-none"
+        alt="Logo"
+        class="border-none h-8 md:h-10 object-contain transition-all duration-300"
         style="border: none"
       />
     </a>
 
+    <!-- Menu Hamburger (Mobile) -->
+    <button
+      (click)="toggleMenu()"
+      class="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-white rounded-lg hover:bg-[#b68d40] transition-colors duration-300"
+      aria-label="Abrir menu"
+    >
+      <svg
+        class="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
+      </svg>
+    </button>
+
+    <!-- Área de Login/Carrinho -->
     <div
-      class="flex md:order-2 space-x-4 md:space-x-6 rtl:space-x-reverse items-center"
+      class="hidden md:flex md:order-2 space-x-2 md:space-x-4 rtl:space-x-reverse items-center"
     >
       <button
         *ngIf="!(isLoggedIn$ | async)"
         (click)="abrirLogin()"
-        class="login-button"
+        class="login-button text-sm md:text-base px-3 md:px-4 py-1.5 md:py-2"
       >
         Faça seu Login
       </button>
 
       <div
         *ngIf="isLoggedIn$ | async"
-        class="relative flex space-x-4 items-center"
+        class="relative flex space-x-2 md:space-x-4 items-center"
       >
+        <!-- Carrinho -->
         <div class="relative carrinho-container">
           <button
             (click)="toggleCarrinho(); carregarCarrinho()"
-            class="flex items-center bg-gray-100 cursor-pointer text-white px-4 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 bg-emeraldDark hover:bg-emeraldDark/80 shadow-md hover:shadow-lg"
+            class="flex items-center px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[#b68d40]"
           >
             <img
               src="assets/img/cart.png"
               alt="Carrinho"
-              class="w-6 h-6 mr-2 transition-transform duration-300"
+              class="w-5 h-5 md:w-6 md:h-6 mr-2 transition-transform duration-300"
               [ngClass]="{ 'rotate-12': mostrarCarrinho }"
             />
-
             <span
               *ngIf="itensCarrinho.length > 0"
-              class="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full ml-2 animate-pulse"
+              class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse"
             >
               {{ itensCarrinho.length }}
             </span>
           </button>
 
+          <!-- Sidebar do Carrinho -->
           <div
             *ngIf="mostrarCarrinho"
-            class="absolute fixed top-0 right-0 w-96 h-full bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out animate-slideIn flex flex-col z-50"
+            class="absolute fixed top-0 right-0 w-full md:w-96 h-full bg-white/95 backdrop-blur-sm border-l border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out animate-slideIn flex flex-col z-50"
           >
             <div
               class="p-4 flex justify-between items-center border-b border-gray-200"
@@ -154,18 +186,15 @@
           </div>
         </div>
 
-        <ng-template #vazio>
-          <p class="text-gray-500 text-sm text-center">Carrinho vazio</p>
-        </ng-template>
-
+        <!-- Perfil -->
         <div class="relative">
           <button
             (click)="togglePerfilMenu()"
-            class="flex items-center text-white hover:text-black transition-all duration-300 cursor-pointer"
+            class="flex items-center text-white hover:text-[#b68d40] transition-all duration-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6 mr-2"
+              class="w-5 h-5 md:w-6 md:h-6 mr-1 md:mr-2"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
@@ -177,7 +206,7 @@
                 d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20c0-4.41 3.59-8 8-8s8 3.59 8 8H4z"
               />
             </svg>
-            Meu Perfil
+            <span class="hidden md:inline">Meu Perfil</span>
           </button>
 
           <div
@@ -195,21 +224,27 @@
           </div>
         </div>
 
+        <!-- Logout -->
         <button
           (click)="logout()"
-          class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 transition-all duration-300 ease-in-out shadow-sm hover:shadow-md transform hover:scale-105 cursor-pointer z-10"
+          class="text-white bg-red-600 hover:bg-red-700 text-xs md:text-sm px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg transition-all duration-300 hover:scale-105"
         >
           Logout
         </button>
       </div>
     </div>
-    <form class="max-w-lg mx-auto" (ngSubmit)="aplicarFiltro()">
+
+    <!-- Barra de Pesquisa -->
+    <form
+      class="w-full md:max-w-lg mx-auto mt-4 md:mt-0"
+      (ngSubmit)="aplicarFiltro()"
+    >
       <div class="flex relative w-full">
         <div class="flex w-full">
           <select
             [(ngModel)]="filtroSelecionado"
             name="filtroSelecionado"
-            class="w-1/2 p-4 text-sm text-gray-900 bg-gray-50 rounded-l-lg border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+            class="w-1/3 md:w-1/2 p-2 md:p-4 text-xs md:text-sm bg-white rounded-l-lg border-r border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all duration-300"
           >
             <option value="">Selecione</option>
             <option value="autor">Autor</option>
@@ -219,21 +254,18 @@
           </select>
           <input
             type="search"
-            id="search-dropdown"
             [(ngModel)]="termoPesquisa"
             name="termoPesquisa"
-            class="w-[1000px] p-4 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow shadow-sm hover:shadow-lg"
+            class="w-2/3 md:w-[1000px] p-2 md:p-4 text-xs md:text-sm bg-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all duration-300"
             placeholder="O que você está procurando?"
           />
         </div>
         <button
-          (click)="aplicarFiltro()"
-          (click)="alterarComponente('filter')"
           type="submit"
-          class="cursor-pointer absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-amber-600 bg-[#f4ebd0] rounded-e-lg"
+          class="absolute top-0 end-0 h-full px-3 md:px-4 text-[#b68d40] hover:text-[#063831] transition-colors duration-300"
         >
           <svg
-            class="w-4 h-4"
+            class="w-4 h-4 md:w-5 md:h-5"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 20 20"
@@ -250,54 +282,46 @@
       </div>
     </form>
   </div>
+
+  <!-- Menu de Navegação -->
   <div
-    class="items-center justify-center hidden w-full md:flex md:w-auto md:order-1 border-b-4 border-b-[#b68d40] border-t border-t-gray-300"
+    [ngClass]="{ hidden: !menuAberto }"
+    class="w-full md:block md:w-auto border-b-4 border-b-[#b68d40] border-t border-t-gray-300 transition-all duration-300"
     id="navbar-sticky"
   >
     <ul
-      class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-[#b68d40] rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
+      class="flex flex-col md:flex-row p-4 md:p-0 mt-4 font-medium border border-[#b68d40] rounded-lg bg-gray-800 md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent justify-center items-center"
     >
-      <li>
-        <a
-          (click)="alterarComponente('livros')"
-          class="relative block text-xl py-4 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
-          aria-current="page"
-        >
-          Livros
-        </a>
+      <!-- Botões Mobile -->
+      <li class="md:hidden w-full mb-4">
+        <div class="flex flex-col space-y-2">
+          <button
+            *ngIf="!(isLoggedIn$ | async)"
+            (click)="abrirLogin()"
+            class="login-button text-sm w-full px-4 py-2 text-center"
+          >
+            Faça seu Login
+          </button>
+          <a
+            href="/admin"
+            class="text-white text-sm w-full px-4 py-2 text-center hover:text-[#b68d40] transition-colors duration-300"
+          >
+            Área Administrativa
+          </a>
+        </div>
       </li>
 
-      <li>
+      <!-- Itens do Menu -->
+      <li *ngFor="let item of menuItems" class="group relative">
         <a
-          (click)="alterarComponente('favoritos')"
-          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
+          (click)="alterarComponente(item.id)"
+          class="block text-sm md:text-xl py-2 md:py-4 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 hover:text-white cursor-pointer"
+          [ngClass]="{ 'text-white': item.id === componenteAtual }"
         >
-          Favoritos
-        </a>
-      </li>
-
-      <li>
-        <a
-          (click)="alterarComponente('autores')"
-          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
-        >
-          Autores
-        </a>
-      </li>
-      <li>
-        <a
-          (click)="alterarComponente('editora')"
-          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
-        >
-          Editoras
-        </a>
-      </li>
-      <li>
-        <a
-          (click)="alterarComponente('sobre')"
-          class="relative block text-xl py-2 px-3 text-gray-400 rounded-sm md:p-0 transition-all duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-white after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 hover:text-white cursor-pointer"
-        >
-          Sobre o Projeto
+          {{ item.label }}
+          <span
+            class="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"
+          ></span>
         </a>
       </li>
     </ul>
