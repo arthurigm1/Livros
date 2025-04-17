@@ -4,13 +4,13 @@
 >
   <!-- Banner Superior -->
   <div
-    class="bg-[#f4ebd0] text-black py-2 px-3 md:px-6 flex items-center justify-between text-center transition-all duration-300"
+    class="bg-[#f4ebd0] text-black py-1 px-1 md:px-6 flex items-center justify-between text-center transition-all duration-300"
   >
     <!-- Espaço vazio à esquerda para centralizar -->
     <div class="w-[150px]"></div>
 
     <!-- Texto centralizado -->
-    <p class="text-xs md:text-sm text-center flex-1">
+    <p class="hidden md:block text-xs md:text-sm text-center flex-1">
       Compre aqui livros novos, usados e seminovos de milhares de sebos e
       livrarias.
     </p>
@@ -29,41 +29,44 @@
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2 md:p-4 transition-all duration-300"
     style="background-color: #063831"
   >
-    <!-- Logo -->
-    <a
-      href="/"
-      class="flex items-center space-x-3 rtl:space-x-reverse border-none hover:opacity-90 transition-opacity duration-300"
-    >
-      <img
-        src="assets/img/pagiinova.png"
-        alt="Logo"
-        class="border-none h-8 md:h-10 object-contain transition-all duration-300"
-        style="border: none"
-      />
-    </a>
-
-    <!-- Menu Hamburger (Mobile) -->
-    <button
-      (click)="toggleMenu()"
-      class="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-white rounded-lg hover:bg-[#b68d40] transition-colors duration-300"
-      aria-label="Abrir menu"
-    >
-      <svg
-        class="w-5 h-5"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 17 14"
+    <!-- Logo e Hamburger (Mobile) -->
+    <div class="flex items-center space-x-3">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="flex items-center space-x-3 rtl:space-x-reverse border-none hover:opacity-90 transition-opacity duration-300"
       >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M1 1h15M1 7h15M1 13h15"
+        <img
+          src="assets/img/pagiinova.png"
+          alt="Logo"
+          class="border-none md:h-10 object-contain transition-all duration-300"
+          style="border: none"
         />
-      </svg>
-    </button>
+      </a>
+
+      <!-- Menu Hamburger (Mobile) -->
+      <button
+        (click)="toggleMenu()"
+        class="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-white rounded-lg hover:bg-[#b68d40] transition-colors duration-300"
+        aria-label="Abrir menu"
+      >
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+    </div>
 
     <!-- Área de Login/Carrinho -->
     <div
