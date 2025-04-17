@@ -46,7 +46,6 @@ export class HeaderComponent {
   @Input() livrofiltro: number = 0;
 
   atualizarLivros(livros: any[]) {
-    console.log(livros);
     this.livros = livros;
   }
 
