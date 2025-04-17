@@ -4,15 +4,21 @@
 >
   <!-- Banner Superior -->
   <div
-    class="bg-[#f4ebd0] text-black py-2 px-3 md:px-6 flex flex-wrap items-center justify-between text-center transition-all duration-300"
+    class="bg-[#f4ebd0] text-black py-2 px-3 md:px-6 flex items-center justify-between text-center transition-all duration-300"
   >
-    <p class="text-xs md:text-sm flex-1 text-left">
+    <!-- Espaço vazio à esquerda para centralizar -->
+    <div class="w-[150px]"></div>
+
+    <!-- Texto centralizado -->
+    <p class="text-xs md:text-sm text-center flex-1">
       Compre aqui livros novos, usados e seminovos de milhares de sebos e
       livrarias.
     </p>
+
+    <!-- Link área administrativa à direita -->
     <a
       href="/admin"
-      class="hidden md:block text-black text-xs md:text-sm hover:text-[#b68d40] transition-colors duration-300"
+      class="hidden md:block text-black text-xs md:text-sm hover:text-[#b68d40] transition-colors duration-300 w-[150px] text-right"
     >
       Área Administrativa
     </a>
@@ -237,7 +243,7 @@
     <!-- Barra de Pesquisa -->
     <form
       class="w-full md:max-w-lg mx-auto mt-4 md:mt-0"
-      (ngSubmit)="aplicarFiltro()"
+      (ngSubmit)="aplicarFiltro(); alterarComponente('livros')"
     >
       <div class="flex relative w-full">
         <div class="flex w-full">
@@ -253,7 +259,7 @@
             <option value="isbn">ISBN</option>
           </select>
           <input
-            type="search"
+            type="text"
             [(ngModel)]="termoPesquisa"
             name="termoPesquisa"
             class="w-2/3 md:w-[1000px] p-2 md:p-4 text-xs md:text-sm bg-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-[#b68d40] transition-all duration-300"
