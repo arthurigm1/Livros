@@ -223,6 +223,7 @@ export class DivComponent {
     this.livroService.buscarLivrosComFiltros(filtroAtualizado).subscribe(
       (livros) => {
         this.livrosAtualizados.emit(livros);
+        this.componenteAlterado.emit('filter');
         this.termoPesquisa = '';
       },
       (error) => {
